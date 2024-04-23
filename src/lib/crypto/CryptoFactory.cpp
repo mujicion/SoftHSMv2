@@ -53,7 +53,7 @@ void CryptoFactory::reset()
 
 #elif defined(WITH_BOTAN)
 
-#include "BotanCryptoFactory.h"
+#include "Botan/BotanCryptoFactory.h"
 
 // Return the one-and-only instance
 CryptoFactory* CryptoFactory::i()

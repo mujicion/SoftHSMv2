@@ -72,9 +72,9 @@
 #include "odd.h"
 
 #if defined(WITH_OPENSSL)
-#include "OSSLCryptoFactory.h"
+#include "OpenSSL/OSSLCryptoFactory.h"
 #else
-#include "BotanCryptoFactory.h"
+#include "Botan/BotanCryptoFactory.h"
 #endif
 
 #include <stdlib.h>

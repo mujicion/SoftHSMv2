@@ -1,6 +1,8 @@
 project(softhsm2-keyconv)
 
 set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib/crypto
+                 ${PROJECT_SOURCE_DIR}/../../lib/crypto/Botan
+                 ${PROJECT_SOURCE_DIR}/../../lib/crypto/OpenSSL
                  ${CRYPTO_INCLUDES}
                  )
 
@@ -10,7 +12,7 @@ set(SOURCES softhsm2-keyconv.cpp
 
 if(WITH_OPENSSL)
     list(APPEND SOURCES softhsm2-keyconv-ossl.cpp
-                        ${PROJECT_SOURCE_DIR}/../../lib/crypto/OSSLComp.cpp
+                        ${PROJECT_SOURCE_DIR}/../../lib/crypto/OpenSSL/OSSLComp.cpp
                         )
 endif(WITH_OPENSSL)
 

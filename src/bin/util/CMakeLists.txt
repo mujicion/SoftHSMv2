@@ -17,12 +17,14 @@ set(SOURCES softhsm2-util.cpp
             )
 
 if(WITH_OPENSSL)
+    list(APPEND INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib/crypto/OpenSSL)
     list(APPEND SOURCES softhsm2-util-ossl.cpp
-                        ${PROJECT_SOURCE_DIR}/../../lib/crypto/OSSLComp.cpp
+                        ${PROJECT_SOURCE_DIR}/../../lib/crypto/OpenSSL/OSSLComp.cpp
                         )
 endif(WITH_OPENSSL)
 
 if(WITH_BOTAN)
+    list(APPEND INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib/crypto/Botan)
     list(APPEND SOURCES softhsm2-util-botan.cpp)
 endif(WITH_BOTAN)
 

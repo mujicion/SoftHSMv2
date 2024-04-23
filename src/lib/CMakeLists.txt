@@ -52,6 +52,14 @@ if(CMAKE_VERSION VERSION_LESS "3.12")
         set(STATIC_FILES ${CRYPTO_LIBS} ${SQLITE3_LIBS})
 endif()
 
+if(WITH_OPENSSL)
+        list(APPEND STATIC_FILES softhsm_crypto_openssl)
+endif(WITH_OPENSSL)
+
+if(WITH_BOTAN)
+        list(APPEND STATIC_FILES softhsm_crypto_botan)
+endif(WITH_BOTAN)
+
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/win32)
