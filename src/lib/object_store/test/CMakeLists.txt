@@ -4,6 +4,7 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/..
                  ${PROJECT_SOURCE_DIR}/../..
                  ${PROJECT_SOURCE_DIR}/../../common
                  ${PROJECT_SOURCE_DIR}/../../crypto
+                 ${PROJECT_SOURCE_DIR}/../../crypto/OpenSSL
                  ${PROJECT_SOURCE_DIR}/../../data_mgr
                  ${PROJECT_SOURCE_DIR}/../../pkcs11
                  ${PROJECT_SOURCE_DIR}/../../session_mgr
