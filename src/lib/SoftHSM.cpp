@@ -581,35 +581,35 @@ CK_RV SoftHSM::C_Initialize(CK_VOID_PTR pInitArgs)
 		return CKR_GENERAL_ERROR;
 	}
 
-	// // Configure object store storage backend used by all tokens.
-	// if (!ObjectStoreToken::selectBackend(Configuration::i()->getString("objectstore.backend", DEFAULT_OBJECTSTORE_BACKEND)))
-	// {
-	// 	ERROR_MSG("Could not set the storage backend");
-	// 	return CKR_GENERAL_ERROR;
-	// }
+	// Configure object store storage backend used by all tokens.
+	if (!ObjectStoreToken::selectBackend(Configuration::i()->getString("objectstore.backend", DEFAULT_OBJECTSTORE_BACKEND)))
+	{
+		ERROR_MSG("Could not set the storage backend");
+		return CKR_GENERAL_ERROR;
+	}
 
-	// sessionObjectStore = new SessionObjectStore();
+	sessionObjectStore = new SessionObjectStore();
 
-	// // Load the object store
-	// objectStore = new ObjectStore(Configuration::i()->getString("directories.tokendir", DEFAULT_TOKENDIR),
-	// 	Configuration::i()->getInt("objectstore.umask", DEFAULT_UMASK));
-	// if (!objectStore->isValid())
-	// {
-	// 	WARNING_MSG("Could not load the object store");
-	// 	delete objectStore;
-	// 	objectStore = NULL;
-	// 	delete sessionObjectStore;
-	// 	sessionObjectStore = NULL;
-	// 	return CKR_GENERAL_ERROR;
-	// }
+	// Load the object store
+	objectStore = new ObjectStore(Configuration::i()->getString("directories.tokendir", DEFAULT_TOKENDIR),
+		Configuration::i()->getInt("objectstore.umask", DEFAULT_UMASK));
+	if (!objectStore->isValid())
+	{
+		WARNING_MSG("Could not load the object store");
+		delete objectStore;
+		objectStore = NULL;
+		delete sessionObjectStore;
+		sessionObjectStore = NULL;
+		return CKR_GENERAL_ERROR;
+	}
 
 	// // Load the enabled list of algorithms
 	// prepareSupportedMecahnisms(mechanisms_table);
 
 	isRemovable = Configuration::i()->getBool("slots.removable", false);
 
-	// // Load the slot manager
-	// slotManager = new SlotManager(objectStore);
+	// Load the slot manager
+	slotManager = new SlotManager(objectStore);
 
 	// // Load the session manager
 	// sessionManager = new SessionManager();
@@ -657,80 +657,80 @@ CK_RV SoftHSM::C_Finalize(CK_VOID_PTR pReserved)
 	return CKR_OK;
 }
 
-// // Return information about the PKCS #11 module
-// CK_RV SoftHSM::C_GetInfo(CK_INFO_PTR pInfo)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
-// 	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
+// Return information about the PKCS #11 module
+CK_RV SoftHSM::C_GetInfo(CK_INFO_PTR pInfo)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 	pInfo->cryptokiVersion.major = CRYPTOKI_VERSION_MAJOR;
-// 	pInfo->cryptokiVersion.minor = CRYPTOKI_VERSION_MINOR;
-// 	memset(pInfo->manufacturerID, ' ', 32);
-// 	memcpy(pInfo->manufacturerID, "SoftHSM", 7);
-// 	pInfo->flags = 0;
-// 	memset(pInfo->libraryDescription, ' ', 32);
-// #ifdef WITH_FIPS
-// 	memcpy(pInfo->libraryDescription, "Implementation of PKCS11+FIPS", 29);
-// #else
-// 	memcpy(pInfo->libraryDescription, "Implementation of PKCS11", 24);
-// #endif
-// 	pInfo->libraryVersion.major = VERSION_MAJOR;
-// 	pInfo->libraryVersion.minor = VERSION_MINOR;
+	pInfo->cryptokiVersion.major = CRYPTOKI_VERSION_MAJOR;
+	pInfo->cryptokiVersion.minor = CRYPTOKI_VERSION_MINOR;
+	memset(pInfo->manufacturerID, ' ', 32);
+	memcpy(pInfo->manufacturerID, "SoftHSM", 7);
+	pInfo->flags = 0;
+	memset(pInfo->libraryDescription, ' ', 32);
+#ifdef WITH_FIPS
+	memcpy(pInfo->libraryDescription, "Implementation of PKCS11+FIPS", 29);
+#else
+	memcpy(pInfo->libraryDescription, "Implementation of PKCS11", 24);
+#endif
+	pInfo->libraryVersion.major = VERSION_MAJOR;
+	pInfo->libraryVersion.minor = VERSION_MINOR;
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
-// // Return a list of available slots
-// CK_RV SoftHSM::C_GetSlotList(CK_BBOOL tokenPresent, CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Return a list of available slots
+CK_RV SoftHSM::C_GetSlotList(CK_BBOOL tokenPresent, CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	return slotManager->getSlotList(objectStore, tokenPresent, pSlotList, pulCount);
-// }
+	return slotManager->getSlotList(objectStore, tokenPresent, pSlotList, pulCount);
+}
 
-// // Return information about a slot
-// CK_RV SoftHSM::C_GetSlotInfo(CK_SLOT_ID slotID, CK_SLOT_INFO_PTR pInfo)
-// {
-// 	CK_RV rv;
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Return information about a slot
+CK_RV SoftHSM::C_GetSlotInfo(CK_SLOT_ID slotID, CK_SLOT_INFO_PTR pInfo)
+{
+	CK_RV rv;
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL)
-// 	{
-// 		return CKR_SLOT_ID_INVALID;
-// 	}
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL)
+	{
+		return CKR_SLOT_ID_INVALID;
+	}
 
-// 	rv = slot->getSlotInfo(pInfo);
-// 	if (rv != CKR_OK) {
-// 		return rv;
-// 	}
+	rv = slot->getSlotInfo(pInfo);
+	if (rv != CKR_OK) {
+		return rv;
+	}
 
-// 	if (isRemovable) {
-// 		pInfo->flags |= CKF_REMOVABLE_DEVICE;
-// 	}
+	if (isRemovable) {
+		pInfo->flags |= CKF_REMOVABLE_DEVICE;
+	}
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
-// // Return information about a token in a slot
-// CK_RV SoftHSM::C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Return information about a token in a slot
+CK_RV SoftHSM::C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL)
-// 	{
-// 		return CKR_SLOT_ID_INVALID;
-// 	}
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL)
+	{
+		return CKR_SLOT_ID_INVALID;
+	}
 
-// 	Token* token = slot->getToken();
-// 	if (token == NULL)
-// 	{
-// 		return CKR_TOKEN_NOT_PRESENT;
-// 	}
+	Token* token = slot->getToken();
+	if (token == NULL)
+	{
+		return CKR_TOKEN_NOT_PRESENT;
+	}
 
-// 	return token->getTokenInfo(pInfo);
-// }
+	return token->getTokenInfo(pInfo);
+}
 
 // void SoftHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t)
 // {
@@ -1324,31 +1324,31 @@ CK_RV SoftHSM::C_Finalize(CK_VOID_PTR pReserved)
 // 	return CKR_OK;
 // }
 
-// // Initialise the token in the specified slot
-// CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Initialise the token in the specified slot
+CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL)
-// 	{
-// 		return CKR_SLOT_ID_INVALID;
-// 	}
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL)
+	{
+		return CKR_SLOT_ID_INVALID;
+	}
 
-// 	// Check if any session is open with this token.
-// 	if (sessionManager->haveSession(slotID))
-// 	{
-// 		return CKR_SESSION_EXISTS;
-// 	}
+	// Check if any session is open with this token.
+	// if (sessionManager->haveSession(slotID))
+	// {
+	// 	return CKR_SESSION_EXISTS;
+	// }
 
-// 	// Check the PIN
-// 	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
-// 	if (ulPinLen < MIN_PIN_LEN || ulPinLen > MAX_PIN_LEN) return CKR_PIN_INCORRECT;
+	// Check the PIN
+	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (ulPinLen < MIN_PIN_LEN || ulPinLen > MAX_PIN_LEN) return CKR_PIN_INCORRECT;
 
-// 	ByteString soPIN(pPin, ulPinLen);
+	ByteString soPIN(pPin, ulPinLen);
 
-// 	return slot->initToken(soPIN, pLabel);
-// }
+	return slot->initToken(soPIN, pLabel);
+}
 
 // // Initialise the user PIN
 // CK_RV SoftHSM::C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)

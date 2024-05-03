@@ -56,12 +56,12 @@ static CK_FUNCTION_LIST functionList =
 	{ CRYPTOKI_VERSION_MAJOR, CRYPTOKI_VERSION_MINOR },
 	// Function pointers
 	C_Initialize,
-	C_Finalize //,
-	// C_GetInfo,
-	// C_GetFunctionList,
-	// C_GetSlotList,
-	// C_GetSlotInfo,
-	// C_GetTokenInfo,
+	C_Finalize,
+	C_GetInfo,
+	C_GetFunctionList,
+	C_GetSlotList,
+	C_GetSlotInfo,
+	C_GetTokenInfo //,
 	// C_GetMechanismList,
 	// C_GetMechanismInfo,
 	// C_InitToken,
@@ -155,84 +155,84 @@ PKCS_API CK_RV C_Finalize(CK_VOID_PTR pReserved)
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Return information about the PKCS #11 module
-// PKCS_API CK_RV C_GetInfo(CK_INFO_PTR pInfo)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetInfo(pInfo);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return information about the PKCS #11 module
+PKCS_API CK_RV C_GetInfo(CK_INFO_PTR pInfo)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetInfo(pInfo);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Return the list of PKCS #11 functions
-// PKCS_API CK_RV C_GetFunctionList(CK_FUNCTION_LIST_PTR_PTR ppFunctionList)
-// {
-// 	try
-// 	{
-// 		if (ppFunctionList == NULL_PTR) return CKR_ARGUMENTS_BAD;
+// Return the list of PKCS #11 functions
+PKCS_API CK_RV C_GetFunctionList(CK_FUNCTION_LIST_PTR_PTR ppFunctionList)
+{
+	try
+	{
+		if (ppFunctionList == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 		*ppFunctionList = &functionList;
+		*ppFunctionList = &functionList;
 
-// 		return CKR_OK;
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+		return CKR_OK;
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Return a list of available slots
-// PKCS_API CK_RV C_GetSlotList(CK_BBOOL tokenPresent, CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetSlotList(tokenPresent, pSlotList, pulCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return a list of available slots
+PKCS_API CK_RV C_GetSlotList(CK_BBOOL tokenPresent, CK_SLOT_ID_PTR pSlotList, CK_ULONG_PTR pulCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetSlotList(tokenPresent, pSlotList, pulCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Return information about a slot
-// PKCS_API CK_RV C_GetSlotInfo(CK_SLOT_ID slotID, CK_SLOT_INFO_PTR pInfo)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetSlotInfo(slotID, pInfo);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return information about a slot
+PKCS_API CK_RV C_GetSlotInfo(CK_SLOT_ID slotID, CK_SLOT_INFO_PTR pInfo)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetSlotInfo(slotID, pInfo);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Return information about a token in a slot
-// PKCS_API CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetTokenInfo(slotID, pInfo);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return information about a token in a slot
+PKCS_API CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetTokenInfo(slotID, pInfo);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Return the list of supported mechanisms for a given slot
 // PKCS_API CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)

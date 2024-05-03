@@ -65,7 +65,8 @@ int main(int /*argc*/, char**const /*argv*/)
 {
 #ifndef P11_SHARED_LIBRARY
 #ifndef _WIN32
-	setenv("SOFTHSM2_CONF", "./softhsm2.conf", 1);
+	// setenv("SOFTHSM2_CONF", "./softhsm2.conf", 1);
+	setenv("SOFTHSM2_CONF", "/etc/softhsm2.conf", 1);
 #else
 	setenv("SOFTHSM2_CONF", ".\\softhsm2.conf", 1);
 #endif
