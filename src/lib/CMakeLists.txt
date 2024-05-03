@@ -60,6 +60,10 @@ if(WITH_BOTAN)
         list(APPEND STATIC_FILES softhsm_crypto_botan)
 endif(WITH_BOTAN)
 
+if(WITH_MIZARU)
+        list(APPEND STATIC_FILES hsm_crypto_mizaru)
+        list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/crypto/mizaru)
+endif(WITH_MIZARU)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	list(APPEND INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/win32)

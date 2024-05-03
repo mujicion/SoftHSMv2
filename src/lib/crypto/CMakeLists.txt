@@ -35,6 +35,11 @@ set(SOURCES AESKey.cpp
             SymmetricKey.cpp
             )
 
+if(WITH_MIZARU)
+    add_subdirectory(mizaru)
+	list(APPEND INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib/crypto/mizaru)
+endif(WITH_MIZARU)
+
 if(WITH_OPENSSL)
     add_subdirectory(OpenSSL)
 	list(APPEND INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib/crypto/OpenSSL)

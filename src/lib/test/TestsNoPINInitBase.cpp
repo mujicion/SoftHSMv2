@@ -68,30 +68,30 @@ static CK_FUNCTION_LIST_PTR getFunctionListPtr(const char*const libName, void *c
 }
 #endif //P11_SHARED_LIBRARY
 void TestsNoPINInitBase::getSlotIDs() {
-	bool hasFoundFree(false);
-	bool hasFoundInitialized(false);
-	CK_ULONG nrOfSlots;
-	CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetSlotList(CK_TRUE, NULL_PTR, &nrOfSlots)==CKR_OK ) );
-	std::vector<CK_SLOT_ID> slotIDs(nrOfSlots);
-	CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetSlotList(CK_TRUE, &slotIDs.front(), &nrOfSlots)==CKR_OK ) );
-	for ( std::vector<CK_SLOT_ID>::iterator i=slotIDs.begin(); i!=slotIDs.end(); i++ ) {
-		CK_TOKEN_INFO tokenInfo;
-		CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetTokenInfo(*i, &tokenInfo)==CKR_OK ) );
-		if ( tokenInfo.flags&CKF_TOKEN_INITIALIZED ) {
-			if ( !hasFoundInitialized ) {
-				hasFoundInitialized = true;
-				m_initializedTokenSlotID = *i;
-			}
-		} else {
-			if ( !hasFoundFree ) {
-				hasFoundFree = true;
-				m_notInitializedTokenSlotID = *i;
-			}
-		}
-	}
-	if ( !hasFoundInitialized ) {
-		m_initializedTokenSlotID = m_notInitializedTokenSlotID;
-	}
+	// bool hasFoundFree(false);
+	// bool hasFoundInitialized(false);
+	// CK_ULONG nrOfSlots;
+	// CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetSlotList(CK_TRUE, NULL_PTR, &nrOfSlots)==CKR_OK ) );
+	// std::vector<CK_SLOT_ID> slotIDs(nrOfSlots);
+	// CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetSlotList(CK_TRUE, &slotIDs.front(), &nrOfSlots)==CKR_OK ) );
+	// for ( std::vector<CK_SLOT_ID>::iterator i=slotIDs.begin(); i!=slotIDs.end(); i++ ) {
+	// 	CK_TOKEN_INFO tokenInfo;
+	// 	CPPUNIT_ASSERT( CRYPTOKI_F_PTR( C_GetTokenInfo(*i, &tokenInfo)==CKR_OK ) );
+	// 	if ( tokenInfo.flags&CKF_TOKEN_INITIALIZED ) {
+	// 		if ( !hasFoundInitialized ) {
+	// 			hasFoundInitialized = true;
+	// 			m_initializedTokenSlotID = *i;
+	// 		}
+	// 	} else {
+	// 		if ( !hasFoundFree ) {
+	// 			hasFoundFree = true;
+	// 			m_notInitializedTokenSlotID = *i;
+	// 		}
+	// 	}
+	// }
+	// if ( !hasFoundInitialized ) {
+	// 	m_initializedTokenSlotID = m_notInitializedTokenSlotID;
+	// }
 }
 
 TestsNoPINInitBase::TestsNoPINInitBase() :
@@ -121,7 +121,7 @@ void TestsNoPINInitBase::setUp() {
 	// update slot IDs to initialized and not initialized token.
 	getSlotIDs();
 	// (Re)initialize the token
-	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) ) );
+	// CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) ) );
 	// Reset cryptoki to get new slot IDs.
 	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) ) );
 	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) ) );

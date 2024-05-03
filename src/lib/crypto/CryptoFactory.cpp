@@ -35,7 +35,24 @@
 #include "config.h"
 #include "CryptoFactory.h"
 
-#if defined(WITH_OPENSSL)
+
+#if defined(WITH_MIZARU)
+
+#include "mizaru/MizaruCryptoFactory.h"
+
+// Return the one-and-only instance
+CryptoFactory* CryptoFactory::i()
+{
+	return MizaruCryptoFactory::i();
+}
+
+// This will destroy the one-and-only instance.
+void CryptoFactory::reset()
+{
+	MizaruCryptoFactory::reset();
+}
+
+#elif defined(WITH_OPENSSL)
 
 #include "OSSLCryptoFactory.h"
 
