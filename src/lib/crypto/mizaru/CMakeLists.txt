@@ -8,7 +8,7 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
                  ${CRYPTO_INCLUDES}
                 )
 
-set(SOURCES mizaru.cpp
+set(SOURCES mizaruStub.cpp
             MizaruCryptoFactory.cpp
             )
 
