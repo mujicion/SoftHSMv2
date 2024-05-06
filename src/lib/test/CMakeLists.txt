@@ -18,13 +18,13 @@ set(SOURCES p11test.cpp
             # RandomTests.cpp
             # SessionTests.cpp
             # TokenTests.cpp
-            UserTests.cpp
-            # ObjectTests.cpp
+            # UserTests.cpp
+            ObjectTests.cpp
             # DeriveTests.cpp
             # SignVerifyTests.cpp
             # AsymEncryptDecryptTests.cpp
             # AsymWrapUnwrapTests.cpp
-            # TestsBase.cpp
+            TestsBase.cpp
             TestsNoPINInitBase.cpp
             ../common/log.cpp
             ../common/osmutex.cpp

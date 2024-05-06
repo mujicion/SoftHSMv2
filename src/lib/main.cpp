@@ -75,15 +75,15 @@ static CK_FUNCTION_LIST functionList =
 	C_SetOperationState,
 	C_Login,
 	C_Logout,
-	// C_CreateObject,
-	// C_CopyObject,
-	// C_DestroyObject,
-	// C_GetObjectSize,
-	// C_GetAttributeValue,
-	// C_SetAttributeValue,
-	// C_FindObjectsInit,
-	// C_FindObjects,
-	// C_FindObjectsFinal,
+	C_CreateObject,
+	C_CopyObject,
+	C_DestroyObject,
+	C_GetObjectSize,
+	C_GetAttributeValue,
+	C_SetAttributeValue,
+	C_FindObjectsInit,
+	C_FindObjects,
+	C_FindObjectsFinal,
 	// C_EncryptInit,
 	// C_Encrypt,
 	// C_EncryptUpdate,
@@ -429,140 +429,140 @@ PKCS_API CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Create a new object on the token in the specified session using the given attribute template
-// PKCS_API CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_CreateObject(hSession, pTemplate, ulCount, phObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Create a new object on the token in the specified session using the given attribute template
+PKCS_API CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_CreateObject(hSession, pTemplate, ulCount, phObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Create a copy of the object with the specified handle
-// PKCS_API CK_RV C_CopyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phNewObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_CopyObject(hSession, hObject, pTemplate, ulCount, phNewObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Create a copy of the object with the specified handle
+PKCS_API CK_RV C_CopyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phNewObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_CopyObject(hSession, hObject, pTemplate, ulCount, phNewObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Destroy the specified object
-// PKCS_API CK_RV C_DestroyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DestroyObject(hSession, hObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Destroy the specified object
+PKCS_API CK_RV C_DestroyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_DestroyObject(hSession, hObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Determine the size of the specified object
-// PKCS_API CK_RV C_GetObjectSize(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ULONG_PTR pulSize)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetObjectSize(hSession, hObject, pulSize);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Determine the size of the specified object
+PKCS_API CK_RV C_GetObjectSize(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ULONG_PTR pulSize)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetObjectSize(hSession, hObject, pulSize);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Retrieve the specified attributes for the given object
-// PKCS_API CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetAttributeValue(hSession, hObject, pTemplate, ulCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Retrieve the specified attributes for the given object
+PKCS_API CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetAttributeValue(hSession, hObject, pTemplate, ulCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Change or set the value of the specified attributes on the specified object
-// PKCS_API CK_RV C_SetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SetAttributeValue(hSession, hObject, pTemplate, ulCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Change or set the value of the specified attributes on the specified object
+PKCS_API CK_RV C_SetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_SetAttributeValue(hSession, hObject, pTemplate, ulCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise object search in the specified session using the specified attribute template as search parameters
-// PKCS_API CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_FindObjectsInit(hSession, pTemplate, ulCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise object search in the specified session using the specified attribute template as search parameters
+PKCS_API CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_FindObjectsInit(hSession, pTemplate, ulCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Continue the search for objects in the specified session
-// PKCS_API CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, CK_ULONG ulMaxObjectCount, CK_ULONG_PTR pulObjectCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_FindObjects(hSession, phObject, ulMaxObjectCount, pulObjectCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Continue the search for objects in the specified session
+PKCS_API CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, CK_ULONG ulMaxObjectCount, CK_ULONG_PTR pulObjectCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_FindObjects(hSession, phObject, ulMaxObjectCount, pulObjectCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finish searching for objects
-// PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_FindObjectsFinal(hSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finish searching for objects
+PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_FindObjectsFinal(hSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Initialise encryption using the specified object and mechanism
 // PKCS_API CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hObject)
