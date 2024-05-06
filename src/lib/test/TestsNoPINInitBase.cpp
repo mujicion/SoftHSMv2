@@ -121,7 +121,7 @@ void TestsNoPINInitBase::setUp() {
 	// update slot IDs to initialized and not initialized token.
 	getSlotIDs();
 	// (Re)initialize the token
-	// CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) ) );
+	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) ) );
 	// Reset cryptoki to get new slot IDs.
 	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) ) );
 	CPPUNIT_ASSERT_EQUAL( (CK_RV)CKR_OK, CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) ) );
