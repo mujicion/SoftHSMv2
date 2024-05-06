@@ -71,10 +71,10 @@ static CK_FUNCTION_LIST functionList =
 	C_CloseSession,
 	C_CloseAllSessions,
 	C_GetSessionInfo,
-	// C_GetOperationState,
-	// C_SetOperationState,
-	// C_Login,
-	// C_Logout,
+	C_GetOperationState,
+	C_SetOperationState,
+	C_Login,
+	C_Logout,
 	// C_CreateObject,
 	// C_CopyObject,
 	// C_DestroyObject,
@@ -369,65 +369,65 @@ PKCS_API CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR 
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Determine the state of a running operation in a session
-// PKCS_API CK_RV C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG_PTR pulOperationStateLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetOperationState(hSession, pOperationState, pulOperationStateLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Determine the state of a running operation in a session
+PKCS_API CK_RV C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG_PTR pulOperationStateLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetOperationState(hSession, pOperationState, pulOperationStateLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Set the operation sate in a session
-// PKCS_API CK_RV C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG ulOperationStateLen, CK_OBJECT_HANDLE hEncryptionKey, CK_OBJECT_HANDLE hAuthenticationKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SetOperationState(hSession, pOperationState, ulOperationStateLen, hEncryptionKey, hAuthenticationKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Set the operation sate in a session
+PKCS_API CK_RV C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG ulOperationStateLen, CK_OBJECT_HANDLE hEncryptionKey, CK_OBJECT_HANDLE hAuthenticationKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_SetOperationState(hSession, pOperationState, ulOperationStateLen, hEncryptionKey, hAuthenticationKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Login on the token in the specified session
-// PKCS_API CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Login(hSession, userType, pPin, ulPinLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Login on the token in the specified session
+PKCS_API CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Login(hSession, userType, pPin, ulPinLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Log out of the token in the specified session
-// PKCS_API CK_RV C_Logout(CK_SESSION_HANDLE hSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Logout(hSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Log out of the token in the specified session
+PKCS_API CK_RV C_Logout(CK_SESSION_HANDLE hSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_Logout(hSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Create a new object on the token in the specified session using the given attribute template
 // PKCS_API CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phObject)

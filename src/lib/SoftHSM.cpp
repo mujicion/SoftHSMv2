@@ -1336,10 +1336,10 @@ CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulP
 	}
 
 	// Check if any session is open with this token.
-	// if (sessionManager->haveSession(slotID))
-	// {
-	// 	return CKR_SESSION_EXISTS;
-	// }
+	if (sessionManager->haveSession(slotID))
+	{
+		return CKR_SESSION_EXISTS;
+	}
 
 	// Check the PIN
 	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
@@ -1491,105 +1491,105 @@ CK_RV SoftHSM::C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR 
 	return session->getInfo(pInfo);
 }
 
-// // Determine the state of a running operation in a session
-// CK_RV SoftHSM::C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR /*pOperationState*/, CK_ULONG_PTR /*pulOperationStateLen*/)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Determine the state of a running operation in a session
+CK_RV SoftHSM::C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR /*pOperationState*/, CK_ULONG_PTR /*pulOperationStateLen*/)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	return CKR_FUNCTION_NOT_SUPPORTED;
-// }
+	return CKR_FUNCTION_NOT_SUPPORTED;
+}
 
-// // Set the operation sate in a session
-// CK_RV SoftHSM::C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR /*pOperationState*/, CK_ULONG /*ulOperationStateLen*/, CK_OBJECT_HANDLE /*hEncryptionKey*/, CK_OBJECT_HANDLE /*hAuthenticationKey*/)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Set the operation sate in a session
+CK_RV SoftHSM::C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR /*pOperationState*/, CK_ULONG /*ulOperationStateLen*/, CK_OBJECT_HANDLE /*hEncryptionKey*/, CK_OBJECT_HANDLE /*hAuthenticationKey*/)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	return CKR_FUNCTION_NOT_SUPPORTED;
-// }
+	return CKR_FUNCTION_NOT_SUPPORTED;
+}
 
-// // Login on the token in the specified session
-// CK_RV SoftHSM::C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
-// {
-// 	CK_RV rv = CKR_OK;
+// Login on the token in the specified session
+CK_RV SoftHSM::C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	CK_RV rv = CKR_OK;
 
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Get the PIN
-// 	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
-// 	ByteString pin(pPin, ulPinLen);
+	// Get the PIN
+	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	ByteString pin(pPin, ulPinLen);
 
-// 	// Get the token
-// 	Token* token = session->getToken();
-// 	if (token == NULL) return CKR_GENERAL_ERROR;
+	// Get the token
+	Token* token = session->getToken();
+	if (token == NULL) return CKR_GENERAL_ERROR;
 
-// 	switch (userType)
-// 	{
-// 		case CKU_SO:
-// 			// There cannot exist a R/O session on this slot
-// 			if (sessionManager->haveROSession(session->getSlot()->getSlotID())) return CKR_SESSION_READ_ONLY_EXISTS;
+	switch (userType)
+	{
+		case CKU_SO:
+			// There cannot exist a R/O session on this slot
+			if (sessionManager->haveROSession(session->getSlot()->getSlotID())) return CKR_SESSION_READ_ONLY_EXISTS;
 
-// 			// Login
-// 			rv = token->loginSO(pin);
-// 			break;
-// 		case CKU_USER:
-// 			// Login
-// 			rv = token->loginUser(pin);
-// 			break;
-// 		case CKU_CONTEXT_SPECIFIC:
-// 			// Check if re-authentication is required
-// 			if (!session->getReAuthentication()) return CKR_OPERATION_NOT_INITIALIZED;
+			// Login
+			rv = token->loginSO(pin);
+			break;
+		case CKU_USER:
+			// Login
+			rv = token->loginUser(pin);
+			break;
+		case CKU_CONTEXT_SPECIFIC:
+			// Check if re-authentication is required
+			if (!session->getReAuthentication()) return CKR_OPERATION_NOT_INITIALIZED;
 
-// 			// Re-authenticate
-// 			rv = token->reAuthenticate(pin);
-// 			if (rv == CKR_OK) session->setReAuthentication(false);
-// 			break;
-// 		default:
-// 			return CKR_USER_TYPE_INVALID;
-// 	}
+			// Re-authenticate
+			rv = token->reAuthenticate(pin);
+			if (rv == CKR_OK) session->setReAuthentication(false);
+			break;
+		default:
+			return CKR_USER_TYPE_INVALID;
+	}
 
-// 	return rv;
-// }
+	return rv;
+}
 
-// // Log out of the token in the specified session
-// CK_RV SoftHSM::C_Logout(CK_SESSION_HANDLE hSession)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Log out of the token in the specified session
+CK_RV SoftHSM::C_Logout(CK_SESSION_HANDLE hSession)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Get the token
-// 	Token* token = session->getToken();
-// 	if (token == NULL) return CKR_GENERAL_ERROR;
+	// Get the token
+	Token* token = session->getToken();
+	if (token == NULL) return CKR_GENERAL_ERROR;
 
-// 	// Logout
-// 	token->logout();
+	// Logout
+	token->logout();
 
-// 	// [PKCS#11 v2.40, C_Logout] When logout is successful...
-// 	// a. Any of the application's handles to private objects become invalid.
-// 	// b. Even if a user is later logged back into the token those handles remain invalid.
-// 	// c. All private session objects from sessions belonging to the application are destroyed.
+	// [PKCS#11 v2.40, C_Logout] When logout is successful...
+	// a. Any of the application's handles to private objects become invalid.
+	// b. Even if a user is later logged back into the token those handles remain invalid.
+	// c. All private session objects from sessions belonging to the application are destroyed.
 
-// 	// Have the handle manager remove all handles pointing to private objects for this slot.
-// 	CK_SLOT_ID slotID = session->getSlot()->getSlotID();
-// 	handleManager->tokenLoggedOut(slotID);
-// 	sessionObjectStore->tokenLoggedOut(slotID);
+	// Have the handle manager remove all handles pointing to private objects for this slot.
+	CK_SLOT_ID slotID = session->getSlot()->getSlotID();
+	handleManager->tokenLoggedOut(slotID);
+	sessionObjectStore->tokenLoggedOut(slotID);
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
 // // Create a new object on the token in the specified session using the given attribute template
 // CK_RV SoftHSM::C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phObject)

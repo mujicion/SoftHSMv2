@@ -16,8 +16,8 @@ set(SOURCES p11test.cpp
             # InitTests.cpp
             # InfoTests.cpp
             # RandomTests.cpp
-            SessionTests.cpp
-            # TokenTests.cpp
+            # SessionTests.cpp
+            TokenTests.cpp
             # UserTests.cpp
             # ObjectTests.cpp
             # DeriveTests.cpp
