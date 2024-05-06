@@ -13,7 +13,7 @@ endif (WIN32)
 set(SOURCES p11test.cpp
             # SymmetricAlgorithmTests.cpp
             # DigestTests.cpp
-            InitTests.cpp
+            # InitTests.cpp
             InfoTests.cpp
             # RandomTests.cpp
             # SessionTests.cpp

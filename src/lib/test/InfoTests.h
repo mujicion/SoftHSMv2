@@ -45,14 +45,14 @@ class InfoTests : public TestsNoPINInitBase
 	CPPUNIT_TEST(testGetSlotList);
 	CPPUNIT_TEST(testGetSlotInfo);
 	CPPUNIT_TEST(testGetTokenInfo);
-// 	CPPUNIT_TEST(testGetMechanismList);
-// 	CPPUNIT_TEST(testGetMechanismInfo);
-// #ifndef P11_SHARED_LIBRARY
-// 	CPPUNIT_TEST(testGetSlotInfoAlt);
-// 	CPPUNIT_TEST(testGetMechanismListConfig);
-// 	CPPUNIT_TEST(testGetMechanismNegativeListConfig);
-// #endif
-// 	CPPUNIT_TEST(testWaitForSlotEvent);
+	CPPUNIT_TEST(testGetMechanismList);
+	CPPUNIT_TEST(testGetMechanismInfo);
+#ifndef P11_SHARED_LIBRARY
+	// CPPUNIT_TEST(testGetSlotInfoAlt);
+	CPPUNIT_TEST(testGetMechanismListConfig);
+	CPPUNIT_TEST(testGetMechanismNegativeListConfig);
+#endif
+	CPPUNIT_TEST(testWaitForSlotEvent);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -61,14 +61,14 @@ public:
 	void testGetSlotList();
 	void testGetSlotInfo();
 	void testGetTokenInfo();
-// 	void testGetMechanismList();
-// 	void testGetMechanismInfo();
-// #ifndef P11_SHARED_LIBRARY
-// 	void testGetSlotInfoAlt();
-// 	void testGetMechanismListConfig();
-// 	void testGetMechanismNegativeListConfig();
-// #endif
-// 	void testWaitForSlotEvent();
+	void testGetMechanismList();
+	void testGetMechanismInfo();
+#ifndef P11_SHARED_LIBRARY
+	void testGetSlotInfoAlt();
+	void testGetMechanismListConfig();
+	void testGetMechanismNegativeListConfig();
+#endif
+	void testWaitForSlotEvent();
 };
 
 #endif // !_SOFTHSM_V2_INFOTESTS_H

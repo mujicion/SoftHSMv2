@@ -604,7 +604,7 @@ CK_RV SoftHSM::C_Initialize(CK_VOID_PTR pInitArgs)
 	}
 
 	// // Load the enabled list of algorithms
-	// prepareSupportedMecahnisms(mechanisms_table);
+	prepareSupportedMecahnisms(mechanisms_table);
 
 	isRemovable = Configuration::i()->getBool("slots.removable", false);
 
@@ -732,597 +732,597 @@ CK_RV SoftHSM::C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 	return token->getTokenInfo(pInfo);
 }
 
-// void SoftHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t)
-// {
-// #ifndef WITH_FIPS
-// 	t["CKM_MD5"]			= CKM_MD5;
-// #endif
-// 	t["CKM_SHA_1"]			= CKM_SHA_1;
-// 	t["CKM_SHA224"]			= CKM_SHA224;
-// 	t["CKM_SHA256"]			= CKM_SHA256;
-// 	t["CKM_SHA384"]			= CKM_SHA384;
-// 	t["CKM_SHA512"]			= CKM_SHA512;
-// #ifndef WITH_FIPS
-// 	t["CKM_MD5_HMAC"]		= CKM_MD5_HMAC;
-// #endif
-// 	t["CKM_SHA_1_HMAC"]		= CKM_SHA_1_HMAC;
-// 	t["CKM_SHA224_HMAC"]		= CKM_SHA224_HMAC;
-// 	t["CKM_SHA256_HMAC"]		= CKM_SHA256_HMAC;
-// 	t["CKM_SHA384_HMAC"]		= CKM_SHA384_HMAC;
-// 	t["CKM_SHA512_HMAC"]		= CKM_SHA512_HMAC;
-// 	t["CKM_RSA_PKCS_KEY_PAIR_GEN"]	= CKM_RSA_PKCS_KEY_PAIR_GEN;
-// 	t["CKM_RSA_PKCS"]		= CKM_RSA_PKCS;
-// 	t["CKM_RSA_X_509"]		= CKM_RSA_X_509;
-// #ifndef WITH_FIPS
-// 	t["CKM_MD5_RSA_PKCS"]		= CKM_MD5_RSA_PKCS;
-// #endif
-// 	t["CKM_SHA1_RSA_PKCS"]		= CKM_SHA1_RSA_PKCS;
-// 	t["CKM_RSA_PKCS_OAEP"]		= CKM_RSA_PKCS_OAEP;
-// 	t["CKM_SHA224_RSA_PKCS"]	= CKM_SHA224_RSA_PKCS;
-// 	t["CKM_SHA256_RSA_PKCS"]	= CKM_SHA256_RSA_PKCS;
-// 	t["CKM_SHA384_RSA_PKCS"]	= CKM_SHA384_RSA_PKCS;
-// 	t["CKM_SHA512_RSA_PKCS"]	= CKM_SHA512_RSA_PKCS;
-// #ifdef WITH_RAW_PSS
-// 	t["CKM_RSA_PKCS_PSS"]		= CKM_RSA_PKCS_PSS;
-// #endif
-// 	t["CKM_SHA1_RSA_PKCS_PSS"]	= CKM_SHA1_RSA_PKCS_PSS;
-// 	t["CKM_SHA224_RSA_PKCS_PSS"]	= CKM_SHA224_RSA_PKCS_PSS;
-// 	t["CKM_SHA256_RSA_PKCS_PSS"]	= CKM_SHA256_RSA_PKCS_PSS;
-// 	t["CKM_SHA384_RSA_PKCS_PSS"]	= CKM_SHA384_RSA_PKCS_PSS;
-// 	t["CKM_SHA512_RSA_PKCS_PSS"]	= CKM_SHA512_RSA_PKCS_PSS;
-// 	t["CKM_GENERIC_SECRET_KEY_GEN"]	= CKM_GENERIC_SECRET_KEY_GEN;
-// #ifndef WITH_FIPS
-// 	t["CKM_DES_KEY_GEN"]		= CKM_DES_KEY_GEN;
-// #endif
-// 	t["CKM_DES2_KEY_GEN"]		= CKM_DES2_KEY_GEN;
-// 	t["CKM_DES3_KEY_GEN"]		= CKM_DES3_KEY_GEN;
-// #ifndef WITH_FIPS
-// 	t["CKM_DES_ECB"]		= CKM_DES_ECB;
-// 	t["CKM_DES_CBC"]		= CKM_DES_CBC;
-// 	t["CKM_DES_CBC_PAD"]		= CKM_DES_CBC_PAD;
-// 	t["CKM_DES_ECB_ENCRYPT_DATA"]	= CKM_DES_ECB_ENCRYPT_DATA;
-// 	t["CKM_DES_CBC_ENCRYPT_DATA"]	= CKM_DES_CBC_ENCRYPT_DATA;
-// #endif
-// 	t["CKM_DES3_ECB"]		= CKM_DES3_ECB;
-// 	t["CKM_DES3_CBC"]		= CKM_DES3_CBC;
-// 	t["CKM_DES3_CBC_PAD"]		= CKM_DES3_CBC_PAD;
-// 	t["CKM_DES3_ECB_ENCRYPT_DATA"]	= CKM_DES3_ECB_ENCRYPT_DATA;
-// 	t["CKM_DES3_CBC_ENCRYPT_DATA"]	= CKM_DES3_CBC_ENCRYPT_DATA;
-// 	t["CKM_DES3_CMAC"]		= CKM_DES3_CMAC;
-// 	t["CKM_AES_KEY_GEN"]		= CKM_AES_KEY_GEN;
-// 	t["CKM_AES_ECB"]		= CKM_AES_ECB;
-// 	t["CKM_AES_CBC"]		= CKM_AES_CBC;
-// 	t["CKM_AES_CBC_PAD"]		= CKM_AES_CBC_PAD;
-// 	t["CKM_AES_CTR"]		= CKM_AES_CTR;
-// 	t["CKM_AES_GCM"]		= CKM_AES_GCM;
-// 	t["CKM_AES_KEY_WRAP"]		= CKM_AES_KEY_WRAP;
-// #ifdef HAVE_AES_KEY_WRAP_PAD
-// 	t["CKM_AES_KEY_WRAP_PAD"]	= CKM_AES_KEY_WRAP_PAD;
-// #endif
-// 	t["CKM_AES_ECB_ENCRYPT_DATA"]	= CKM_AES_ECB_ENCRYPT_DATA;
-// 	t["CKM_AES_CBC_ENCRYPT_DATA"]	= CKM_AES_CBC_ENCRYPT_DATA;
-// 	t["CKM_AES_CMAC"]		= CKM_AES_CMAC;
-// 	t["CKM_DSA_PARAMETER_GEN"]	= CKM_DSA_PARAMETER_GEN;
-// 	t["CKM_DSA_KEY_PAIR_GEN"]	= CKM_DSA_KEY_PAIR_GEN;
-// 	t["CKM_DSA"]			= CKM_DSA;
-// 	t["CKM_DSA_SHA1"]		= CKM_DSA_SHA1;
-// 	t["CKM_DSA_SHA224"]		= CKM_DSA_SHA224;
-// 	t["CKM_DSA_SHA256"]		= CKM_DSA_SHA256;
-// 	t["CKM_DSA_SHA384"]		= CKM_DSA_SHA384;
-// 	t["CKM_DSA_SHA512"]		= CKM_DSA_SHA512;
-// 	t["CKM_DH_PKCS_KEY_PAIR_GEN"]	= CKM_DH_PKCS_KEY_PAIR_GEN;
-// 	t["CKM_DH_PKCS_PARAMETER_GEN"]	= CKM_DH_PKCS_PARAMETER_GEN;
-// 	t["CKM_DH_PKCS_DERIVE"]		= CKM_DH_PKCS_DERIVE;
-// #ifdef WITH_ECC
-// 	t["CKM_EC_KEY_PAIR_GEN"]	= CKM_EC_KEY_PAIR_GEN;
-// 	t["CKM_ECDSA"]			= CKM_ECDSA;
-// #endif
-// #if defined(WITH_ECC) || defined(WITH_EDDSA)
-// 	t["CKM_ECDH1_DERIVE"]		= CKM_ECDH1_DERIVE;
-// #endif
-// #ifdef WITH_GOST
-// 	t["CKM_GOSTR3411"]		= CKM_GOSTR3411;
-// 	t["CKM_GOSTR3411_HMAC"]		= CKM_GOSTR3411_HMAC;
-// 	t["CKM_GOSTR3410_KEY_PAIR_GEN"]	= CKM_GOSTR3410_KEY_PAIR_GEN;
-// 	t["CKM_GOSTR3410"]		= CKM_GOSTR3410;
-// 	t["CKM_GOSTR3410_WITH_GOSTR3411"] = CKM_GOSTR3410_WITH_GOSTR3411;
-// #endif
-// #ifdef WITH_EDDSA
-// 	t["CKM_EC_EDWARDS_KEY_PAIR_GEN"] = CKM_EC_EDWARDS_KEY_PAIR_GEN;
-// 	t["CKM_EDDSA"]			= CKM_EDDSA;
-// #endif
-// 	t["CKM_CONCATENATE_DATA_AND_BASE"] = CKM_CONCATENATE_DATA_AND_BASE;
-// 	t["CKM_CONCATENATE_BASE_AND_DATA"] = CKM_CONCATENATE_BASE_AND_DATA;
-// 	t["CKM_CONCATENATE_BASE_AND_KEY"] = CKM_CONCATENATE_BASE_AND_KEY;
+void SoftHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t)
+{
+#ifndef WITH_FIPS
+	t["CKM_MD5"]			= CKM_MD5;
+#endif
+	t["CKM_SHA_1"]			= CKM_SHA_1;
+	t["CKM_SHA224"]			= CKM_SHA224;
+	t["CKM_SHA256"]			= CKM_SHA256;
+	t["CKM_SHA384"]			= CKM_SHA384;
+	t["CKM_SHA512"]			= CKM_SHA512;
+#ifndef WITH_FIPS
+	t["CKM_MD5_HMAC"]		= CKM_MD5_HMAC;
+#endif
+	t["CKM_SHA_1_HMAC"]		= CKM_SHA_1_HMAC;
+	t["CKM_SHA224_HMAC"]		= CKM_SHA224_HMAC;
+	t["CKM_SHA256_HMAC"]		= CKM_SHA256_HMAC;
+	t["CKM_SHA384_HMAC"]		= CKM_SHA384_HMAC;
+	t["CKM_SHA512_HMAC"]		= CKM_SHA512_HMAC;
+	t["CKM_RSA_PKCS_KEY_PAIR_GEN"]	= CKM_RSA_PKCS_KEY_PAIR_GEN;
+	t["CKM_RSA_PKCS"]		= CKM_RSA_PKCS;
+	t["CKM_RSA_X_509"]		= CKM_RSA_X_509;
+#ifndef WITH_FIPS
+	t["CKM_MD5_RSA_PKCS"]		= CKM_MD5_RSA_PKCS;
+#endif
+	t["CKM_SHA1_RSA_PKCS"]		= CKM_SHA1_RSA_PKCS;
+	t["CKM_RSA_PKCS_OAEP"]		= CKM_RSA_PKCS_OAEP;
+	t["CKM_SHA224_RSA_PKCS"]	= CKM_SHA224_RSA_PKCS;
+	t["CKM_SHA256_RSA_PKCS"]	= CKM_SHA256_RSA_PKCS;
+	t["CKM_SHA384_RSA_PKCS"]	= CKM_SHA384_RSA_PKCS;
+	t["CKM_SHA512_RSA_PKCS"]	= CKM_SHA512_RSA_PKCS;
+#ifdef WITH_RAW_PSS
+	t["CKM_RSA_PKCS_PSS"]		= CKM_RSA_PKCS_PSS;
+#endif
+	t["CKM_SHA1_RSA_PKCS_PSS"]	= CKM_SHA1_RSA_PKCS_PSS;
+	t["CKM_SHA224_RSA_PKCS_PSS"]	= CKM_SHA224_RSA_PKCS_PSS;
+	t["CKM_SHA256_RSA_PKCS_PSS"]	= CKM_SHA256_RSA_PKCS_PSS;
+	t["CKM_SHA384_RSA_PKCS_PSS"]	= CKM_SHA384_RSA_PKCS_PSS;
+	t["CKM_SHA512_RSA_PKCS_PSS"]	= CKM_SHA512_RSA_PKCS_PSS;
+	t["CKM_GENERIC_SECRET_KEY_GEN"]	= CKM_GENERIC_SECRET_KEY_GEN;
+#ifndef WITH_FIPS
+	t["CKM_DES_KEY_GEN"]		= CKM_DES_KEY_GEN;
+#endif
+	t["CKM_DES2_KEY_GEN"]		= CKM_DES2_KEY_GEN;
+	t["CKM_DES3_KEY_GEN"]		= CKM_DES3_KEY_GEN;
+#ifndef WITH_FIPS
+	t["CKM_DES_ECB"]		= CKM_DES_ECB;
+	t["CKM_DES_CBC"]		= CKM_DES_CBC;
+	t["CKM_DES_CBC_PAD"]		= CKM_DES_CBC_PAD;
+	t["CKM_DES_ECB_ENCRYPT_DATA"]	= CKM_DES_ECB_ENCRYPT_DATA;
+	t["CKM_DES_CBC_ENCRYPT_DATA"]	= CKM_DES_CBC_ENCRYPT_DATA;
+#endif
+	t["CKM_DES3_ECB"]		= CKM_DES3_ECB;
+	t["CKM_DES3_CBC"]		= CKM_DES3_CBC;
+	t["CKM_DES3_CBC_PAD"]		= CKM_DES3_CBC_PAD;
+	t["CKM_DES3_ECB_ENCRYPT_DATA"]	= CKM_DES3_ECB_ENCRYPT_DATA;
+	t["CKM_DES3_CBC_ENCRYPT_DATA"]	= CKM_DES3_CBC_ENCRYPT_DATA;
+	t["CKM_DES3_CMAC"]		= CKM_DES3_CMAC;
+	t["CKM_AES_KEY_GEN"]		= CKM_AES_KEY_GEN;
+	t["CKM_AES_ECB"]		= CKM_AES_ECB;
+	t["CKM_AES_CBC"]		= CKM_AES_CBC;
+	t["CKM_AES_CBC_PAD"]		= CKM_AES_CBC_PAD;
+	t["CKM_AES_CTR"]		= CKM_AES_CTR;
+	t["CKM_AES_GCM"]		= CKM_AES_GCM;
+	t["CKM_AES_KEY_WRAP"]		= CKM_AES_KEY_WRAP;
+#ifdef HAVE_AES_KEY_WRAP_PAD
+	t["CKM_AES_KEY_WRAP_PAD"]	= CKM_AES_KEY_WRAP_PAD;
+#endif
+	t["CKM_AES_ECB_ENCRYPT_DATA"]	= CKM_AES_ECB_ENCRYPT_DATA;
+	t["CKM_AES_CBC_ENCRYPT_DATA"]	= CKM_AES_CBC_ENCRYPT_DATA;
+	t["CKM_AES_CMAC"]		= CKM_AES_CMAC;
+	t["CKM_DSA_PARAMETER_GEN"]	= CKM_DSA_PARAMETER_GEN;
+	t["CKM_DSA_KEY_PAIR_GEN"]	= CKM_DSA_KEY_PAIR_GEN;
+	t["CKM_DSA"]			= CKM_DSA;
+	t["CKM_DSA_SHA1"]		= CKM_DSA_SHA1;
+	t["CKM_DSA_SHA224"]		= CKM_DSA_SHA224;
+	t["CKM_DSA_SHA256"]		= CKM_DSA_SHA256;
+	t["CKM_DSA_SHA384"]		= CKM_DSA_SHA384;
+	t["CKM_DSA_SHA512"]		= CKM_DSA_SHA512;
+	t["CKM_DH_PKCS_KEY_PAIR_GEN"]	= CKM_DH_PKCS_KEY_PAIR_GEN;
+	t["CKM_DH_PKCS_PARAMETER_GEN"]	= CKM_DH_PKCS_PARAMETER_GEN;
+	t["CKM_DH_PKCS_DERIVE"]		= CKM_DH_PKCS_DERIVE;
+#ifdef WITH_ECC
+	t["CKM_EC_KEY_PAIR_GEN"]	= CKM_EC_KEY_PAIR_GEN;
+	t["CKM_ECDSA"]			= CKM_ECDSA;
+#endif
+#if defined(WITH_ECC) || defined(WITH_EDDSA)
+	t["CKM_ECDH1_DERIVE"]		= CKM_ECDH1_DERIVE;
+#endif
+#ifdef WITH_GOST
+	t["CKM_GOSTR3411"]		= CKM_GOSTR3411;
+	t["CKM_GOSTR3411_HMAC"]		= CKM_GOSTR3411_HMAC;
+	t["CKM_GOSTR3410_KEY_PAIR_GEN"]	= CKM_GOSTR3410_KEY_PAIR_GEN;
+	t["CKM_GOSTR3410"]		= CKM_GOSTR3410;
+	t["CKM_GOSTR3410_WITH_GOSTR3411"] = CKM_GOSTR3410_WITH_GOSTR3411;
+#endif
+#ifdef WITH_EDDSA
+	t["CKM_EC_EDWARDS_KEY_PAIR_GEN"] = CKM_EC_EDWARDS_KEY_PAIR_GEN;
+	t["CKM_EDDSA"]			= CKM_EDDSA;
+#endif
+	t["CKM_CONCATENATE_DATA_AND_BASE"] = CKM_CONCATENATE_DATA_AND_BASE;
+	t["CKM_CONCATENATE_BASE_AND_DATA"] = CKM_CONCATENATE_BASE_AND_DATA;
+	t["CKM_CONCATENATE_BASE_AND_KEY"] = CKM_CONCATENATE_BASE_AND_KEY;
 
-// 	supportedMechanisms.clear();
-// 	for (auto it = t.begin(); it != t.end(); ++it)
-// 	{
-// 		supportedMechanisms.push_back(it->second);
-// 	}
+	supportedMechanisms.clear();
+	for (auto it = t.begin(); it != t.end(); ++it)
+	{
+		supportedMechanisms.push_back(it->second);
+	}
 
-// 	/* Check configuration for supported algorithms */
-// 	std::string mechs = Configuration::i()->getString("slots.mechanisms", "ALL");
-// 	if (mechs != "ALL")
-// 	{
-// 		bool negative = (mechs[0] == '-');
-// 		size_t pos = 0, prev = 0;
-// 		if (negative)
-// 		{
-// 			/* Skip the minus sign */
-// 			prev = 1;
-// 		}
-// 		else
-// 		{
-// 			/* For positive list, we remove everything */
-// 			supportedMechanisms.clear();
-// 		}
-// 		std::string token;
-// 		do
-// 		{
-// 			pos = mechs.find(",", prev);
-// 			if (pos == std::string::npos) pos = mechs.length();
-// 			token = mechs.substr(prev, pos - prev);
-// 			CK_MECHANISM_TYPE mechanism;
-// 			try
-// 			{
-// 				mechanism = t.at(token);
-// 				if (!negative)
-// 					supportedMechanisms.push_back(mechanism);
-// 				else
-// 					supportedMechanisms.remove(mechanism);
-// 			}
-// 			catch (const std::out_of_range& e)
-// 			{
-// 				WARNING_MSG("Unknown mechanism provided: %s", token.c_str());
-// 			}
-// 			prev = pos + 1;
-// 		}
-// 		while (pos < mechs.length() && prev < mechs.length());
-// 	}
+	/* Check configuration for supported algorithms */
+	std::string mechs = Configuration::i()->getString("slots.mechanisms", "ALL");
+	if (mechs != "ALL")
+	{
+		bool negative = (mechs[0] == '-');
+		size_t pos = 0, prev = 0;
+		if (negative)
+		{
+			/* Skip the minus sign */
+			prev = 1;
+		}
+		else
+		{
+			/* For positive list, we remove everything */
+			supportedMechanisms.clear();
+		}
+		std::string token;
+		do
+		{
+			pos = mechs.find(",", prev);
+			if (pos == std::string::npos) pos = mechs.length();
+			token = mechs.substr(prev, pos - prev);
+			CK_MECHANISM_TYPE mechanism;
+			try
+			{
+				mechanism = t.at(token);
+				if (!negative)
+					supportedMechanisms.push_back(mechanism);
+				else
+					supportedMechanisms.remove(mechanism);
+			}
+			catch (const std::out_of_range& e)
+			{
+				WARNING_MSG("Unknown mechanism provided: %s", token.c_str());
+			}
+			prev = pos + 1;
+		}
+		while (pos < mechs.length() && prev < mechs.length());
+	}
 
-// 	nrSupportedMechanisms = supportedMechanisms.size();
-// }
+	nrSupportedMechanisms = supportedMechanisms.size();
+}
 
-// // Return the list of supported mechanisms for a given slot
-// CK_RV SoftHSM::C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
-// 	if (pulCount == NULL_PTR) return CKR_ARGUMENTS_BAD;
+// Return the list of supported mechanisms for a given slot
+CK_RV SoftHSM::C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (pulCount == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL)
-// 	{
-// 		return CKR_SLOT_ID_INVALID;
-// 	}
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL)
+	{
+		return CKR_SLOT_ID_INVALID;
+	}
 
-// 	if (pMechanismList == NULL_PTR)
-// 	{
-// 		*pulCount = nrSupportedMechanisms;
+	if (pMechanismList == NULL_PTR)
+	{
+		*pulCount = nrSupportedMechanisms;
 
-// 		return CKR_OK;
-// 	}
+		return CKR_OK;
+	}
 
-// 	if (*pulCount < nrSupportedMechanisms)
-// 	{
-// 		*pulCount = nrSupportedMechanisms;
+	if (*pulCount < nrSupportedMechanisms)
+	{
+		*pulCount = nrSupportedMechanisms;
 
-// 		return CKR_BUFFER_TOO_SMALL;
-// 	}
+		return CKR_BUFFER_TOO_SMALL;
+	}
 
-// 	*pulCount = nrSupportedMechanisms;
+	*pulCount = nrSupportedMechanisms;
 
-// 	int i = 0;
-// 	auto it = supportedMechanisms.cbegin();
-// 	for (; it != supportedMechanisms.cend(); it++, i++)
-// 	{
-// 		pMechanismList[i] = *it;
-// 	}
+	int i = 0;
+	auto it = supportedMechanisms.cbegin();
+	for (; it != supportedMechanisms.cend(); it++, i++)
+	{
+		pMechanismList[i] = *it;
+	}
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
-// // Return more information about a mechanism for a given slot
-// CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
-// {
-// 	unsigned long rsaMinSize, rsaMaxSize;
-// 	unsigned long dsaMinSize, dsaMaxSize;
-// 	unsigned long dhMinSize, dhMaxSize;
-// #ifdef WITH_ECC
-// 	unsigned long ecdsaMinSize, ecdsaMaxSize;
-// #endif
-// #if defined(WITH_ECC) || defined(WITH_EDDSA)
-// 	unsigned long ecdhMinSize = 0, ecdhMaxSize = 0;
-// 	unsigned long eddsaMinSize = 0, eddsaMaxSize = 0;
-// #endif
+// Return more information about a mechanism for a given slot
+CK_RV SoftHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
+{
+	unsigned long rsaMinSize, rsaMaxSize;
+	unsigned long dsaMinSize, dsaMaxSize;
+	unsigned long dhMinSize, dhMaxSize;
+#ifdef WITH_ECC
+	unsigned long ecdsaMinSize, ecdsaMaxSize;
+#endif
+#if defined(WITH_ECC) || defined(WITH_EDDSA)
+	unsigned long ecdhMinSize = 0, ecdhMaxSize = 0;
+	unsigned long eddsaMinSize = 0, eddsaMaxSize = 0;
+#endif
 
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
-// 	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (pInfo == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL)
-// 	{
-// 		return CKR_SLOT_ID_INVALID;
-// 	}
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL)
+	{
+		return CKR_SLOT_ID_INVALID;
+	}
 
-// 	AsymmetricAlgorithm* rsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::RSA);
-// 	if (rsa != NULL)
-// 	{
-// 		rsaMinSize = rsa->getMinKeySize();
-// 		rsaMaxSize = rsa->getMaxKeySize();
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
+	AsymmetricAlgorithm* rsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::RSA);
+	if (rsa != NULL)
+	{
+		rsaMinSize = rsa->getMinKeySize();
+		rsaMaxSize = rsa->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
 
-// 	AsymmetricAlgorithm* dsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DSA);
-// 	if (dsa != NULL)
-// 	{
-// 		dsaMinSize = dsa->getMinKeySize();
-// 		// Limitation in PKCS#11
-// 		if (dsaMinSize < 512)
-// 		{
-// 			dsaMinSize = 512;
-// 		}
+	AsymmetricAlgorithm* dsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DSA);
+	if (dsa != NULL)
+	{
+		dsaMinSize = dsa->getMinKeySize();
+		// Limitation in PKCS#11
+		if (dsaMinSize < 512)
+		{
+			dsaMinSize = 512;
+		}
 
-// 		dsaMaxSize = dsa->getMaxKeySize();
-// 		// Limitation in PKCS#11
-// 		if (dsaMaxSize > 1024)
-// 		{
-// 			dsaMaxSize = 1024;
-// 		}
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
+		dsaMaxSize = dsa->getMaxKeySize();
+		// Limitation in PKCS#11
+		if (dsaMaxSize > 1024)
+		{
+			dsaMaxSize = 1024;
+		}
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
 
-// 	AsymmetricAlgorithm* dh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DH);
-// 	if (dh != NULL)
-// 	{
-// 		dhMinSize = dh->getMinKeySize();
-// 		dhMaxSize = dh->getMaxKeySize();
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
+	AsymmetricAlgorithm* dh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DH);
+	if (dh != NULL)
+	{
+		dhMinSize = dh->getMinKeySize();
+		dhMaxSize = dh->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
 
-// #ifdef WITH_ECC
-// 	AsymmetricAlgorithm* ecdsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDSA);
-// 	if (ecdsa != NULL)
-// 	{
-// 		ecdsaMinSize = ecdsa->getMinKeySize();
-// 		ecdsaMaxSize = ecdsa->getMaxKeySize();
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecdsa);
+#ifdef WITH_ECC
+	AsymmetricAlgorithm* ecdsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDSA);
+	if (ecdsa != NULL)
+	{
+		ecdsaMinSize = ecdsa->getMinKeySize();
+		ecdsaMaxSize = ecdsa->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecdsa);
 
-// 	AsymmetricAlgorithm* ecdh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDH);
-// 	if (ecdh != NULL)
-// 	{
-// 		ecdhMinSize = ecdh->getMinKeySize();
-// 		ecdhMaxSize = ecdh->getMaxKeySize();
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecdh);
-// #endif
+	AsymmetricAlgorithm* ecdh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDH);
+	if (ecdh != NULL)
+	{
+		ecdhMinSize = ecdh->getMinKeySize();
+		ecdhMaxSize = ecdh->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecdh);
+#endif
 
-// #ifdef WITH_EDDSA
-// 	AsymmetricAlgorithm* eddsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::EDDSA);
-// 	if (eddsa != NULL)
-// 	{
-// 		eddsaMinSize = eddsa->getMinKeySize();
-// 		eddsaMaxSize = eddsa->getMaxKeySize();
-// 	}
-// 	else
-// 	{
-// 		return CKR_GENERAL_ERROR;
-// 	}
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(eddsa);
-// #endif
-// 	pInfo->flags = 0;	// initialize flags
-// 	switch (type)
-// 	{
-// #ifndef WITH_FIPS
-// 		case CKM_MD5:
-// #endif
-// 		case CKM_SHA_1:
-// 		case CKM_SHA224:
-// 		case CKM_SHA256:
-// 		case CKM_SHA384:
-// 		case CKM_SHA512:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_DIGEST;
-// 			break;
-// #ifndef WITH_FIPS
-// 		case CKM_MD5_HMAC:
-// 			pInfo->ulMinKeySize = 16;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// #endif
-// 		case CKM_SHA_1_HMAC:
-// 			pInfo->ulMinKeySize = 20;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_SHA224_HMAC:
-// 			pInfo->ulMinKeySize = 28;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_SHA256_HMAC:
-// 			pInfo->ulMinKeySize = 32;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_SHA384_HMAC:
-// 			pInfo->ulMinKeySize = 48;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_SHA512_HMAC:
-// 			pInfo->ulMinKeySize = 64;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_RSA_PKCS_KEY_PAIR_GEN:
-// 			pInfo->ulMinKeySize = rsaMinSize;
-// 			pInfo->ulMaxKeySize = rsaMaxSize;
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR;
-// 			break;
-// 		case CKM_RSA_PKCS:
-// 			pInfo->ulMinKeySize = rsaMinSize;
-// 			pInfo->ulMaxKeySize = rsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT | CKF_WRAP | CKF_UNWRAP;
-// 			break;
-// 		case CKM_RSA_X_509:
-// 			pInfo->ulMinKeySize = rsaMinSize;
-// 			pInfo->ulMaxKeySize = rsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT;
-// 			break;
-// #ifndef WITH_FIPS
-// 		case CKM_MD5_RSA_PKCS:
-// #endif
-// 		case CKM_SHA1_RSA_PKCS:
-// 		case CKM_SHA224_RSA_PKCS:
-// 		case CKM_SHA256_RSA_PKCS:
-// 		case CKM_SHA384_RSA_PKCS:
-// 		case CKM_SHA512_RSA_PKCS:
-// #ifdef WITH_RAW_PSS
-// 		case CKM_RSA_PKCS_PSS:
-// #endif
-// 		case CKM_SHA1_RSA_PKCS_PSS:
-// 		case CKM_SHA224_RSA_PKCS_PSS:
-// 		case CKM_SHA256_RSA_PKCS_PSS:
-// 		case CKM_SHA384_RSA_PKCS_PSS:
-// 		case CKM_SHA512_RSA_PKCS_PSS:
-// 			pInfo->ulMinKeySize = rsaMinSize;
-// 			pInfo->ulMaxKeySize = rsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_RSA_PKCS_OAEP:
-// 			pInfo->ulMinKeySize = rsaMinSize;
-// 			pInfo->ulMaxKeySize = rsaMaxSize;
-// 			pInfo->flags = CKF_ENCRYPT | CKF_DECRYPT | CKF_WRAP | CKF_UNWRAP;
-// 			break;
-// 		case CKM_GENERIC_SECRET_KEY_GEN:
-// 			pInfo->ulMinKeySize = 1;
-// 			pInfo->ulMaxKeySize = 0x80000000;
-// 			pInfo->flags = CKF_GENERATE;
-// 			break;
-// #ifndef WITH_FIPS
-// 		case CKM_DES_KEY_GEN:
-// #endif
-// 		case CKM_DES2_KEY_GEN:
-// 		case CKM_DES3_KEY_GEN:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_GENERATE;
-// 			break;
-// #ifndef WITH_FIPS
-// 		case CKM_DES_CBC_PAD:
-// 			/* FALLTHROUGH */
-// #endif
-// 		case CKM_DES3_CBC_PAD:
-// 			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
-// 			/* FALLTHROUGH */
-// #ifndef WITH_FIPS
-// 		case CKM_DES_ECB:
-// 			/* FALLTHROUGH */
-// 		case CKM_DES_CBC:
-// 			/* FALLTHROUGH */
-// #endif
-// 		case CKM_DES3_CBC:
-// 			pInfo->flags |= CKF_WRAP;
-// 			/* FALLTHROUGH */
-// 		case CKM_DES3_ECB:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags |= CKF_ENCRYPT | CKF_DECRYPT;
-// 			break;
-// 		case CKM_DES3_CMAC:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_AES_KEY_GEN:
-// 			pInfo->ulMinKeySize = 16;
-// 			pInfo->ulMaxKeySize = 32;
-// 			pInfo->flags = CKF_GENERATE;
-// 			break;
-// 		case CKM_AES_CBC_PAD:
-// 			pInfo->flags = CKF_UNWRAP | CKF_WRAP;
-// 			/* FALLTHROUGH */
-// 		case CKM_AES_CBC:
-// 			pInfo->flags |= CKF_WRAP;
-// 		case CKM_AES_ECB:
-// 		case CKM_AES_CTR:
-// 		case CKM_AES_GCM:
-// 			pInfo->ulMinKeySize = 16;
-// 			pInfo->ulMaxKeySize = 32;
-// 			pInfo->flags |= CKF_ENCRYPT | CKF_DECRYPT;
-// 			break;
-// 		case CKM_AES_KEY_WRAP:
-// 			pInfo->ulMinKeySize = 16;
-// 			pInfo->ulMaxKeySize = 0x80000000;
-// 			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
-// 			break;
-// #ifdef HAVE_AES_KEY_WRAP_PAD
-// 		case CKM_AES_KEY_WRAP_PAD:
-// 			pInfo->ulMinKeySize = 1;
-// 			pInfo->ulMaxKeySize = 0x80000000;
-// 			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
-// 			break;
-// #endif
-// #ifndef WITH_FIPS
-// 		case CKM_DES_ECB_ENCRYPT_DATA:
-// 		case CKM_DES_CBC_ENCRYPT_DATA:
-// #endif
-// 		case CKM_DES3_ECB_ENCRYPT_DATA:
-// 		case CKM_DES3_CBC_ENCRYPT_DATA:
-// 		case CKM_AES_ECB_ENCRYPT_DATA:
-// 		case CKM_AES_CBC_ENCRYPT_DATA:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_DERIVE;
-// 			break;
-// 		case CKM_AES_CMAC:
-// 			pInfo->ulMinKeySize = 16;
-// 			pInfo->ulMaxKeySize = 32;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_DSA_PARAMETER_GEN:
-// 			pInfo->ulMinKeySize = dsaMinSize;
-// 			pInfo->ulMaxKeySize = dsaMaxSize;
-// 			pInfo->flags = CKF_GENERATE;
-// 			break;
-// 		case CKM_DSA_KEY_PAIR_GEN:
-// 			pInfo->ulMinKeySize = dsaMinSize;
-// 			pInfo->ulMaxKeySize = dsaMaxSize;
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR;
-// 			break;
-// 		case CKM_DSA:
-// 		case CKM_DSA_SHA1:
-// 		case CKM_DSA_SHA224:
-// 		case CKM_DSA_SHA256:
-// 		case CKM_DSA_SHA384:
-// 		case CKM_DSA_SHA512:
-// 			pInfo->ulMinKeySize = dsaMinSize;
-// 			pInfo->ulMaxKeySize = dsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_DH_PKCS_KEY_PAIR_GEN:
-// 			pInfo->ulMinKeySize = dhMinSize;
-// 			pInfo->ulMaxKeySize = dhMaxSize;
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR;
-// 			break;
-// 		case CKM_DH_PKCS_PARAMETER_GEN:
-// 			pInfo->ulMinKeySize = dhMinSize;
-// 			pInfo->ulMaxKeySize = dhMaxSize;
-// 			pInfo->flags = CKF_GENERATE;
-// 			break;
-// 		case CKM_DH_PKCS_DERIVE:
-// 			pInfo->ulMinKeySize = dhMinSize;
-// 			pInfo->ulMaxKeySize = dhMaxSize;
-// 			pInfo->flags = CKF_DERIVE;
-// 			break;
-// #ifdef WITH_ECC
-// 		case CKM_EC_KEY_PAIR_GEN:
-// 			pInfo->ulMinKeySize = ecdsaMinSize;
-// 			pInfo->ulMaxKeySize = ecdsaMaxSize;
-// #define CKF_EC_COMMOM	(CKF_EC_F_P | CKF_EC_NAMEDCURVE | CKF_EC_UNCOMPRESS)
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR | CKF_EC_COMMOM;
-// 			break;
-// 		case CKM_ECDSA:
-// 			pInfo->ulMinKeySize = ecdsaMinSize;
-// 			pInfo->ulMaxKeySize = ecdsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_EC_COMMOM;
-// 			break;
-// #endif
-// #if defined(WITH_ECC) || defined(WITH_EDDSA)
-// 		case CKM_ECDH1_DERIVE:
-// 			pInfo->ulMinKeySize = ecdhMinSize ? ecdhMinSize : eddsaMinSize;
-// 			pInfo->ulMaxKeySize = ecdhMaxSize ? ecdhMaxSize : eddsaMaxSize;
-// 			pInfo->flags = CKF_DERIVE;
-// 			break;
-// #endif
-// #ifdef WITH_GOST
-// 		case CKM_GOSTR3411:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_DIGEST;
-// 			break;
-// 		case CKM_GOSTR3411_HMAC:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 32;
-// 			pInfo->ulMaxKeySize = 512;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_GOSTR3410_KEY_PAIR_GEN:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR;
-// 			break;
-// 		case CKM_GOSTR3410:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// 		case CKM_GOSTR3410_WITH_GOSTR3411:
-// 			// Key size is not in use
-// 			pInfo->ulMinKeySize = 0;
-// 			pInfo->ulMaxKeySize = 0;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// #endif
-// #ifdef WITH_EDDSA
-// 		case CKM_EC_EDWARDS_KEY_PAIR_GEN:
-// 			pInfo->ulMinKeySize = eddsaMinSize;
-// 			pInfo->ulMaxKeySize = eddsaMaxSize;
-// 			pInfo->flags = CKF_GENERATE_KEY_PAIR;
-// 			break;
-// 		case CKM_EDDSA:
-// 			pInfo->ulMinKeySize = eddsaMinSize;
-// 			pInfo->ulMaxKeySize = eddsaMaxSize;
-// 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-// 			break;
-// #endif
-// 	    case CKM_CONCATENATE_DATA_AND_BASE:
-// 	    case CKM_CONCATENATE_BASE_AND_DATA:
-// 	    case CKM_CONCATENATE_BASE_AND_KEY:
-// 	        pInfo->ulMinKeySize = 1;
-// 	        pInfo->ulMaxKeySize = 512;
-// 	        pInfo->flags = CKF_DERIVE;
-// 	        break;
-// 		default:
-// 			DEBUG_MSG("The selected mechanism is not supported");
-// 			return CKR_MECHANISM_INVALID;
-// 			break;
-// 	}
+#ifdef WITH_EDDSA
+	AsymmetricAlgorithm* eddsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::EDDSA);
+	if (eddsa != NULL)
+	{
+		eddsaMinSize = eddsa->getMinKeySize();
+		eddsaMaxSize = eddsa->getMaxKeySize();
+	}
+	else
+	{
+		return CKR_GENERAL_ERROR;
+	}
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(eddsa);
+#endif
+	pInfo->flags = 0;	// initialize flags
+	switch (type)
+	{
+#ifndef WITH_FIPS
+		case CKM_MD5:
+#endif
+		case CKM_SHA_1:
+		case CKM_SHA224:
+		case CKM_SHA256:
+		case CKM_SHA384:
+		case CKM_SHA512:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_DIGEST;
+			break;
+#ifndef WITH_FIPS
+		case CKM_MD5_HMAC:
+			pInfo->ulMinKeySize = 16;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+#endif
+		case CKM_SHA_1_HMAC:
+			pInfo->ulMinKeySize = 20;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_SHA224_HMAC:
+			pInfo->ulMinKeySize = 28;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_SHA256_HMAC:
+			pInfo->ulMinKeySize = 32;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_SHA384_HMAC:
+			pInfo->ulMinKeySize = 48;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_SHA512_HMAC:
+			pInfo->ulMinKeySize = 64;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_RSA_PKCS_KEY_PAIR_GEN:
+			pInfo->ulMinKeySize = rsaMinSize;
+			pInfo->ulMaxKeySize = rsaMaxSize;
+			pInfo->flags = CKF_GENERATE_KEY_PAIR;
+			break;
+		case CKM_RSA_PKCS:
+			pInfo->ulMinKeySize = rsaMinSize;
+			pInfo->ulMaxKeySize = rsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT | CKF_WRAP | CKF_UNWRAP;
+			break;
+		case CKM_RSA_X_509:
+			pInfo->ulMinKeySize = rsaMinSize;
+			pInfo->ulMaxKeySize = rsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT;
+			break;
+#ifndef WITH_FIPS
+		case CKM_MD5_RSA_PKCS:
+#endif
+		case CKM_SHA1_RSA_PKCS:
+		case CKM_SHA224_RSA_PKCS:
+		case CKM_SHA256_RSA_PKCS:
+		case CKM_SHA384_RSA_PKCS:
+		case CKM_SHA512_RSA_PKCS:
+#ifdef WITH_RAW_PSS
+		case CKM_RSA_PKCS_PSS:
+#endif
+		case CKM_SHA1_RSA_PKCS_PSS:
+		case CKM_SHA224_RSA_PKCS_PSS:
+		case CKM_SHA256_RSA_PKCS_PSS:
+		case CKM_SHA384_RSA_PKCS_PSS:
+		case CKM_SHA512_RSA_PKCS_PSS:
+			pInfo->ulMinKeySize = rsaMinSize;
+			pInfo->ulMaxKeySize = rsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_RSA_PKCS_OAEP:
+			pInfo->ulMinKeySize = rsaMinSize;
+			pInfo->ulMaxKeySize = rsaMaxSize;
+			pInfo->flags = CKF_ENCRYPT | CKF_DECRYPT | CKF_WRAP | CKF_UNWRAP;
+			break;
+		case CKM_GENERIC_SECRET_KEY_GEN:
+			pInfo->ulMinKeySize = 1;
+			pInfo->ulMaxKeySize = 0x80000000;
+			pInfo->flags = CKF_GENERATE;
+			break;
+#ifndef WITH_FIPS
+		case CKM_DES_KEY_GEN:
+#endif
+		case CKM_DES2_KEY_GEN:
+		case CKM_DES3_KEY_GEN:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_GENERATE;
+			break;
+#ifndef WITH_FIPS
+		case CKM_DES_CBC_PAD:
+			/* FALLTHROUGH */
+#endif
+		case CKM_DES3_CBC_PAD:
+			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
+			/* FALLTHROUGH */
+#ifndef WITH_FIPS
+		case CKM_DES_ECB:
+			/* FALLTHROUGH */
+		case CKM_DES_CBC:
+			/* FALLTHROUGH */
+#endif
+		case CKM_DES3_CBC:
+			pInfo->flags |= CKF_WRAP;
+			/* FALLTHROUGH */
+		case CKM_DES3_ECB:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags |= CKF_ENCRYPT | CKF_DECRYPT;
+			break;
+		case CKM_DES3_CMAC:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_AES_KEY_GEN:
+			pInfo->ulMinKeySize = 16;
+			pInfo->ulMaxKeySize = 32;
+			pInfo->flags = CKF_GENERATE;
+			break;
+		case CKM_AES_CBC_PAD:
+			pInfo->flags = CKF_UNWRAP | CKF_WRAP;
+			/* FALLTHROUGH */
+		case CKM_AES_CBC:
+			pInfo->flags |= CKF_WRAP;
+		case CKM_AES_ECB:
+		case CKM_AES_CTR:
+		case CKM_AES_GCM:
+			pInfo->ulMinKeySize = 16;
+			pInfo->ulMaxKeySize = 32;
+			pInfo->flags |= CKF_ENCRYPT | CKF_DECRYPT;
+			break;
+		case CKM_AES_KEY_WRAP:
+			pInfo->ulMinKeySize = 16;
+			pInfo->ulMaxKeySize = 0x80000000;
+			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
+			break;
+#ifdef HAVE_AES_KEY_WRAP_PAD
+		case CKM_AES_KEY_WRAP_PAD:
+			pInfo->ulMinKeySize = 1;
+			pInfo->ulMaxKeySize = 0x80000000;
+			pInfo->flags = CKF_WRAP | CKF_UNWRAP;
+			break;
+#endif
+#ifndef WITH_FIPS
+		case CKM_DES_ECB_ENCRYPT_DATA:
+		case CKM_DES_CBC_ENCRYPT_DATA:
+#endif
+		case CKM_DES3_ECB_ENCRYPT_DATA:
+		case CKM_DES3_CBC_ENCRYPT_DATA:
+		case CKM_AES_ECB_ENCRYPT_DATA:
+		case CKM_AES_CBC_ENCRYPT_DATA:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_DERIVE;
+			break;
+		case CKM_AES_CMAC:
+			pInfo->ulMinKeySize = 16;
+			pInfo->ulMaxKeySize = 32;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_DSA_PARAMETER_GEN:
+			pInfo->ulMinKeySize = dsaMinSize;
+			pInfo->ulMaxKeySize = dsaMaxSize;
+			pInfo->flags = CKF_GENERATE;
+			break;
+		case CKM_DSA_KEY_PAIR_GEN:
+			pInfo->ulMinKeySize = dsaMinSize;
+			pInfo->ulMaxKeySize = dsaMaxSize;
+			pInfo->flags = CKF_GENERATE_KEY_PAIR;
+			break;
+		case CKM_DSA:
+		case CKM_DSA_SHA1:
+		case CKM_DSA_SHA224:
+		case CKM_DSA_SHA256:
+		case CKM_DSA_SHA384:
+		case CKM_DSA_SHA512:
+			pInfo->ulMinKeySize = dsaMinSize;
+			pInfo->ulMaxKeySize = dsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_DH_PKCS_KEY_PAIR_GEN:
+			pInfo->ulMinKeySize = dhMinSize;
+			pInfo->ulMaxKeySize = dhMaxSize;
+			pInfo->flags = CKF_GENERATE_KEY_PAIR;
+			break;
+		case CKM_DH_PKCS_PARAMETER_GEN:
+			pInfo->ulMinKeySize = dhMinSize;
+			pInfo->ulMaxKeySize = dhMaxSize;
+			pInfo->flags = CKF_GENERATE;
+			break;
+		case CKM_DH_PKCS_DERIVE:
+			pInfo->ulMinKeySize = dhMinSize;
+			pInfo->ulMaxKeySize = dhMaxSize;
+			pInfo->flags = CKF_DERIVE;
+			break;
+#ifdef WITH_ECC
+		case CKM_EC_KEY_PAIR_GEN:
+			pInfo->ulMinKeySize = ecdsaMinSize;
+			pInfo->ulMaxKeySize = ecdsaMaxSize;
+#define CKF_EC_COMMOM	(CKF_EC_F_P | CKF_EC_NAMEDCURVE | CKF_EC_UNCOMPRESS)
+			pInfo->flags = CKF_GENERATE_KEY_PAIR | CKF_EC_COMMOM;
+			break;
+		case CKM_ECDSA:
+			pInfo->ulMinKeySize = ecdsaMinSize;
+			pInfo->ulMaxKeySize = ecdsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_EC_COMMOM;
+			break;
+#endif
+#if defined(WITH_ECC) || defined(WITH_EDDSA)
+		case CKM_ECDH1_DERIVE:
+			pInfo->ulMinKeySize = ecdhMinSize ? ecdhMinSize : eddsaMinSize;
+			pInfo->ulMaxKeySize = ecdhMaxSize ? ecdhMaxSize : eddsaMaxSize;
+			pInfo->flags = CKF_DERIVE;
+			break;
+#endif
+#ifdef WITH_GOST
+		case CKM_GOSTR3411:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_DIGEST;
+			break;
+		case CKM_GOSTR3411_HMAC:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 32;
+			pInfo->ulMaxKeySize = 512;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_GOSTR3410_KEY_PAIR_GEN:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_GENERATE_KEY_PAIR;
+			break;
+		case CKM_GOSTR3410:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+		case CKM_GOSTR3410_WITH_GOSTR3411:
+			// Key size is not in use
+			pInfo->ulMinKeySize = 0;
+			pInfo->ulMaxKeySize = 0;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+#endif
+#ifdef WITH_EDDSA
+		case CKM_EC_EDWARDS_KEY_PAIR_GEN:
+			pInfo->ulMinKeySize = eddsaMinSize;
+			pInfo->ulMaxKeySize = eddsaMaxSize;
+			pInfo->flags = CKF_GENERATE_KEY_PAIR;
+			break;
+		case CKM_EDDSA:
+			pInfo->ulMinKeySize = eddsaMinSize;
+			pInfo->ulMaxKeySize = eddsaMaxSize;
+			pInfo->flags = CKF_SIGN | CKF_VERIFY;
+			break;
+#endif
+	    case CKM_CONCATENATE_DATA_AND_BASE:
+	    case CKM_CONCATENATE_BASE_AND_DATA:
+	    case CKM_CONCATENATE_BASE_AND_KEY:
+	        pInfo->ulMinKeySize = 1;
+	        pInfo->ulMaxKeySize = 512;
+	        pInfo->flags = CKF_DERIVE;
+	        break;
+		default:
+			DEBUG_MSG("The selected mechanism is not supported");
+			return CKR_MECHANISM_INVALID;
+			break;
+	}
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
 // Initialise the token in the specified slot
 CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
@@ -1350,69 +1350,69 @@ CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulP
 	return slot->initToken(soPIN, pLabel);
 }
 
-// // Initialise the user PIN
-// CK_RV SoftHSM::C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Initialise the user PIN
+CK_RV SoftHSM::C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// The SO must be logged in
-// 	if (session->getState() != CKS_RW_SO_FUNCTIONS) return CKR_USER_NOT_LOGGED_IN;
+	// The SO must be logged in
+	if (session->getState() != CKS_RW_SO_FUNCTIONS) return CKR_USER_NOT_LOGGED_IN;
 
-// 	// Get the token
-// 	Token* token = session->getToken();
-// 	if (token == NULL) return CKR_GENERAL_ERROR;
+	// Get the token
+	Token* token = session->getToken();
+	if (token == NULL) return CKR_GENERAL_ERROR;
 
-// 	// Check the PIN
-// 	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
-// 	if (ulPinLen < MIN_PIN_LEN || ulPinLen > MAX_PIN_LEN) return CKR_PIN_LEN_RANGE;
+	// Check the PIN
+	if (pPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (ulPinLen < MIN_PIN_LEN || ulPinLen > MAX_PIN_LEN) return CKR_PIN_LEN_RANGE;
 
-// 	ByteString userPIN(pPin, ulPinLen);
+	ByteString userPIN(pPin, ulPinLen);
 
-// 	return token->initUserPIN(userPIN);
-// }
+	return token->initUserPIN(userPIN);
+}
 
-// // Change the PIN
-// CK_RV SoftHSM::C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_ULONG ulOldLen, CK_UTF8CHAR_PTR pNewPin, CK_ULONG ulNewLen)
-// {
-// 	CK_RV rv = CKR_OK;
+// Change the PIN
+CK_RV SoftHSM::C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_ULONG ulOldLen, CK_UTF8CHAR_PTR pNewPin, CK_ULONG ulNewLen)
+{
+	CK_RV rv = CKR_OK;
 
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Check the new PINs
-// 	if (pOldPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
-// 	if (pNewPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
-// 	if (ulNewLen < MIN_PIN_LEN || ulNewLen > MAX_PIN_LEN) return CKR_PIN_LEN_RANGE;
+	// Check the new PINs
+	if (pOldPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (pNewPin == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (ulNewLen < MIN_PIN_LEN || ulNewLen > MAX_PIN_LEN) return CKR_PIN_LEN_RANGE;
 
-// 	ByteString oldPIN(pOldPin, ulOldLen);
-// 	ByteString newPIN(pNewPin, ulNewLen);
+	ByteString oldPIN(pOldPin, ulOldLen);
+	ByteString newPIN(pNewPin, ulNewLen);
 
-// 	// Get the token
-// 	Token* token = session->getToken();
-// 	if (token == NULL) return CKR_GENERAL_ERROR;
+	// Get the token
+	Token* token = session->getToken();
+	if (token == NULL) return CKR_GENERAL_ERROR;
 
-// 	switch (session->getState())
-// 	{
-// 		case CKS_RW_PUBLIC_SESSION:
-// 		case CKS_RW_USER_FUNCTIONS:
-// 			rv = token->setUserPIN(oldPIN, newPIN);
-// 			break;
-// 		case CKS_RW_SO_FUNCTIONS:
-// 			rv = token->setSOPIN(oldPIN, newPIN);
-// 			break;
-// 		default:
-// 			return CKR_SESSION_READ_ONLY;
-// 	}
+	switch (session->getState())
+	{
+		case CKS_RW_PUBLIC_SESSION:
+		case CKS_RW_USER_FUNCTIONS:
+			rv = token->setUserPIN(oldPIN, newPIN);
+			break;
+		case CKS_RW_SO_FUNCTIONS:
+			rv = token->setSOPIN(oldPIN, newPIN);
+			break;
+		default:
+			return CKR_SESSION_READ_ONLY;
+	}
 
-// 	return rv;
-// }
+	return rv;
+}
 
 // // Open a new session to the specified slot
 // CK_RV SoftHSM::C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication, CK_NOTIFY notify, CK_SESSION_HANDLE_PTR phSession)
@@ -7504,19 +7504,19 @@ CK_RV SoftHSM::C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulP
 // 	return CKR_FUNCTION_NOT_PARALLEL;
 // }
 
-// // Wait or poll for a slot event on the specified slot
-// CK_RV SoftHSM::C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR /*pSlot*/, CK_VOID_PTR /*pReserved*/)
-// {
-// 	if (!(flags & CKF_DONT_BLOCK)) return CKR_FUNCTION_NOT_SUPPORTED;
+// Wait or poll for a slot event on the specified slot
+CK_RV SoftHSM::C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR /*pSlot*/, CK_VOID_PTR /*pReserved*/)
+{
+	if (!(flags & CKF_DONT_BLOCK)) return CKR_FUNCTION_NOT_SUPPORTED;
 
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// SoftHSM slots don't change after it's initialised. With the
-// 	// exception of when a slot is initialised and then getSlotList() is
-// 	// called. However, at this point the caller has been updated with the
-// 	// new slot list already so no event needs to be triggered.
-// 	return CKR_NO_EVENT;
-// }
+	// SoftHSM slots don't change after it's initialised. With the
+	// exception of when a slot is initialised and then getSlotList() is
+	// called. However, at this point the caller has been updated with the
+	// new slot list already so no event needs to be triggered.
+	return CKR_NO_EVENT;
+}
 
 // CK_RV SoftHSM::generateGeneric
 // (CK_SESSION_HANDLE hSession,

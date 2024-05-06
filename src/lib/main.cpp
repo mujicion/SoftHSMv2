@@ -61,10 +61,10 @@ static CK_FUNCTION_LIST functionList =
 	C_GetFunctionList,
 	C_GetSlotList,
 	C_GetSlotInfo,
-	C_GetTokenInfo //,
-	// C_GetMechanismList,
-	// C_GetMechanismInfo,
-	// C_InitToken,
+	C_GetTokenInfo,
+	C_GetMechanismList,
+	C_GetMechanismInfo,
+	C_InitToken,
 	// C_InitPIN,
 	// C_SetPIN,
 	// C_OpenSession,
@@ -234,50 +234,50 @@ PKCS_API CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Return the list of supported mechanisms for a given slot
-// PKCS_API CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetMechanismList(slotID, pMechanismList, pulCount);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return the list of supported mechanisms for a given slot
+PKCS_API CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMechanismList, CK_ULONG_PTR pulCount)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetMechanismList(slotID, pMechanismList, pulCount);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Return more information about a mechanism for a given slot
-// PKCS_API CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetMechanismInfo(slotID, type, pInfo);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Return more information about a mechanism for a given slot
+PKCS_API CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_MECHANISM_INFO_PTR pInfo)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetMechanismInfo(slotID, type, pInfo);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise the token in the specified slot
-// PKCS_API CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_InitToken(slotID, pPin, ulPinLen, pLabel);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise the token in the specified slot
+PKCS_API CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen, CK_UTF8CHAR_PTR pLabel)
+{
+	try
+	{
+		return SoftHSM::i()->C_InitToken(slotID, pPin, ulPinLen, pLabel);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Initialise the user PIN
 // PKCS_API CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
@@ -1170,18 +1170,18 @@ PKCS_API CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 // 	return CKR_FUNCTION_FAILED;
 // }
 
-// // Wait or poll for a slot even on the specified slot
-// PKCS_API CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_PTR pReserved)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_WaitForSlotEvent(flags, pSlot, pReserved);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Wait or poll for a slot even on the specified slot
+PKCS_API CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_PTR pReserved)
+{
+	try
+	{
+		return SoftHSM::i()->C_WaitForSlotEvent(flags, pSlot, pReserved);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
