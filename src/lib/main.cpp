@@ -65,12 +65,12 @@ static CK_FUNCTION_LIST functionList =
 	C_GetMechanismList,
 	C_GetMechanismInfo,
 	C_InitToken,
-	// C_InitPIN,
-	// C_SetPIN,
-	// C_OpenSession,
-	// C_CloseSession,
-	// C_CloseAllSessions,
-	// C_GetSessionInfo,
+	C_InitPIN,
+	C_SetPIN,
+	C_OpenSession,
+	C_CloseSession,
+	C_CloseAllSessions,
+	C_GetSessionInfo,
 	// C_GetOperationState,
 	// C_SetOperationState,
 	// C_Login,
@@ -279,95 +279,95 @@ PKCS_API CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulP
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Initialise the user PIN
-// PKCS_API CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_InitPIN(hSession, pPin, ulPinLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise the user PIN
+PKCS_API CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_ULONG ulPinLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_InitPIN(hSession, pPin, ulPinLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Change the PIN
-// PKCS_API CK_RV C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_ULONG ulOldLen, CK_UTF8CHAR_PTR pNewPin, CK_ULONG ulNewLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SetPIN(hSession, pOldPin, ulOldLen, pNewPin, ulNewLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Change the PIN
+PKCS_API CK_RV C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_ULONG ulOldLen, CK_UTF8CHAR_PTR pNewPin, CK_ULONG ulNewLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SetPIN(hSession, pOldPin, ulOldLen, pNewPin, ulNewLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Open a new session to the specified slot
-// PKCS_API CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication, CK_NOTIFY notify, CK_SESSION_HANDLE_PTR phSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_OpenSession(slotID, flags, pApplication, notify, phSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Open a new session to the specified slot
+PKCS_API CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication, CK_NOTIFY notify, CK_SESSION_HANDLE_PTR phSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_OpenSession(slotID, flags, pApplication, notify, phSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Close the given session
-// PKCS_API CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_CloseSession(hSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Close the given session
+PKCS_API CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_CloseSession(hSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Close all open sessions
-// PKCS_API CK_RV C_CloseAllSessions(CK_SLOT_ID slotID)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_CloseAllSessions(slotID);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Close all open sessions
+PKCS_API CK_RV C_CloseAllSessions(CK_SLOT_ID slotID)
+{
+	try
+	{
+		return SoftHSM::i()->C_CloseAllSessions(slotID);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Retrieve information about the specified session
-// PKCS_API CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetSessionInfo(hSession, pInfo);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Retrieve information about the specified session
+PKCS_API CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetSessionInfo(hSession, pInfo);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Determine the state of a running operation in a session
 // PKCS_API CK_RV C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOperationState, CK_ULONG_PTR pulOperationStateLen)

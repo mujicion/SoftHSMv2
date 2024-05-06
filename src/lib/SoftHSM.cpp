@@ -611,11 +611,11 @@ CK_RV SoftHSM::C_Initialize(CK_VOID_PTR pInitArgs)
 	// Load the slot manager
 	slotManager = new SlotManager(objectStore);
 
-	// // Load the session manager
-	// sessionManager = new SessionManager();
+	// Load the session manager
+	sessionManager = new SessionManager();
 
-	// // Load the handle manager
-	// handleManager = new HandleManager();
+	// Load the handle manager
+	handleManager = new HandleManager();
 
 	// Set the state to initialised
 	isInitialised = true;
@@ -1414,82 +1414,82 @@ CK_RV SoftHSM::C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_
 	return rv;
 }
 
-// // Open a new session to the specified slot
-// CK_RV SoftHSM::C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication, CK_NOTIFY notify, CK_SESSION_HANDLE_PTR phSession)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Open a new session to the specified slot
+CK_RV SoftHSM::C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApplication, CK_NOTIFY notify, CK_SESSION_HANDLE_PTR phSession)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	Slot* slot = slotManager->getSlot(slotID);
+	Slot* slot = slotManager->getSlot(slotID);
 
-// 	CK_RV rv = sessionManager->openSession(slot, flags, pApplication, notify, phSession);
-// 	if (rv != CKR_OK)
-// 		return rv;
+	CK_RV rv = sessionManager->openSession(slot, flags, pApplication, notify, phSession);
+	if (rv != CKR_OK)
+		return rv;
 
-// 	// Get a pointer to the session object and store it in the handle manager.
-// 	Session* session = sessionManager->getSession(*phSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
-// 	*phSession = handleManager->addSession(slotID,session);
+	// Get a pointer to the session object and store it in the handle manager.
+	Session* session = sessionManager->getSession(*phSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	*phSession = handleManager->addSession(slotID,session);
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
-// // Close the given session
-// CK_RV SoftHSM::C_CloseSession(CK_SESSION_HANDLE hSession)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Close the given session
+CK_RV SoftHSM::C_CloseSession(CK_SESSION_HANDLE hSession)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Tell the handle manager the session has been closed.
-// 	handleManager->sessionClosed(hSession);
+	// Tell the handle manager the session has been closed.
+	handleManager->sessionClosed(hSession);
 
 
-// 	// Tell the session object store that the session has closed.
-// 	sessionObjectStore->sessionClosed(hSession);
+	// Tell the session object store that the session has closed.
+	sessionObjectStore->sessionClosed(hSession);
 
-// 	// Tell the session manager the session has been closed.
-// 	return sessionManager->closeSession(session->getHandle());
-// }
+	// Tell the session manager the session has been closed.
+	return sessionManager->closeSession(session->getHandle());
+}
 
-// // Close all open sessions
-// CK_RV SoftHSM::C_CloseAllSessions(CK_SLOT_ID slotID)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Close all open sessions
+CK_RV SoftHSM::C_CloseAllSessions(CK_SLOT_ID slotID)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the slot
-// 	Slot* slot = slotManager->getSlot(slotID);
-// 	if (slot == NULL) return CKR_SLOT_ID_INVALID;
+	// Get the slot
+	Slot* slot = slotManager->getSlot(slotID);
+	if (slot == NULL) return CKR_SLOT_ID_INVALID;
 
-// 	// Get the token
-// 	Token* token = slot->getToken();
-// 	if (token == NULL) return CKR_TOKEN_NOT_PRESENT;
+	// Get the token
+	Token* token = slot->getToken();
+	if (token == NULL) return CKR_TOKEN_NOT_PRESENT;
 
-// 	// Tell the handle manager all sessions were closed for the given slotID.
-// 	// The handle manager should then remove all session and object handles for this slot.
-// 	handleManager->allSessionsClosed(slotID);
+	// Tell the handle manager all sessions were closed for the given slotID.
+	// The handle manager should then remove all session and object handles for this slot.
+	handleManager->allSessionsClosed(slotID);
 
-// 	// Tell the session object store that all sessions were closed for the given slotID.
-// 	// The session object store should then remove all session objects for this slot.
-// 	sessionObjectStore->allSessionsClosed(slotID);
+	// Tell the session object store that all sessions were closed for the given slotID.
+	// The session object store should then remove all session objects for this slot.
+	sessionObjectStore->allSessionsClosed(slotID);
 
-// 	// Finally tell the session manager tho close all sessions for the given slot.
-// 	// This will also trigger a logout on the associated token to occur.
-// 	return sessionManager->closeAllSessions(slot);
-// }
+	// Finally tell the session manager tho close all sessions for the given slot.
+	// This will also trigger a logout on the associated token to occur.
+	return sessionManager->closeAllSessions(slot);
+}
 
-// // Retrieve information about the specified session
-// CK_RV SoftHSM::C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Retrieve information about the specified session
+CK_RV SoftHSM::C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR pInfo)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	return session->getInfo(pInfo);
-// }
+	return session->getInfo(pInfo);
+}
 
 // // Determine the state of a running operation in a session
 // CK_RV SoftHSM::C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR /*pOperationState*/, CK_ULONG_PTR /*pulOperationStateLen*/)

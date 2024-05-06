@@ -14,9 +14,9 @@ set(SOURCES p11test.cpp
             # SymmetricAlgorithmTests.cpp
             # DigestTests.cpp
             # InitTests.cpp
-            InfoTests.cpp
+            # InfoTests.cpp
             # RandomTests.cpp
-            # SessionTests.cpp
+            SessionTests.cpp
             # TokenTests.cpp
             # UserTests.cpp
             # ObjectTests.cpp
