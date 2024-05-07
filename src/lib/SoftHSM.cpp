@@ -70,7 +70,9 @@
 #include "HandleManager.h"
 #include "P11Objects.h"
 #include "odd.h"
+#if defined(WITH_MIZARU)
 #include "mizar_api.h"
+#endif
 
 #if defined(WITH_OPENSSL)
 #include "OpenSSL/OSSLCryptoFactory.h"
@@ -553,10 +555,12 @@ CK_RV SoftHSM::C_Initialize(CK_VOID_PTR pInitArgs)
 	}
 
 	
+#if defined(WITH_MIZARU)
 	if ( 0 != MizarSdkInit(1, "1234")) {
 		ERROR_MSG("Mizaru SDK Init: Failed");
 		return CKR_GENERAL_ERROR;
 	}
+#endif
 
 #ifdef WITH_FIPS
 	// Check the FIPS status
@@ -644,10 +648,12 @@ CK_RV SoftHSM::C_Finalize(CK_VOID_PTR pReserved)
 	CryptoFactory::reset();
 	SecureMemoryRegistry::reset();
 
+#if defined(WITH_MIZARU)
 	if ( 0 != MizarDeleteShareObject()) {
 		ERROR_MSG("Mizaru Delete Share Object: Failed");
 		return CKR_GENERAL_ERROR;		
 	}
+#endif
 
 	isInitialised = false;
 

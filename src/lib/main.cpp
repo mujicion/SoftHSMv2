@@ -83,7 +83,7 @@ static CK_FUNCTION_LIST functionList =
 	C_SetAttributeValue,
 	C_FindObjectsInit,
 	C_FindObjects,
-	C_FindObjectsFinal,
+	C_FindObjectsFinal //,
 	// C_EncryptInit,
 	// C_Encrypt,
 	// C_EncryptUpdate,
