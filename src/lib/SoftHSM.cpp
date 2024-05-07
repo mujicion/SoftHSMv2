@@ -7436,55 +7436,55 @@ CK_RV SoftHSM::C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 // 	return CKR_MECHANISM_INVALID;
 // }
 
-// // Seed the random number generator with new data
-// CK_RV SoftHSM::C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Seed the random number generator with new data
+CK_RV SoftHSM::C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	if (pSeed == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (pSeed == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Get the RNG
-// 	RNG* rng = CryptoFactory::i()->getRNG();
-// 	if (rng == NULL) return CKR_GENERAL_ERROR;
+	// Get the RNG
+	RNG* rng = CryptoFactory::i()->getRNG();
+	if (rng == NULL) return CKR_GENERAL_ERROR;
 
-// 	// Seed the RNG
-// 	ByteString seed(pSeed, ulSeedLen);
-// 	rng->seed(seed);
+	// Seed the RNG
+	ByteString seed(pSeed, ulSeedLen);
+	rng->seed(seed);
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
-// // Generate the specified amount of random data
-// CK_RV SoftHSM::C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Generate the specified amount of random data
+CK_RV SoftHSM::C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	if (pRandomData == NULL_PTR) return CKR_ARGUMENTS_BAD;
+	if (pRandomData == NULL_PTR) return CKR_ARGUMENTS_BAD;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	// Get the RNG
-// 	RNG* rng = CryptoFactory::i()->getRNG();
-// 	if (rng == NULL) return CKR_GENERAL_ERROR;
+	// Get the RNG
+	RNG* rng = CryptoFactory::i()->getRNG();
+	if (rng == NULL) return CKR_GENERAL_ERROR;
 
-// 	// Generate random data
-// 	ByteString randomData;
-// 	if (!rng->generateRandom(randomData, ulRandomLen)) return CKR_GENERAL_ERROR;
+	// Generate random data
+	ByteString randomData;
+	if (!rng->generateRandom(randomData, ulRandomLen)) return CKR_GENERAL_ERROR;
 
-// 	// Return random data
-// 	if (ulRandomLen != 0)
-// 	{
-// 		memcpy(pRandomData, randomData.byte_str(), ulRandomLen);
-// 	}
+	// Return random data
+	if (ulRandomLen != 0)
+	{
+		memcpy(pRandomData, randomData.byte_str(), ulRandomLen);
+	}
 
-// 	return CKR_OK;
-// }
+	return CKR_OK;
+}
 
 // // Legacy function
 // CK_RV SoftHSM::C_GetFunctionStatus(CK_SESSION_HANDLE hSession)

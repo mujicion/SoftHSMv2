@@ -10,6 +10,7 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
 
 set(SOURCES mizaruStub.cpp
             MizaruCryptoFactory.cpp
+            MizaruRNG.cpp
             )
 
 include_directories(${INCLUDE_DIRS})

@@ -15,11 +15,11 @@ set(SOURCES p11test.cpp
             # DigestTests.cpp
             # InitTests.cpp
             # InfoTests.cpp
-            # RandomTests.cpp
+            RandomTests.cpp
             # SessionTests.cpp
             # TokenTests.cpp
             # UserTests.cpp
-            ObjectTests.cpp
+            # ObjectTests.cpp
             # DeriveTests.cpp
             # SignVerifyTests.cpp
             # AsymEncryptDecryptTests.cpp

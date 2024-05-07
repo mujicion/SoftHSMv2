@@ -83,7 +83,7 @@ static CK_FUNCTION_LIST functionList =
 	C_SetAttributeValue,
 	C_FindObjectsInit,
 	C_FindObjects,
-	C_FindObjectsFinal //,
+	C_FindObjectsFinal,
 	// C_EncryptInit,
 	// C_Encrypt,
 	// C_EncryptUpdate,
@@ -1110,35 +1110,35 @@ PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 // 	return CKR_FUNCTION_FAILED;
 // }
 
-// // Seed the random number generator with new data
-// PKCS_API CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SeedRandom(hSession, pSeed, ulSeedLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Seed the random number generator with new data
+PKCS_API CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SeedRandom(hSession, pSeed, ulSeedLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Generate the specified amount of random data
-// PKCS_API CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GenerateRandom(hSession, pRandomData, ulRandomLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Generate the specified amount of random data
+PKCS_API CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_GenerateRandom(hSession, pRandomData, ulRandomLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Legacy function
 // PKCS_API CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession)

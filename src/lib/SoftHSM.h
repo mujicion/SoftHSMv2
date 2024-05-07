@@ -166,8 +166,8 @@ public:
 	// 	CK_ULONG ulCount,
 	// 	CK_OBJECT_HANDLE_PTR phKey
 	// );
-	// CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen);
-	// CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen);
+	CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen);
+	CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen);
 	// CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession);
 	// CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession);
 	CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_PTR pReserved);

@@ -192,16 +192,16 @@ MacAlgorithm* MizaruCryptoFactory::getMacAlgorithm(MacAlgo::Type algorithm)
 // Get the global RNG (may be an unique RNG per thread)
 RNG* MizaruCryptoFactory::getRNG(RNGImpl::Type name /* = RNGImpl::Default */)
 {
-	// if (name == RNGImpl::Default)
-	// {
-	// 	return rng;
-	// }
-	// else
-	// {
-	// 	// No RNG implementation is available
-	// 	ERROR_MSG("Unknown RNG '%i'", name);
+	if (name == RNGImpl::Default)
+	{
+		return rng;
+	}
+	else
+	{
+		// No RNG implementation is available
+		ERROR_MSG("Unknown RNG '%i'", name);
 
 		return NULL;
-	// }
+	}
 }
 

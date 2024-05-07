@@ -39,7 +39,7 @@
 // #include "AsymmetricAlgorithm.h"
 // #include "HashAlgorithm.h"
 // #include "MacAlgorithm.h"
-// #include "RNG.h"
+#include "RNG.h"
 #include <memory>
 
 class MizaruCryptoFactory : public CryptoFactory
@@ -80,8 +80,8 @@ private:
 	static std::auto_ptr<MizaruCryptoFactory> instance;
 #endif
 
-	// // The one-and-only RNG instance
-	// RNG* rng;
+	// The one-and-only RNG instance
+	RNG* rng;
 	// // And RDRAND engine to use with it
 	// ENGINE *rdrand_engine;
 };
