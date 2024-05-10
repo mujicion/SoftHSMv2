@@ -84,14 +84,14 @@ static CK_FUNCTION_LIST functionList =
 	C_FindObjectsInit,
 	C_FindObjects,
 	C_FindObjectsFinal,
-	// C_EncryptInit,
-	// C_Encrypt,
-	// C_EncryptUpdate,
-	// C_EncryptFinal,
-	// C_DecryptInit,
-	// C_Decrypt,
-	// C_DecryptUpdate,
-	// C_DecryptFinal,
+	C_EncryptInit,
+	C_Encrypt,
+	C_EncryptUpdate,
+	C_EncryptFinal,
+	C_DecryptInit,
+	C_Decrypt,
+	C_DecryptUpdate,
+	C_DecryptFinal,
 	// C_DigestInit,
 	// C_Digest,
 	// C_DigestUpdate,
@@ -564,125 +564,125 @@ PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Initialise encryption using the specified object and mechanism
-// PKCS_API CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_EncryptInit(hSession, pMechanism, hObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise encryption using the specified object and mechanism
+PKCS_API CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_EncryptInit(hSession, pMechanism, hObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Perform a single operation encryption operation in the specified session
-// PKCS_API CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Encrypt(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Perform a single operation encryption operation in the specified session
+PKCS_API CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Encrypt(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Feed data to the running encryption operation in a session
-// PKCS_API CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_EncryptUpdate(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Feed data to the running encryption operation in a session
+PKCS_API CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_EncryptUpdate(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finalise the encryption operation
-// PKCS_API CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_EncryptFinal(hSession, pEncryptedData, pulEncryptedDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finalise the encryption operation
+PKCS_API CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_EncryptFinal(hSession, pEncryptedData, pulEncryptedDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise decryption using the specified object
-// PKCS_API CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DecryptInit(hSession, pMechanism, hObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise decryption using the specified object
+PKCS_API CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_DecryptInit(hSession, pMechanism, hObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Perform a single operation decryption in the given session
-// PKCS_API CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Decrypt(hSession, pEncryptedData, ulEncryptedDataLen, pData, pulDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Perform a single operation decryption in the given session
+PKCS_API CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Decrypt(hSession, pEncryptedData, ulEncryptedDataLen, pData, pulDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Feed data to the running decryption operation in a session
-// PKCS_API CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DecryptUpdate(hSession, pEncryptedData, ulEncryptedDataLen, pData, pDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Feed data to the running decryption operation in a session
+PKCS_API CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DecryptUpdate(hSession, pEncryptedData, ulEncryptedDataLen, pData, pDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finalise the decryption operation
-// PKCS_API CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DecryptFinal(hSession, pData, pDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finalise the decryption operation
+PKCS_API CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DecryptFinal(hSession, pData, pDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Initialise digesting using the specified mechanism in the specified session
 // PKCS_API CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism)
@@ -999,93 +999,93 @@ PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 // 	return CKR_FUNCTION_FAILED;
 // }
 
-// // Generate a secret key using the specified mechanism
-// PKCS_API CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GenerateKey(hSession, pMechanism, pTemplate, ulCount, phKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Generate a secret key using the specified mechanism
+PKCS_API CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_GenerateKey(hSession, pMechanism, pTemplate, ulCount, phKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Generate a key-pair using the specified mechanism
-// PKCS_API CK_RV C_GenerateKeyPair
-// (
-// 	CK_SESSION_HANDLE hSession, 
-// 	CK_MECHANISM_PTR pMechanism, 
-// 	CK_ATTRIBUTE_PTR pPublicKeyTemplate, 
-// 	CK_ULONG ulPublicKeyAttributeCount, 
-// 	CK_ATTRIBUTE_PTR pPrivateKeyTemplate, 
-// 	CK_ULONG ulPrivateKeyAttributeCount,
-// 	CK_OBJECT_HANDLE_PTR phPublicKey, 
-// 	CK_OBJECT_HANDLE_PTR phPrivateKey
-// )
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GenerateKeyPair(hSession, pMechanism, pPublicKeyTemplate, ulPublicKeyAttributeCount, pPrivateKeyTemplate, ulPrivateKeyAttributeCount, phPublicKey, phPrivateKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Generate a key-pair using the specified mechanism
+PKCS_API CK_RV C_GenerateKeyPair
+(
+	CK_SESSION_HANDLE hSession, 
+	CK_MECHANISM_PTR pMechanism, 
+	CK_ATTRIBUTE_PTR pPublicKeyTemplate, 
+	CK_ULONG ulPublicKeyAttributeCount, 
+	CK_ATTRIBUTE_PTR pPrivateKeyTemplate, 
+	CK_ULONG ulPrivateKeyAttributeCount,
+	CK_OBJECT_HANDLE_PTR phPublicKey, 
+	CK_OBJECT_HANDLE_PTR phPrivateKey
+)
+{
+	try
+	{
+		return SoftHSM::i()->C_GenerateKeyPair(hSession, pMechanism, pPublicKeyTemplate, ulPublicKeyAttributeCount, pPrivateKeyTemplate, ulPrivateKeyAttributeCount, phPublicKey, phPrivateKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Wrap the specified key using the specified wrapping key and mechanism
-// PKCS_API CK_RV C_WrapKey
-// (
-// 	CK_SESSION_HANDLE hSession,
-// 	CK_MECHANISM_PTR pMechanism, 
-// 	CK_OBJECT_HANDLE hWrappingKey, 
-// 	CK_OBJECT_HANDLE hKey, 
-// 	CK_BYTE_PTR pWrappedKey, 
-// 	CK_ULONG_PTR pulWrappedKeyLen
-// )
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_WrapKey(hSession, pMechanism, hWrappingKey, hKey, pWrappedKey, pulWrappedKeyLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Wrap the specified key using the specified wrapping key and mechanism
+PKCS_API CK_RV C_WrapKey
+(
+	CK_SESSION_HANDLE hSession,
+	CK_MECHANISM_PTR pMechanism, 
+	CK_OBJECT_HANDLE hWrappingKey, 
+	CK_OBJECT_HANDLE hKey, 
+	CK_BYTE_PTR pWrappedKey, 
+	CK_ULONG_PTR pulWrappedKeyLen
+)
+{
+	try
+	{
+		return SoftHSM::i()->C_WrapKey(hSession, pMechanism, hWrappingKey, hKey, pWrappedKey, pulWrappedKeyLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Unwrap the specified key using the specified unwrapping key
-// PKCS_API CK_RV C_UnwrapKey
-// (
-// 	CK_SESSION_HANDLE hSession, 
-// 	CK_MECHANISM_PTR pMechanism, 
-// 	CK_OBJECT_HANDLE hUnwrappingKey, 
-// 	CK_BYTE_PTR pWrappedKey, 
-// 	CK_ULONG ulWrappedKeyLen,
-// 	CK_ATTRIBUTE_PTR pTemplate, 
-// 	CK_ULONG ulCount, 
-// 	CK_OBJECT_HANDLE_PTR phKey
-// )
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_UnwrapKey(hSession, pMechanism, hUnwrappingKey, pWrappedKey, ulWrappedKeyLen, pTemplate, ulCount, phKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Unwrap the specified key using the specified unwrapping key
+PKCS_API CK_RV C_UnwrapKey
+(
+	CK_SESSION_HANDLE hSession, 
+	CK_MECHANISM_PTR pMechanism, 
+	CK_OBJECT_HANDLE hUnwrappingKey, 
+	CK_BYTE_PTR pWrappedKey, 
+	CK_ULONG ulWrappedKeyLen,
+	CK_ATTRIBUTE_PTR pTemplate, 
+	CK_ULONG ulCount, 
+	CK_OBJECT_HANDLE_PTR phKey
+)
+{
+	try
+	{
+		return SoftHSM::i()->C_UnwrapKey(hSession, pMechanism, hUnwrappingKey, pWrappedKey, ulWrappedKeyLen, pTemplate, ulCount, phKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Derive a key from the specified base key
 // PKCS_API CK_RV C_DeriveKey

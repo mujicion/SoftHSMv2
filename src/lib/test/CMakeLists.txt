@@ -11,11 +11,11 @@ if (WIN32)
 endif (WIN32)
 
 set(SOURCES p11test.cpp
-            # SymmetricAlgorithmTests.cpp
+            SymmetricAlgorithmTests.cpp
             # DigestTests.cpp
             # InitTests.cpp
             # InfoTests.cpp
-            RandomTests.cpp
+            # RandomTests.cpp
             # SessionTests.cpp
             # TokenTests.cpp
             # UserTests.cpp

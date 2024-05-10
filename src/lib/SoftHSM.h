@@ -96,14 +96,14 @@ public:
 	CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount);
 	CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR phObject, CK_ULONG ulMaxObjectCount, CK_ULONG_PTR pulObjectCount);
 	CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession);
-	// CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
-	// CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
-	// CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
-	// CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen);
-	// CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen);
-	// CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen);
+	CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
+	CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
+	CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG_PTR pulEncryptedDataLen);
+	CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen);
+	CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData, CK_ULONG ulEncryptedDataLen, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen);
+	CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG_PTR pDataLen);
 	// CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism);
 	// CK_RV C_Digest(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen);
 	// CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
@@ -125,38 +125,38 @@ public:
 	// CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pDecryptedPart, CK_ULONG_PTR pulDecryptedPartLen);
 	// CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen);
 	// CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen);
-	// CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey);
-	// CK_RV C_GenerateKeyPair
-	// (
-	// 	CK_SESSION_HANDLE hSession,
-	// 	CK_MECHANISM_PTR pMechanism,
-	// 	CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-	// 	CK_ULONG ulPublicKeyAttributeCount,
-	// 	CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-	// 	CK_ULONG ulPrivateKeyAttributeCount,
-	// 	CK_OBJECT_HANDLE_PTR phPublicKey,
-	// 	CK_OBJECT_HANDLE_PTR phPrivateKey
-	// );
-	// CK_RV C_WrapKey
-	// (
-	// 	CK_SESSION_HANDLE hSession,
-	// 	CK_MECHANISM_PTR pMechanism,
-	// 	CK_OBJECT_HANDLE hWrappingKey,
-	// 	CK_OBJECT_HANDLE hKey,
-	// 	CK_BYTE_PTR pWrappedKey,
-	// 	CK_ULONG_PTR pulWrappedKeyLen
-	// );
-	// CK_RV C_UnwrapKey
-	// (
-	// 	CK_SESSION_HANDLE hSession,
-	// 	CK_MECHANISM_PTR pMechanism,
-	// 	CK_OBJECT_HANDLE hUnwrappingKey,
-	// 	CK_BYTE_PTR pWrappedKey,
-	// 	CK_ULONG ulWrappedKeyLen,
-	// 	CK_ATTRIBUTE_PTR pTemplate,
-	// 	CK_ULONG ulCount,
-	// 	CK_OBJECT_HANDLE_PTR hKey
-	// );
+	CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey);
+	CK_RV C_GenerateKeyPair
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey
+	);
+	CK_RV C_WrapKey
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hWrappingKey,
+		CK_OBJECT_HANDLE hKey,
+		CK_BYTE_PTR pWrappedKey,
+		CK_ULONG_PTR pulWrappedKeyLen
+	);
+	CK_RV C_UnwrapKey
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hUnwrappingKey,
+		CK_BYTE_PTR pWrappedKey,
+		CK_ULONG ulWrappedKeyLen,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR hKey
+	);
 	// CK_RV C_DeriveKey
 	// (
 	// 	CK_SESSION_HANDLE hSession,
@@ -201,54 +201,54 @@ private:
 	int forkID;
 
 	// Encrypt/Decrypt variants
-// 	CK_RV SymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV SymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 // 	CK_RV AsymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-// 	CK_RV SymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV SymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 // 	CK_RV AsymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 
 // 	// Sign/Verify variants
-// 	CK_RV MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+// 	CK_RV MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);isMechanismPermitted
 // 	CK_RV AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 // 	CK_RV MacVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 // 	CK_RV AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 
-// 	// Key generation
-// 	CK_RV generateDES
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// 	CK_RV generateDES2
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// 	CK_RV generateDES3
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// 	CK_RV generateAES
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
+	// Key generation
+	CK_RV generateDES
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+	CK_RV generateDES2
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+	CK_RV generateDES3
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+	CK_RV generateAES
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
 // 	CK_RV generateRSA
 // 	(CK_SESSION_HANDLE hSession,
 // 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
@@ -350,15 +350,15 @@ private:
 // 		CK_BBOOL isPrivateKeyOnToken,
 // 		CK_BBOOL isPrivateKeyPrivate
 // 	);
-// 	CK_RV generateGeneric
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
+	CK_RV generateGeneric
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
 // 	CK_RV deriveDH
 // 	(
 // 		CK_SESSION_HANDLE hSession,
@@ -434,7 +434,7 @@ private:
 // 	CK_RV getEDDHPublicKey(EDPublicKey* publicKey, EDPrivateKey* privateKey, ByteString& pubData);
 // 	CK_RV getGOSTPrivateKey(GOSTPrivateKey* privateKey, Token* token, OSObject* key);
 // 	CK_RV getGOSTPublicKey(GOSTPublicKey* publicKey, Token* token, OSObject* key);
-// 	CK_RV getSymmetricKey(SymmetricKey* skey, Token* token, OSObject* key);
+	CK_RV getSymmetricKey(SymmetricKey* skey, Token* token, OSObject* key);
 
 // 	ByteString getECDHPubData(ByteString& pubData);
 
@@ -455,19 +455,19 @@ private:
 // 		ByteString &wrapped
 // 	);
 
-// 	size_t RFC5652Pad(ByteString &keydata, size_t blocksize);
-// 	size_t RFC3394Pad(ByteString &keydata);
-// 	bool RFC5652Unpad(ByteString &keydata, size_t blocksize);
-// 	bool RFC3394Unpad(ByteString &keydata);
+	size_t RFC5652Pad(ByteString &keydata, size_t blocksize);
+	size_t RFC3394Pad(ByteString &keydata);
+	bool RFC5652Unpad(ByteString &keydata, size_t blocksize);
+	bool RFC3394Unpad(ByteString &keydata);
 	
-// 	CK_RV WrapKeySym
-// 	(
-// 		CK_MECHANISM_PTR pMechanism,
-// 		Token *token,
-// 		OSObject *wrapKey,
-// 		ByteString &keydata,
-// 		ByteString &wrapped
-// 	);
+	CK_RV WrapKeySym
+	(
+		CK_MECHANISM_PTR pMechanism,
+		Token *token,
+		OSObject *wrapKey,
+		ByteString &keydata,
+		ByteString &wrapped
+	);
 
 // 	CK_RV UnwrapKeyAsym
 // 	(
@@ -478,18 +478,18 @@ private:
 // 		ByteString &keydata
 // 	);
 
-// 	CK_RV UnwrapKeySym
-// 	(
-// 		CK_MECHANISM_PTR pMechanism,
-// 		ByteString &wrapped,
-// 		Token* token,
-// 		OSObject *unwrapKey,
-// 		ByteString &keydata
-// 	);
+	CK_RV UnwrapKeySym
+	(
+		CK_MECHANISM_PTR pMechanism,
+		ByteString &wrapped,
+		Token* token,
+		OSObject *unwrapKey,
+		ByteString &keydata
+	);
 
 // 	CK_RV MechParamCheckRSAPKCSOAEP(CK_MECHANISM_PTR pMechanism);
 
-// 	bool isMechanismPermitted(OSObject* key, CK_MECHANISM_PTR pMechanism);
+	bool isMechanismPermitted(OSObject* key, CK_MECHANISM_PTR pMechanism);
 	void prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t);
 	bool detectFork(void);
 };

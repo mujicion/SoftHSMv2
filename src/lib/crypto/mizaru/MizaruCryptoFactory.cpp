@@ -33,22 +33,22 @@
 #include "config.h"
 #include "MutexFactory.h"
 #include "MizaruCryptoFactory.h"
-// #include "OSSLRNG.h"
-// #include "OSSLAES.h"
-// #include "OSSLDES.h"
-// #include "OSSLMD5.h"
-// #include "OSSLSHA1.h"
-// #include "OSSLSHA224.h"
-// #include "OSSLSHA256.h"
-// #include "OSSLSHA384.h"
-// #include "OSSLSHA512.h"
-// #include "OSSLCMAC.h"
-// #include "OSSLHMAC.h"
-// #include "OSSLRSA.h"
-// #include "OSSLDSA.h"
-// #include "OSSLDH.h"
+// #include "MizaruRNG.h"
+#include "MizaruAES.h"
+#include "MizaruDES.h"
+// #include "MizaruMD5.h"
+// #include "MizaruSHA1.h"
+// #include "MizaruSHA224.h"
+// #include "MizaruSHA256.h"
+// #include "MizaruSHA384.h"
+// #include "MizaruSHA512.h"
+// #include "MizaruCMAC.h"
+// #include "MizaruHMAC.h"
+// #include "MizaruRSA.h"
+// #include "MizaruDSA.h"
+// #include "MizaruDH.h"
 // #ifdef WITH_EDDSA
-// #include "OSSLEDDSA.h"
+// #include "MizaruEDDSA.h"
 // #endif
 
 #include <algorithm>
@@ -99,17 +99,17 @@ void MizaruCryptoFactory::reset()
 // Create a concrete instance of a symmetric algorithm
 SymmetricAlgorithm* MizaruCryptoFactory::getSymmetricAlgorithm(SymAlgo::Type algorithm)
 {
-	// switch (algorithm)
-	// {
-	// 	case SymAlgo::AES:
-	// 		return new OSSLAES();
-	// 	case SymAlgo::DES:
-	// 	case SymAlgo::DES3:
-	// 		return new OSSLDES();
-	// }
+	switch (algorithm)
+	{
+		case SymAlgo::AES:
+			return new MizaruAES();
+		case SymAlgo::DES:
+		case SymAlgo::DES3:
+			return new MizaruDES();
+	}
 
-	// // No algorithm implementation is available
-	// ERROR_MSG("Unknown algorithm '%i'", algorithm);
+	// No algorithm implementation is available
+	ERROR_MSG("Unknown algorithm '%i'", algorithm);
 	return NULL;
 }
 
