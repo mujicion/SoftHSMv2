@@ -157,15 +157,15 @@ public:
 		CK_ULONG ulCount,
 		CK_OBJECT_HANDLE_PTR hKey
 	);
-	// CK_RV C_DeriveKey
-	// (
-	// 	CK_SESSION_HANDLE hSession,
-	// 	CK_MECHANISM_PTR pMechanism,
-	// 	CK_OBJECT_HANDLE hBaseKey,
-	// 	CK_ATTRIBUTE_PTR pTemplate,
-	// 	CK_ULONG ulCount,
-	// 	CK_OBJECT_HANDLE_PTR phKey
-	// );
+	CK_RV C_DeriveKey
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hBaseKey,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey
+	);
 	CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen);
 	CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomData, CK_ULONG ulRandomLen);
 	CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession);
@@ -359,58 +359,58 @@ private:
 		CK_BBOOL isOnToken,
 		CK_BBOOL isPrivate
 	);
-// 	CK_RV deriveDH
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_MECHANISM_PTR pMechanism,
-// 		CK_OBJECT_HANDLE hBaseKey,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_KEY_TYPE keyType,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// #ifdef WITH_ECC
-// 	CK_RV deriveECDH
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_MECHANISM_PTR pMechanism,
-// 		CK_OBJECT_HANDLE hBaseKey,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_KEY_TYPE keyType,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// #endif
-// #ifdef WITH_EDDSA
-// 	CK_RV deriveEDDSA
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_MECHANISM_PTR pMechanism,
-// 		CK_OBJECT_HANDLE hBaseKey,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_KEY_TYPE keyType,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// #endif
-// 	CK_RV deriveSymmetric
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_MECHANISM_PTR pMechanism,
-// 		CK_OBJECT_HANDLE hBaseKey,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_KEY_TYPE keyType,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
+	CK_RV deriveDH
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hBaseKey,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_KEY_TYPE keyType,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+#ifdef WITH_ECC
+	CK_RV deriveECDH
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hBaseKey,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_KEY_TYPE keyType,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+#endif
+#ifdef WITH_EDDSA
+	CK_RV deriveEDDSA
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hBaseKey,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_KEY_TYPE keyType,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+#endif
+	CK_RV deriveSymmetric
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_MECHANISM_PTR pMechanism,
+		CK_OBJECT_HANDLE hBaseKey,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_KEY_TYPE keyType,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
 	CK_RV CreateObject
 	(
 		CK_SESSION_HANDLE hSession,

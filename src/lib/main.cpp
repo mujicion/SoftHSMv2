@@ -117,12 +117,12 @@ static CK_FUNCTION_LIST functionList =
 	C_GenerateKeyPair,
 	C_WrapKey,
 	C_UnwrapKey,
-	// C_DeriveKey,
-	// C_SeedRandom,
-	// C_GenerateRandom,
-	// C_GetFunctionStatus,
-	// C_CancelFunction,
-	// C_WaitForSlotEvent
+	C_DeriveKey,
+	C_SeedRandom,
+	C_GenerateRandom,
+	C_GetFunctionStatus,
+	C_CancelFunction,
+	C_WaitForSlotEvent
 };
 
 // PKCS #11 initialisation function
@@ -1087,28 +1087,28 @@ PKCS_API CK_RV C_UnwrapKey
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Derive a key from the specified base key
-// PKCS_API CK_RV C_DeriveKey
-// (
-// 	CK_SESSION_HANDLE hSession, 
-// 	CK_MECHANISM_PTR pMechanism, 
-// 	CK_OBJECT_HANDLE hBaseKey, 
-// 	CK_ATTRIBUTE_PTR pTemplate, 
-// 	CK_ULONG ulCount, 
-// 	CK_OBJECT_HANDLE_PTR phKey
-// )
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DeriveKey(hSession, pMechanism, hBaseKey, pTemplate, ulCount, phKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
-// 
-// 	return CKR_FUNCTION_FAILED;
-// }
+// Derive a key from the specified base key
+PKCS_API CK_RV C_DeriveKey
+(
+	CK_SESSION_HANDLE hSession, 
+	CK_MECHANISM_PTR pMechanism, 
+	CK_OBJECT_HANDLE hBaseKey, 
+	CK_ATTRIBUTE_PTR pTemplate, 
+	CK_ULONG ulCount, 
+	CK_OBJECT_HANDLE_PTR phKey
+)
+{
+	try
+	{
+		return SoftHSM::i()->C_DeriveKey(hSession, pMechanism, hBaseKey, pTemplate, ulCount, phKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
+
+	return CKR_FUNCTION_FAILED;
+}
 
 // Seed the random number generator with new data
 PKCS_API CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_ULONG ulSeedLen)
