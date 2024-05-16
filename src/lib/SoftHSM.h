@@ -202,9 +202,9 @@ private:
 
 	// Encrypt/Decrypt variants
 	CK_RV SymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-// 	CK_RV AsymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV AsymEncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 	CK_RV SymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-// 	CK_RV AsymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV AsymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 
 // 	// Sign/Verify variants
 // 	CK_RV MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);isMechanismPermitted
@@ -249,19 +249,19 @@ private:
 		CK_BBOOL isOnToken,
 		CK_BBOOL isPrivate
 	);
-// 	CK_RV generateRSA
-// 	(CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
+	CK_RV generateRSA
+	(CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
 // 	CK_RV generateDSA
 // 	(
 // 		CK_SESSION_HANDLE hSession,
@@ -420,8 +420,8 @@ private:
 		int op
 	);
 
-// 	CK_RV getRSAPrivateKey(RSAPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getRSAPublicKey(RSAPublicKey* publicKey, Token* token, OSObject* key);
+	CK_RV getRSAPrivateKey(RSAPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getRSAPublicKey(RSAPublicKey* publicKey, Token* token, OSObject* key);
 // 	CK_RV getDSAPrivateKey(DSAPrivateKey* privateKey, Token* token, OSObject* key);
 // 	CK_RV getDSAPublicKey(DSAPublicKey* publicKey, Token* token, OSObject* key);
 // 	CK_RV getECPrivateKey(ECPrivateKey* privateKey, Token* token, OSObject* key);
@@ -438,7 +438,7 @@ private:
 
 // 	ByteString getECDHPubData(ByteString& pubData);
 
-// 	bool setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 // 	bool setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 // 	bool setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 // 	bool setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
@@ -446,14 +446,14 @@ private:
 // 	bool setGOSTPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 
 
-// 	CK_RV WrapKeyAsym
-// 	(
-// 		CK_MECHANISM_PTR pMechanism,
-// 		Token *token,
-// 		OSObject *wrapKey,
-// 		ByteString &keydata,
-// 		ByteString &wrapped
-// 	);
+	CK_RV WrapKeyAsym
+	(
+		CK_MECHANISM_PTR pMechanism,
+		Token *token,
+		OSObject *wrapKey,
+		ByteString &keydata,
+		ByteString &wrapped
+	);
 
 	size_t RFC5652Pad(ByteString &keydata, size_t blocksize);
 	size_t RFC3394Pad(ByteString &keydata);
@@ -469,14 +469,14 @@ private:
 		ByteString &wrapped
 	);
 
-// 	CK_RV UnwrapKeyAsym
-// 	(
-// 		CK_MECHANISM_PTR pMechanism,
-// 		ByteString &wrapped,
-// 		Token* token,
-// 		OSObject *unwrapKey,
-// 		ByteString &keydata
-// 	);
+	CK_RV UnwrapKeyAsym
+	(
+		CK_MECHANISM_PTR pMechanism,
+		ByteString &wrapped,
+		Token* token,
+		OSObject *unwrapKey,
+		ByteString &keydata
+	);
 
 	CK_RV UnwrapKeySym
 	(
@@ -487,7 +487,7 @@ private:
 		ByteString &keydata
 	);
 
-// 	CK_RV MechParamCheckRSAPKCSOAEP(CK_MECHANISM_PTR pMechanism);
+	CK_RV MechParamCheckRSAPKCSOAEP(CK_MECHANISM_PTR pMechanism);
 
 	bool isMechanismPermitted(OSObject* key, CK_MECHANISM_PTR pMechanism);
 	void prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t);

@@ -44,7 +44,7 @@
 // #include "MizaruSHA512.h"
 // #include "MizaruCMAC.h"
 // #include "MizaruHMAC.h"
-// #include "MizaruRSA.h"
+#include "MizaruRSA.h"
 // #include "MizaruDSA.h"
 // #include "MizaruDH.h"
 // #ifdef WITH_EDDSA
@@ -60,13 +60,13 @@ static Mutex** locks;
 // Constructor
 MizaruCryptoFactory::MizaruCryptoFactory()
 {
-	// // Multi-thread support
-	// nlocks = CRYPTO_num_locks();
-	// locks = new Mutex*[nlocks];
-	// for (unsigned i = 0; i < nlocks; i++)
-	// {
-	// 	locks[i] = MutexFactory::i()->getMutex();
-	// }
+	// Multi-thread support
+	nlocks = CRYPTO_num_locks();
+	locks = new Mutex*[nlocks];
+	for (unsigned i = 0; i < nlocks; i++)
+	{
+		locks[i] = MutexFactory::i()->getMutex();
+	}
 }
 
 // Destructor
@@ -116,24 +116,24 @@ SymmetricAlgorithm* MizaruCryptoFactory::getSymmetricAlgorithm(SymAlgo::Type alg
 // Create a concrete instance of an asymmetric algorithm
 AsymmetricAlgorithm* MizaruCryptoFactory::getAsymmetricAlgorithm(AsymAlgo::Type algorithm)
 {
-// 	switch (algorithm)
-// 	{
-// 		case AsymAlgo::RSA:
-// 			return new OSSLRSA();
+	switch (algorithm)
+	{
+		case AsymAlgo::RSA:
+			return new MizaruRSA();
 // 		case AsymAlgo::DSA:
-// 			return new OSSLDSA();
+// 			return new MizaruDSA();
 // 		case AsymAlgo::DH:
-// 			return new OSSLDH();
+// 			return new MizaruDH();
 // #ifdef WITH_ECC
 // 		case AsymAlgo::ECDH:
-// 			return new OSSLECDH();
+// 			return new MizaruECDH();
 // 		case AsymAlgo::ECDSA:
-// 			return new OSSLECDSA();
+// 			return new MizaruECDSA();
 // #endif
-// 	}
+	}
 
-// 	// No algorithm implementation is available
-// 	ERROR_MSG("Unknown algorithm '%i'", algorithm);
+	// No algorithm implementation is available
+	ERROR_MSG("Unknown algorithm '%i'", algorithm);
 	return NULL;
 }
 
@@ -143,17 +143,17 @@ HashAlgorithm* MizaruCryptoFactory::getHashAlgorithm(HashAlgo::Type algorithm)
 	// switch (algorithm)
 	// {
 	// 	case HashAlgo::MD5:
-	// 		return new OSSLMD5();
+	// 		return new MizaruMD5();
 	// 	case HashAlgo::SHA1:
-	// 		return new OSSLSHA1();
+	// 		return new MizaruSHA1();
 	// 	case HashAlgo::SHA224:
-	// 		return new OSSLSHA224();
+	// 		return new MizaruSHA224();
 	// 	case HashAlgo::SHA256:
-	// 		return new OSSLSHA256();
+	// 		return new MizaruSHA256();
 	// 	case HashAlgo::SHA384:
-	// 		return new OSSLSHA384();
+	// 		return new MizaruSHA384();
 	// 	case HashAlgo::SHA512:
-	// 		return new OSSLSHA512();
+	// 		return new MizaruSHA512();
 	// }
 
 	// // No algorithm implementation is available
@@ -167,21 +167,21 @@ MacAlgorithm* MizaruCryptoFactory::getMacAlgorithm(MacAlgo::Type algorithm)
 	// switch (algorithm)
 	// {
 	// 	case MacAlgo::HMAC_MD5:
-	// 		return new OSSLHMACMD5();
+	// 		return new MizaruHMACMD5();
 	// 	case MacAlgo::HMAC_SHA1:
-	// 		return new OSSLHMACSHA1();
+	// 		return new MizaruHMACSHA1();
 	// 	case MacAlgo::HMAC_SHA224:
-	// 		return new OSSLHMACSHA224();
+	// 		return new MizaruHMACSHA224();
 	// 	case MacAlgo::HMAC_SHA256:
-	// 		return new OSSLHMACSHA256();
+	// 		return new MizaruHMACSHA256();
 	// 	case MacAlgo::HMAC_SHA384:
-	// 		return new OSSLHMACSHA384();
+	// 		return new MizaruHMACSHA384();
 	// 	case MacAlgo::HMAC_SHA512:
-	// 		return new OSSLHMACSHA512();
+	// 		return new MizaruHMACSHA512();
 	// 	case MacAlgo::CMAC_DES:
-	// 		return new OSSLCMACDES();
+	// 		return new MizaruCMACDES();
 	// 	case MacAlgo::CMAC_AES:
-	// 		return new OSSLCMACAES();
+	// 		return new MizaruCMACAES();
 	// }
 
 	// // No algorithm implementation is available

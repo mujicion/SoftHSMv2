@@ -14,6 +14,10 @@ set(SOURCES mizaruStub.cpp
             MizaruSymmetricAlgorithm.cpp
             MizaruAES.cpp
             MizaruDES.cpp
+            MizaruRSA.cpp
+            MizaruRSAKeyPair.cpp
+            MizaruRSAPrivateKey.cpp
+            MizaruRSAPublicKey.cpp
             )
 
 include_directories(${INCLUDE_DIRS})
