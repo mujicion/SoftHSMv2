@@ -12,7 +12,7 @@ endif (WIN32)
 
 set(SOURCES p11test.cpp
             # SymmetricAlgorithmTests.cpp
-            # DigestTests.cpp
+            DigestTests.cpp
             # InitTests.cpp
             # InfoTests.cpp
             # RandomTests.cpp
@@ -23,7 +23,7 @@ set(SOURCES p11test.cpp
             # DeriveTests.cpp
             # SignVerifyTests.cpp
             # AsymEncryptDecryptTests.cpp
-            AsymWrapUnwrapTests.cpp
+            # AsymWrapUnwrapTests.cpp
             TestsBase.cpp
             TestsNoPINInitBase.cpp
             ../common/log.cpp

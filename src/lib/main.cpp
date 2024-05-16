@@ -92,11 +92,11 @@ static CK_FUNCTION_LIST functionList =
 	C_Decrypt,
 	C_DecryptUpdate,
 	C_DecryptFinal,
-	// C_DigestInit,
-	// C_Digest,
-	// C_DigestUpdate,
-	// C_DigestKey,
-	// C_DigestFinal,
+	C_DigestInit,
+	C_Digest,
+	C_DigestUpdate,
+	C_DigestKey,
+	C_DigestFinal,
 	// C_SignInit,
 	// C_Sign,
 	// C_SignUpdate,
@@ -684,80 +684,80 @@ PKCS_API CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Initialise digesting using the specified mechanism in the specified session
-// PKCS_API CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DigestInit(hSession, pMechanism);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise digesting using the specified mechanism in the specified session
+PKCS_API CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism)
+{
+	try
+	{
+		return SoftHSM::i()->C_DigestInit(hSession, pMechanism);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Digest the specified data in a one-pass operation and return the resulting digest
-// PKCS_API CK_RV C_Digest(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Digest(hSession, pData, ulDataLen, pDigest, pulDigestLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Digest the specified data in a one-pass operation and return the resulting digest
+PKCS_API CK_RV C_Digest(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Digest(hSession, pData, ulDataLen, pDigest, pulDigestLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running digest operation
-// PKCS_API CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DigestUpdate(hSession, pPart, ulPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running digest operation
+PKCS_API CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DigestUpdate(hSession, pPart, ulPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running digest operation by digesting a secret key with the specified handle
-// PKCS_API CK_RV C_DigestKey(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DigestKey(hSession, hObject);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running digest operation by digesting a secret key with the specified handle
+PKCS_API CK_RV C_DigestKey(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
+{
+	try
+	{
+		return SoftHSM::i()->C_DigestKey(hSession, hObject);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finalise the digest operation in the specified session and return the digest
-// PKCS_API CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DigestFinal(hSession, pDigest, pulDigestLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finalise the digest operation in the specified session and return the digest
+PKCS_API CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DigestFinal(hSession, pDigest, pulDigestLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // // Initialise a signing operation using the specified key and mechanism
 // PKCS_API CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
