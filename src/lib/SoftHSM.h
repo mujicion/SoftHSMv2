@@ -109,22 +109,22 @@ public:
 	CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
 	CK_RV C_DigestKey(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject);
 	CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK_ULONG_PTR pulDigestLen);
-	// CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
-	// CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
-	// CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
-	// CK_RV C_SignRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_SignRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
-	// CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen);
-	// CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
-	// CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen);
-	// CK_RV C_VerifyRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-	// CK_RV C_VerifyRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen);
-	// CK_RV C_DigestEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen);
-	// CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pDecryptedPart, CK_ULONG_PTR pulDecryptedPartLen);
-	// CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen);
-	// CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen);
+	CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
+	CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
+	CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
+	CK_RV C_SignRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_SignRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen);
+	CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen);
+	CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen);
+	CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen);
+	CK_RV C_VerifyRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV C_VerifyRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen);
+	CK_RV C_DigestEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen);
+	CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pDecryptedPart, CK_ULONG_PTR pulDecryptedPartLen);
+	CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen);
+	CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen);
 	CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey);
 	CK_RV C_GenerateKeyPair
 	(
@@ -206,11 +206,11 @@ private:
 	CK_RV SymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 	CK_RV AsymDecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 
-// 	// Sign/Verify variants
-// 	CK_RV MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);isMechanismPermitted
-// 	CK_RV AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-// 	CK_RV MacVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
-// 	CK_RV AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	// Sign/Verify variants
+	CK_RV MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV MacVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
+	CK_RV AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey);
 
 	// Key generation
 	CK_RV generateDES
@@ -262,94 +262,94 @@ private:
 		CK_BBOOL isPrivateKeyOnToken,
 		CK_BBOOL isPrivateKeyPrivate
 	);
-// 	CK_RV generateDSA
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
-// 	CK_RV generateDSAParameters
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// 	CK_RV generateEC
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
-// 	CK_RV generateED
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
-// 	CK_RV generateDH
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
-// 	CK_RV generateDHParameters
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pTemplate,
-// 		CK_ULONG ulCount,
-// 		CK_OBJECT_HANDLE_PTR phKey,
-// 		CK_BBOOL isOnToken,
-// 		CK_BBOOL isPrivate
-// 	);
-// 	CK_RV generateGOST
-// 	(
-// 		CK_SESSION_HANDLE hSession,
-// 		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-// 		CK_ULONG ulPublicKeyAttributeCount,
-// 		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-// 		CK_ULONG ulPrivateKeyAttributeCount,
-// 		CK_OBJECT_HANDLE_PTR phPublicKey,
-// 		CK_OBJECT_HANDLE_PTR phPrivateKey,
-// 		CK_BBOOL isPublicKeyOnToken,
-// 		CK_BBOOL isPublicKeyPrivate,
-// 		CK_BBOOL isPrivateKeyOnToken,
-// 		CK_BBOOL isPrivateKeyPrivate
-// 	);
+	CK_RV generateDSA
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
+	CK_RV generateDSAParameters
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+	CK_RV generateEC
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
+	CK_RV generateED
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
+	CK_RV generateDH
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
+	CK_RV generateDHParameters
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pTemplate,
+		CK_ULONG ulCount,
+		CK_OBJECT_HANDLE_PTR phKey,
+		CK_BBOOL isOnToken,
+		CK_BBOOL isPrivate
+	);
+	CK_RV generateGOST
+	(
+		CK_SESSION_HANDLE hSession,
+		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
+		CK_ULONG ulPublicKeyAttributeCount,
+		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
+		CK_ULONG ulPrivateKeyAttributeCount,
+		CK_OBJECT_HANDLE_PTR phPublicKey,
+		CK_OBJECT_HANDLE_PTR phPrivateKey,
+		CK_BBOOL isPublicKeyOnToken,
+		CK_BBOOL isPublicKeyPrivate,
+		CK_BBOOL isPrivateKeyOnToken,
+		CK_BBOOL isPrivateKeyPrivate
+	);
 	CK_RV generateGeneric
 	(
 		CK_SESSION_HANDLE hSession,
@@ -422,28 +422,28 @@ private:
 
 	CK_RV getRSAPrivateKey(RSAPrivateKey* privateKey, Token* token, OSObject* key);
 	CK_RV getRSAPublicKey(RSAPublicKey* publicKey, Token* token, OSObject* key);
-// 	CK_RV getDSAPrivateKey(DSAPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getDSAPublicKey(DSAPublicKey* publicKey, Token* token, OSObject* key);
-// 	CK_RV getECPrivateKey(ECPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getECPublicKey(ECPublicKey* publicKey, Token* token, OSObject* key);
-// 	CK_RV getEDPrivateKey(EDPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getEDPublicKey(EDPublicKey* publicKey, Token* token, OSObject* key);
-// 	CK_RV getDHPrivateKey(DHPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getDHPublicKey(DHPublicKey* publicKey, DHPrivateKey* privateKey, ByteString& pubParams);
-// 	CK_RV getECDHPublicKey(ECPublicKey* publicKey, ECPrivateKey* privateKey, ByteString& pubData);
-// 	CK_RV getEDDHPublicKey(EDPublicKey* publicKey, EDPrivateKey* privateKey, ByteString& pubData);
-// 	CK_RV getGOSTPrivateKey(GOSTPrivateKey* privateKey, Token* token, OSObject* key);
-// 	CK_RV getGOSTPublicKey(GOSTPublicKey* publicKey, Token* token, OSObject* key);
+	CK_RV getDSAPrivateKey(DSAPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getDSAPublicKey(DSAPublicKey* publicKey, Token* token, OSObject* key);
+	CK_RV getECPrivateKey(ECPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getECPublicKey(ECPublicKey* publicKey, Token* token, OSObject* key);
+	CK_RV getEDPrivateKey(EDPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getEDPublicKey(EDPublicKey* publicKey, Token* token, OSObject* key);
+	CK_RV getDHPrivateKey(DHPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getDHPublicKey(DHPublicKey* publicKey, DHPrivateKey* privateKey, ByteString& pubParams);
+	CK_RV getECDHPublicKey(ECPublicKey* publicKey, ECPrivateKey* privateKey, ByteString& pubData);
+	CK_RV getEDDHPublicKey(EDPublicKey* publicKey, EDPrivateKey* privateKey, ByteString& pubData);
+	CK_RV getGOSTPrivateKey(GOSTPrivateKey* privateKey, Token* token, OSObject* key);
+	CK_RV getGOSTPublicKey(GOSTPublicKey* publicKey, Token* token, OSObject* key);
 	CK_RV getSymmetricKey(SymmetricKey* skey, Token* token, OSObject* key);
 
-// 	ByteString getECDHPubData(ByteString& pubData);
+	ByteString getECDHPubData(ByteString& pubData);
 
 	bool setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-// 	bool setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-// 	bool setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-// 	bool setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-// 	bool setEDPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-// 	bool setGOSTPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setEDPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
+	bool setGOSTPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 
 
 	CK_RV WrapKeyAsym

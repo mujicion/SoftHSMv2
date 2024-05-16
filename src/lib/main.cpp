@@ -97,18 +97,18 @@ static CK_FUNCTION_LIST functionList =
 	C_DigestUpdate,
 	C_DigestKey,
 	C_DigestFinal,
-	// C_SignInit,
-	// C_Sign,
-	// C_SignUpdate,
-	// C_SignFinal,
-	// C_SignRecoverInit,
-	// C_SignRecover,
-	// C_VerifyInit,
-	// C_Verify,
-	// C_VerifyUpdate,
-	// C_VerifyFinal,
-	// C_VerifyRecoverInit,
-	// C_VerifyRecover,
+	C_SignInit,
+	C_Sign,
+	C_SignUpdate,
+	C_SignFinal,
+	C_SignRecoverInit,
+	C_SignRecover,
+	C_VerifyInit,
+	C_Verify,
+	C_VerifyUpdate,
+	C_VerifyFinal,
+	C_VerifyRecoverInit,
+	C_VerifyRecover,
 	// C_DigestEncryptUpdate,
 	// C_DecryptDigestUpdate,
 	// C_SignEncryptUpdate,
@@ -759,245 +759,245 @@ PKCS_API CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Initialise a signing operation using the specified key and mechanism
-// PKCS_API CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignInit(hSession, pMechanism, hKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise a signing operation using the specified key and mechanism
+PKCS_API CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignInit(hSession, pMechanism, hKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Sign the data in a single pass operation
-// PKCS_API CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Sign(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Sign the data in a single pass operation
+PKCS_API CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Sign(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running signing operation with additional data
-// PKCS_API CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignUpdate(hSession, pPart, ulPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running signing operation with additional data
+PKCS_API CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignUpdate(hSession, pPart, ulPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finalise a running signing operation and return the signature
-// PKCS_API CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignFinal(hSession, pSignature, pulSignatureLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finalise a running signing operation and return the signature
+PKCS_API CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignFinal(hSession, pSignature, pulSignatureLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise a signing operation that allows recovery of the signed data
-// PKCS_API CK_RV C_SignRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignRecoverInit(hSession, pMechanism, hKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise a signing operation that allows recovery of the signed data
+PKCS_API CK_RV C_SignRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignRecoverInit(hSession, pMechanism, hKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Perform a single part signing operation that allows recovery of the signed data
-// PKCS_API CK_RV C_SignRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignRecover(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Perform a single part signing operation that allows recovery of the signed data
+PKCS_API CK_RV C_SignRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG_PTR pulSignatureLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignRecover(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise a verification operation using the specified key and mechanism
-// PKCS_API CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_VerifyInit(hSession, pMechanism, hKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise a verification operation using the specified key and mechanism
+PKCS_API CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_VerifyInit(hSession, pMechanism, hKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Perform a single pass verification operation
-// PKCS_API CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_Verify(hSession, pData, ulDataLen, pSignature, ulSignatureLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Perform a single pass verification operation
+PKCS_API CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ulDataLen, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_Verify(hSession, pData, ulDataLen, pSignature, ulSignatureLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running verification operation with additional data
-// PKCS_API CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_VerifyUpdate(hSession, pPart, ulPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running verification operation with additional data
+PKCS_API CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_VerifyUpdate(hSession, pPart, ulPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Finalise the verification operation and check the signature
-// PKCS_API CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_VerifyFinal(hSession, pSignature, ulSignatureLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Finalise the verification operation and check the signature
+PKCS_API CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_VerifyFinal(hSession, pSignature, ulSignatureLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Initialise a verification operation the allows recovery of the signed data from the signature
-// PKCS_API CK_RV C_VerifyRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_VerifyRecoverInit(hSession, pMechanism, hKey);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Initialise a verification operation the allows recovery of the signed data from the signature
+PKCS_API CK_RV C_VerifyRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_OBJECT_HANDLE hKey)
+{
+	try
+	{
+		return SoftHSM::i()->C_VerifyRecoverInit(hSession, pMechanism, hKey);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Perform a single part verification operation and recover the signed data
-// PKCS_API CK_RV C_VerifyRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_VerifyRecover(hSession, pSignature, ulSignatureLen, pData, pulDataLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Perform a single part verification operation and recover the signed data
+PKCS_API CK_RV C_VerifyRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, CK_ULONG ulSignatureLen, CK_BYTE_PTR pData, CK_ULONG_PTR pulDataLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_VerifyRecover(hSession, pSignature, ulSignatureLen, pData, pulDataLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running multi-part encryption and digesting operation
-// PKCS_API CK_RV C_DigestEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DigestEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running multi-part encryption and digesting operation
+PKCS_API CK_RV C_DigestEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DigestEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running multi-part decryption and digesting operation
-// PKCS_API CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pDecryptedPart, CK_ULONG_PTR pulDecryptedPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DecryptDigestUpdate(hSession, pPart, ulPartLen, pDecryptedPart, pulDecryptedPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running multi-part decryption and digesting operation
+PKCS_API CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pDecryptedPart, CK_ULONG_PTR pulDecryptedPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DecryptDigestUpdate(hSession, pPart, ulPartLen, pDecryptedPart, pulDecryptedPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running multi-part signing and encryption operation
-// PKCS_API CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_SignEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running multi-part signing and encryption operation
+PKCS_API CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_ULONG ulPartLen, CK_BYTE_PTR pEncryptedPart, CK_ULONG_PTR pulEncryptedPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_SignEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Update a running multi-part decryption and verification operation
-// PKCS_API CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_DecryptVerifyUpdate(hSession, pEncryptedPart, ulEncryptedPartLen, pPart, pulPartLen);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Update a running multi-part decryption and verification operation
+PKCS_API CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedPart, CK_ULONG ulEncryptedPartLen, CK_BYTE_PTR pPart, CK_ULONG_PTR pulPartLen)
+{
+	try
+	{
+		return SoftHSM::i()->C_DecryptVerifyUpdate(hSession, pEncryptedPart, ulEncryptedPartLen, pPart, pulPartLen);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // Generate a secret key using the specified mechanism
 PKCS_API CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanism, CK_ATTRIBUTE_PTR pTemplate, CK_ULONG ulCount, CK_OBJECT_HANDLE_PTR phKey)
