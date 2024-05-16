@@ -19,9 +19,9 @@ set(SOURCES p11test.cpp
             # SessionTests.cpp
             # TokenTests.cpp
             # UserTests.cpp
-            # ObjectTests.cpp
+            ObjectTests.cpp
             # DeriveTests.cpp
-            SignVerifyTests.cpp
+            # SignVerifyTests.cpp
             # AsymEncryptDecryptTests.cpp
             # AsymWrapUnwrapTests.cpp
             TestsBase.cpp

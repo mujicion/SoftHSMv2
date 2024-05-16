@@ -109,14 +109,14 @@ static CK_FUNCTION_LIST functionList =
 	C_VerifyFinal,
 	C_VerifyRecoverInit,
 	C_VerifyRecover,
-	// C_DigestEncryptUpdate,
-	// C_DecryptDigestUpdate,
-	// C_SignEncryptUpdate,
-	// C_DecryptVerifyUpdate,
-	// C_GenerateKey,
-	// C_GenerateKeyPair,
-	// C_WrapKey,
-	// C_UnwrapKey,
+	C_DigestEncryptUpdate,
+	C_DecryptDigestUpdate,
+	C_SignEncryptUpdate,
+	C_DecryptVerifyUpdate,
+	C_GenerateKey,
+	C_GenerateKeyPair,
+	C_WrapKey,
+	C_UnwrapKey,
 	// C_DeriveKey,
 	// C_SeedRandom,
 	// C_GenerateRandom,
@@ -1106,7 +1106,7 @@ PKCS_API CK_RV C_UnwrapKey
 // 	{
 // 		FatalException();
 // 	}
-
+// 
 // 	return CKR_FUNCTION_FAILED;
 // }
 
@@ -1140,35 +1140,35 @@ PKCS_API CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomD
 	return CKR_FUNCTION_FAILED;
 }
 
-// // Legacy function
-// PKCS_API CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_GetFunctionStatus(hSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Legacy function
+PKCS_API CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_GetFunctionStatus(hSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
-// // Legacy function
-// PKCS_API CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession)
-// {
-// 	try
-// 	{
-// 		return SoftHSM::i()->C_CancelFunction(hSession);
-// 	}
-// 	catch (...)
-// 	{
-// 		FatalException();
-// 	}
+// Legacy function
+PKCS_API CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession)
+{
+	try
+	{
+		return SoftHSM::i()->C_CancelFunction(hSession);
+	}
+	catch (...)
+	{
+		FatalException();
+	}
 
-// 	return CKR_FUNCTION_FAILED;
-// }
+	return CKR_FUNCTION_FAILED;
+}
 
 // Wait or poll for a slot even on the specified slot
 PKCS_API CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_PTR pReserved)

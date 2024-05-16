@@ -7186,36 +7186,36 @@ CK_RV SoftHSM::C_UnwrapKey
 					value = keydata;
 				bOK = bOK && osobject->setAttribute(CKA_VALUE, value);
 			}
-// 			else if (keyType == CKK_RSA)
-// 			{
-// 				bOK = bOK && setRSAPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// 			else if (keyType == CKK_DSA)
-// 			{
-// 				bOK = bOK && setDSAPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// 			else if (keyType == CKK_DH)
-// 			{
-// 				bOK = bOK && setDHPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// #ifdef WITH_ECC
-// 			else if (keyType == CKK_EC)
-// 			{
-// 				bOK = bOK && setECPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// #endif
-// #ifdef WITH_EDDSA
-// 			else if (keyType == CKK_EC_EDWARDS)
-// 			{
-// 				bOK = bOK && setEDPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// #endif
-// #ifdef WITH_GOST
-// 			else if (keyType == CKK_GOSTR3410)
-// 			{
-// 				bOK = bOK && setGOSTPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
-// 			}
-// #endif
+			else if (keyType == CKK_RSA)
+			{
+				bOK = bOK && setRSAPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+			else if (keyType == CKK_DSA)
+			{
+				bOK = bOK && setDSAPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+			else if (keyType == CKK_DH)
+			{
+				bOK = bOK && setDHPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+#ifdef WITH_ECC
+			else if (keyType == CKK_EC)
+			{
+				bOK = bOK && setECPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+#endif
+#ifdef WITH_EDDSA
+			else if (keyType == CKK_EC_EDWARDS)
+			{
+				bOK = bOK && setEDPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+#endif
+#ifdef WITH_GOST
+			else if (keyType == CKK_GOSTR3410)
+			{
+				bOK = bOK && setGOSTPrivateKey(osobject, keydata, token, isPrivate != CK_FALSE);
+			}
+#endif
 			else
 				bOK = false;
 
@@ -7487,29 +7487,29 @@ CK_RV SoftHSM::C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomD
 	return CKR_OK;
 }
 
-// // Legacy function
-// CK_RV SoftHSM::C_GetFunctionStatus(CK_SESSION_HANDLE hSession)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Legacy function
+CK_RV SoftHSM::C_GetFunctionStatus(CK_SESSION_HANDLE hSession)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	return CKR_FUNCTION_NOT_PARALLEL;
-// }
+	return CKR_FUNCTION_NOT_PARALLEL;
+}
 
-// // Legacy function
-// CK_RV SoftHSM::C_CancelFunction(CK_SESSION_HANDLE hSession)
-// {
-// 	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
+// Legacy function
+CK_RV SoftHSM::C_CancelFunction(CK_SESSION_HANDLE hSession)
+{
+	if (!isInitialised) return CKR_CRYPTOKI_NOT_INITIALIZED;
 
-// 	// Get the session
-// 	Session* session = (Session*)handleManager->getSession(hSession);
-// 	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
+	// Get the session
+	Session* session = (Session*)handleManager->getSession(hSession);
+	if (session == NULL) return CKR_SESSION_HANDLE_INVALID;
 
-// 	return CKR_FUNCTION_NOT_PARALLEL;
-// }
+	return CKR_FUNCTION_NOT_PARALLEL;
+}
 
 // Wait or poll for a slot event on the specified slot
 CK_RV SoftHSM::C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR /*pSlot*/, CK_VOID_PTR /*pReserved*/)
@@ -12557,281 +12557,281 @@ CK_RV SoftHSM::getSymmetricKey(SymmetricKey* skey, Token* token, OSObject* key)
 	return CKR_OK;
 }
 
-// bool SoftHSM::setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* rsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::RSA);
-// 	if (rsa == NULL)
-// 		return false;
-// 	PrivateKey* priv = rsa->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		rsa->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
-// 		return false;
-// 	}
-// 	// RSA Private Key Attributes
-// 	ByteString modulus;
-// 	ByteString publicExponent;
-// 	ByteString privateExponent;
-// 	ByteString prime1;
-// 	ByteString prime2;
-// 	ByteString exponent1;
-// 	ByteString exponent2;
-// 	ByteString coefficient;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((RSAPrivateKey*)priv)->getN(), modulus);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getE(), publicExponent);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getD(), privateExponent);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getP(), prime1);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getQ(), prime2);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getDP1(), exponent1);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getDQ1(), exponent2);
-// 		token->encrypt(((RSAPrivateKey*)priv)->getPQ(), coefficient);
-// 	}
-// 	else
-// 	{
-// 		modulus = ((RSAPrivateKey*)priv)->getN();
-// 		publicExponent = ((RSAPrivateKey*)priv)->getE();
-// 		privateExponent = ((RSAPrivateKey*)priv)->getD();
-// 		prime1 = ((RSAPrivateKey*)priv)->getP();
-// 		prime2 = ((RSAPrivateKey*)priv)->getQ();
-// 		exponent1 =  ((RSAPrivateKey*)priv)->getDP1();
-// 		exponent2 = ((RSAPrivateKey*)priv)->getDQ1();
-// 		coefficient = ((RSAPrivateKey*)priv)->getPQ();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_MODULUS, modulus);
-// 	bOK = bOK && key->setAttribute(CKA_PUBLIC_EXPONENT, publicExponent);
-// 	bOK = bOK && key->setAttribute(CKA_PRIVATE_EXPONENT, privateExponent);
-// 	bOK = bOK && key->setAttribute(CKA_PRIME_1, prime1);
-// 	bOK = bOK && key->setAttribute(CKA_PRIME_2, prime2);
-// 	bOK = bOK && key->setAttribute(CKA_EXPONENT_1,exponent1);
-// 	bOK = bOK && key->setAttribute(CKA_EXPONENT_2, exponent2);
-// 	bOK = bOK && key->setAttribute(CKA_COEFFICIENT, coefficient);
+bool SoftHSM::setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* rsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::RSA);
+	if (rsa == NULL)
+		return false;
+	PrivateKey* priv = rsa->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		rsa->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
+		return false;
+	}
+	// RSA Private Key Attributes
+	ByteString modulus;
+	ByteString publicExponent;
+	ByteString privateExponent;
+	ByteString prime1;
+	ByteString prime2;
+	ByteString exponent1;
+	ByteString exponent2;
+	ByteString coefficient;
+	if (isPrivate)
+	{
+		token->encrypt(((RSAPrivateKey*)priv)->getN(), modulus);
+		token->encrypt(((RSAPrivateKey*)priv)->getE(), publicExponent);
+		token->encrypt(((RSAPrivateKey*)priv)->getD(), privateExponent);
+		token->encrypt(((RSAPrivateKey*)priv)->getP(), prime1);
+		token->encrypt(((RSAPrivateKey*)priv)->getQ(), prime2);
+		token->encrypt(((RSAPrivateKey*)priv)->getDP1(), exponent1);
+		token->encrypt(((RSAPrivateKey*)priv)->getDQ1(), exponent2);
+		token->encrypt(((RSAPrivateKey*)priv)->getPQ(), coefficient);
+	}
+	else
+	{
+		modulus = ((RSAPrivateKey*)priv)->getN();
+		publicExponent = ((RSAPrivateKey*)priv)->getE();
+		privateExponent = ((RSAPrivateKey*)priv)->getD();
+		prime1 = ((RSAPrivateKey*)priv)->getP();
+		prime2 = ((RSAPrivateKey*)priv)->getQ();
+		exponent1 =  ((RSAPrivateKey*)priv)->getDP1();
+		exponent2 = ((RSAPrivateKey*)priv)->getDQ1();
+		coefficient = ((RSAPrivateKey*)priv)->getPQ();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_MODULUS, modulus);
+	bOK = bOK && key->setAttribute(CKA_PUBLIC_EXPONENT, publicExponent);
+	bOK = bOK && key->setAttribute(CKA_PRIVATE_EXPONENT, privateExponent);
+	bOK = bOK && key->setAttribute(CKA_PRIME_1, prime1);
+	bOK = bOK && key->setAttribute(CKA_PRIME_2, prime2);
+	bOK = bOK && key->setAttribute(CKA_EXPONENT_1,exponent1);
+	bOK = bOK && key->setAttribute(CKA_EXPONENT_2, exponent2);
+	bOK = bOK && key->setAttribute(CKA_COEFFICIENT, coefficient);
 
-// 	rsa->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
+	rsa->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(rsa);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
-// bool SoftHSM::setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* dsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DSA);
-// 	if (dsa == NULL)
-// 		return false;
-// 	PrivateKey* priv = dsa->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		dsa->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
-// 		return false;
-// 	}
-// 	// DSA Private Key Attributes
-// 	ByteString prime;
-// 	ByteString subprime;
-// 	ByteString generator;
-// 	ByteString value;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((DSAPrivateKey*)priv)->getP(), prime);
-// 		token->encrypt(((DSAPrivateKey*)priv)->getQ(), subprime);
-// 		token->encrypt(((DSAPrivateKey*)priv)->getG(), generator);
-// 		token->encrypt(((DSAPrivateKey*)priv)->getX(), value);
-// 	}
-// 	else
-// 	{
-// 		prime = ((DSAPrivateKey*)priv)->getP();
-// 		subprime = ((DSAPrivateKey*)priv)->getQ();
-// 		generator = ((DSAPrivateKey*)priv)->getG();
-// 		value = ((DSAPrivateKey*)priv)->getX();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_PRIME, prime);
-// 	bOK = bOK && key->setAttribute(CKA_SUBPRIME, subprime);
-// 	bOK = bOK && key->setAttribute(CKA_BASE, generator);
-// 	bOK = bOK && key->setAttribute(CKA_VALUE, value);
+bool SoftHSM::setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* dsa = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DSA);
+	if (dsa == NULL)
+		return false;
+	PrivateKey* priv = dsa->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		dsa->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
+		return false;
+	}
+	// DSA Private Key Attributes
+	ByteString prime;
+	ByteString subprime;
+	ByteString generator;
+	ByteString value;
+	if (isPrivate)
+	{
+		token->encrypt(((DSAPrivateKey*)priv)->getP(), prime);
+		token->encrypt(((DSAPrivateKey*)priv)->getQ(), subprime);
+		token->encrypt(((DSAPrivateKey*)priv)->getG(), generator);
+		token->encrypt(((DSAPrivateKey*)priv)->getX(), value);
+	}
+	else
+	{
+		prime = ((DSAPrivateKey*)priv)->getP();
+		subprime = ((DSAPrivateKey*)priv)->getQ();
+		generator = ((DSAPrivateKey*)priv)->getG();
+		value = ((DSAPrivateKey*)priv)->getX();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_PRIME, prime);
+	bOK = bOK && key->setAttribute(CKA_SUBPRIME, subprime);
+	bOK = bOK && key->setAttribute(CKA_BASE, generator);
+	bOK = bOK && key->setAttribute(CKA_VALUE, value);
 
-// 	dsa->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
+	dsa->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(dsa);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
-// bool SoftHSM::setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* dh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DH);
-// 	if (dh == NULL)
-// 		return false;
-// 	PrivateKey* priv = dh->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		dh->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
-// 		return false;
-// 	}
-// 	// DH Private Key Attributes
-// 	ByteString prime;
-// 	ByteString generator;
-// 	ByteString value;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((DHPrivateKey*)priv)->getP(), prime);
-// 		token->encrypt(((DHPrivateKey*)priv)->getG(), generator);
-// 		token->encrypt(((DHPrivateKey*)priv)->getX(), value);
-// 	}
-// 	else
-// 	{
-// 		prime = ((DHPrivateKey*)priv)->getP();
-// 		generator = ((DHPrivateKey*)priv)->getG();
-// 		value = ((DHPrivateKey*)priv)->getX();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_PRIME, prime);
-// 	bOK = bOK && key->setAttribute(CKA_BASE, generator);
-// 	bOK = bOK && key->setAttribute(CKA_VALUE, value);
+bool SoftHSM::setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* dh = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::DH);
+	if (dh == NULL)
+		return false;
+	PrivateKey* priv = dh->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		dh->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
+		return false;
+	}
+	// DH Private Key Attributes
+	ByteString prime;
+	ByteString generator;
+	ByteString value;
+	if (isPrivate)
+	{
+		token->encrypt(((DHPrivateKey*)priv)->getP(), prime);
+		token->encrypt(((DHPrivateKey*)priv)->getG(), generator);
+		token->encrypt(((DHPrivateKey*)priv)->getX(), value);
+	}
+	else
+	{
+		prime = ((DHPrivateKey*)priv)->getP();
+		generator = ((DHPrivateKey*)priv)->getG();
+		value = ((DHPrivateKey*)priv)->getX();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_PRIME, prime);
+	bOK = bOK && key->setAttribute(CKA_BASE, generator);
+	bOK = bOK && key->setAttribute(CKA_VALUE, value);
 
-// 	dh->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
+	dh->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(dh);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
-// bool SoftHSM::setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* ecc = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDSA);
-// 	if (ecc == NULL)
-// 		return false;
-// 	PrivateKey* priv = ecc->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		ecc->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
-// 		return false;
-// 	}
-// 	// EC Private Key Attributes
-// 	ByteString group;
-// 	ByteString value;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((ECPrivateKey*)priv)->getEC(), group);
-// 		token->encrypt(((ECPrivateKey*)priv)->getD(), value);
-// 	}
-// 	else
-// 	{
-// 		group = ((ECPrivateKey*)priv)->getEC();
-// 		value = ((ECPrivateKey*)priv)->getD();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_EC_PARAMS, group);
-// 	bOK = bOK && key->setAttribute(CKA_VALUE, value);
+bool SoftHSM::setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* ecc = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::ECDSA);
+	if (ecc == NULL)
+		return false;
+	PrivateKey* priv = ecc->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		ecc->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+		return false;
+	}
+	// EC Private Key Attributes
+	ByteString group;
+	ByteString value;
+	if (isPrivate)
+	{
+		token->encrypt(((ECPrivateKey*)priv)->getEC(), group);
+		token->encrypt(((ECPrivateKey*)priv)->getD(), value);
+	}
+	else
+	{
+		group = ((ECPrivateKey*)priv)->getEC();
+		value = ((ECPrivateKey*)priv)->getD();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_EC_PARAMS, group);
+	bOK = bOK && key->setAttribute(CKA_VALUE, value);
 
-// 	ecc->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+	ecc->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
-// bool SoftHSM::setEDPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* ecc = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::EDDSA);
-// 	if (ecc == NULL)
-// 		return false;
-// 	PrivateKey* priv = ecc->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		ecc->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
-// 		return false;
-// 	}
-// 	// EC Private Key Attributes
-// 	ByteString group;
-// 	ByteString value;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((EDPrivateKey*)priv)->getEC(), group);
-// 		token->encrypt(((EDPrivateKey*)priv)->getK(), value);
-// 	}
-// 	else
-// 	{
-// 		group = ((EDPrivateKey*)priv)->getEC();
-// 		value = ((EDPrivateKey*)priv)->getK();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_EC_PARAMS, group);
-// 	bOK = bOK && key->setAttribute(CKA_VALUE, value);
+bool SoftHSM::setEDPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* ecc = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::EDDSA);
+	if (ecc == NULL)
+		return false;
+	PrivateKey* priv = ecc->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		ecc->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+		return false;
+	}
+	// EC Private Key Attributes
+	ByteString group;
+	ByteString value;
+	if (isPrivate)
+	{
+		token->encrypt(((EDPrivateKey*)priv)->getEC(), group);
+		token->encrypt(((EDPrivateKey*)priv)->getK(), value);
+	}
+	else
+	{
+		group = ((EDPrivateKey*)priv)->getEC();
+		value = ((EDPrivateKey*)priv)->getK();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_EC_PARAMS, group);
+	bOK = bOK && key->setAttribute(CKA_VALUE, value);
 
-// 	ecc->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
+	ecc->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(ecc);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
-// bool SoftHSM::setGOSTPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
-// {
-// 	AsymmetricAlgorithm* gost = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::GOST);
-// 	if (gost == NULL)
-// 		return false;
-// 	PrivateKey* priv = gost->newPrivateKey();
-// 	if (priv == NULL)
-// 	{
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
-// 		return false;
-// 	}
-// 	if (!priv->PKCS8Decode(ber))
-// 	{
-// 		gost->recyclePrivateKey(priv);
-// 		CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
-// 		return false;
-// 	}
-// 	// GOST Private Key Attributes
-// 	ByteString value;
-// 	ByteString param_a;
-// 	if (isPrivate)
-// 	{
-// 		token->encrypt(((GOSTPrivateKey*)priv)->getD(), value);
-// 		token->encrypt(((GOSTPrivateKey*)priv)->getEC(), param_a);
-// 	}
-// 	else
-// 	{
-// 		value = ((GOSTPrivateKey*)priv)->getD();
-// 		param_a = ((GOSTPrivateKey*)priv)->getEC();
-// 	}
-// 	bool bOK = true;
-// 	bOK = bOK && key->setAttribute(CKA_VALUE, value);
-// 	bOK = bOK && key->setAttribute(CKA_GOSTR3410_PARAMS, param_a);
+bool SoftHSM::setGOSTPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const
+{
+	AsymmetricAlgorithm* gost = CryptoFactory::i()->getAsymmetricAlgorithm(AsymAlgo::GOST);
+	if (gost == NULL)
+		return false;
+	PrivateKey* priv = gost->newPrivateKey();
+	if (priv == NULL)
+	{
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
+		return false;
+	}
+	if (!priv->PKCS8Decode(ber))
+	{
+		gost->recyclePrivateKey(priv);
+		CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
+		return false;
+	}
+	// GOST Private Key Attributes
+	ByteString value;
+	ByteString param_a;
+	if (isPrivate)
+	{
+		token->encrypt(((GOSTPrivateKey*)priv)->getD(), value);
+		token->encrypt(((GOSTPrivateKey*)priv)->getEC(), param_a);
+	}
+	else
+	{
+		value = ((GOSTPrivateKey*)priv)->getD();
+		param_a = ((GOSTPrivateKey*)priv)->getEC();
+	}
+	bool bOK = true;
+	bOK = bOK && key->setAttribute(CKA_VALUE, value);
+	bOK = bOK && key->setAttribute(CKA_GOSTR3410_PARAMS, param_a);
 
-// 	gost->recyclePrivateKey(priv);
-// 	CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
+	gost->recyclePrivateKey(priv);
+	CryptoFactory::i()->recycleAsymmetricAlgorithm(gost);
 
-// 	return bOK;
-// }
+	return bOK;
+}
 
 CK_RV SoftHSM::MechParamCheckRSAPKCSOAEP(CK_MECHANISM_PTR pMechanism)
 {
