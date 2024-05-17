@@ -941,8 +941,8 @@ void ObjectTests::testCreateObject()
 	CPPUNIT_ASSERT(rv==CKR_OK);
 
 	// Create a secret object
-	// rv = CRYPTOKI_F_PTR( C_GenerateRandom(hSession, keyPtr, keyLen) );
-	// CPPUNIT_ASSERT(rv == CKR_OK);
+	rv = CRYPTOKI_F_PTR( C_GenerateRandom(hSession, keyPtr, keyLen) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
 	rv = CRYPTOKI_F_PTR( C_CreateObject(hSession, attribs, sizeof(attribs)/sizeof(CK_ATTRIBUTE), &hObject) );
 	CPPUNIT_ASSERT(rv == CKR_OK);
 
