@@ -2526,8 +2526,8 @@ CK_RV SoftHSM::C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 {
 	if (isSymMechanism(pMechanism))
 		return SymEncryptInit(hSession, pMechanism, hKey);
-	// else
-	// 	return AsymEncryptInit(hSession, pMechanism, hKey);
+	else
+		return AsymEncryptInit(hSession, pMechanism, hKey);
 }
 
 // SymAlgorithm version of C_Encrypt
