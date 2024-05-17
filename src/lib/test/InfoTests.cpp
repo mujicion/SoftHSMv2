@@ -152,57 +152,57 @@ void InfoTests::testGetSlotInfo()
 	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
 }
 
-// #ifndef P11_SHARED_LIBRARY
-// void InfoTests::testGetSlotInfoAlt()
-// {
-// 	CK_RV rv;
-// 	CK_SLOT_INFO slotInfo;
+#ifndef P11_SHARED_LIBRARY
+void InfoTests::testGetSlotInfoAlt()
+{
+	CK_RV rv;
+	CK_SLOT_INFO slotInfo;
 
-// 	// Just make sure that we finalize any previous failed tests
-// 	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
+	// Just make sure that we finalize any previous failed tests
+	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
 
-// #ifndef _WIN32
-//     setenv("SOFTHSM2_CONF", "./softhsm2-alt.conf", 1);
-// #else
-//     setenv("SOFTHSM2_CONF", ".\\softhsm2-alt.conf", 1);
-// #endif
+#ifndef _WIN32
+    setenv("SOFTHSM2_CONF", "./softhsm2-alt.conf", 1);
+#else
+    setenv("SOFTHSM2_CONF", ".\\softhsm2-alt.conf", 1);
+#endif
 
-// 	CK_UTF8CHAR label[32];
-// 	memset(label, ' ', 32);
-// 	memcpy(label, "token1", strlen("token1"));
+	CK_UTF8CHAR label[32];
+	memset(label, ' ', 32);
+	memcpy(label, "token1", strlen("token1"));
 
-// 	// (Re)initialize the token
-// 	rv = CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) );
-// 	CPPUNIT_ASSERT(rv == CKR_OK);
-// 	rv = CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) );
-// 	CPPUNIT_ASSERT(rv == CKR_OK);
-// 	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
+	// (Re)initialize the token
+	rv = CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
+	rv = CRYPTOKI_F_PTR( C_InitToken(m_initializedTokenSlotID, m_soPin1, m_soPin1Length, label) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
+	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
 
-// 	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, &slotInfo) );
-// 	CPPUNIT_ASSERT(rv == CKR_CRYPTOKI_NOT_INITIALIZED);
+	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, &slotInfo) );
+	CPPUNIT_ASSERT(rv == CKR_CRYPTOKI_NOT_INITIALIZED);
 
-// 	rv = CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) );
-// 	CPPUNIT_ASSERT(rv == CKR_OK);
+	rv = CRYPTOKI_F_PTR( C_Initialize(NULL_PTR) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
 
-// 	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, NULL_PTR) );
-// 	CPPUNIT_ASSERT(rv == CKR_ARGUMENTS_BAD);
+	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, NULL_PTR) );
+	CPPUNIT_ASSERT(rv == CKR_ARGUMENTS_BAD);
 
-// 	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_invalidSlotID, &slotInfo) );
-// 	CPPUNIT_ASSERT(rv == CKR_SLOT_ID_INVALID);
+	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_invalidSlotID, &slotInfo) );
+	CPPUNIT_ASSERT(rv == CKR_SLOT_ID_INVALID);
 
-// 	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, &slotInfo) );
-// 	CPPUNIT_ASSERT(rv == CKR_OK);
-// 	CPPUNIT_ASSERT((slotInfo.flags & CKF_TOKEN_PRESENT ) == CKF_TOKEN_PRESENT);
-// 	CPPUNIT_ASSERT((slotInfo.flags & CKF_REMOVABLE_DEVICE ) == CKF_REMOVABLE_DEVICE);
+	rv = CRYPTOKI_F_PTR( C_GetSlotInfo(m_notInitializedTokenSlotID, &slotInfo) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
+	CPPUNIT_ASSERT((slotInfo.flags & CKF_TOKEN_PRESENT ) == CKF_TOKEN_PRESENT);
+	CPPUNIT_ASSERT((slotInfo.flags & CKF_REMOVABLE_DEVICE ) == CKF_REMOVABLE_DEVICE);
 
-// 	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
-// #ifndef _WIN32
-// 	setenv("SOFTHSM2_CONF", "./softhsm2.conf", 1);
-// #else
-// 	setenv("SOFTHSM2_CONF", ".\\softhsm2.conf", 1);
-// #endif
-// }
-// #endif // P11_SHARED_LIBRARY
+	CRYPTOKI_F_PTR( C_Finalize(NULL_PTR) );
+#ifndef _WIN32
+	setenv("SOFTHSM2_CONF", "./softhsm2.conf", 1);
+#else
+	setenv("SOFTHSM2_CONF", ".\\softhsm2.conf", 1);
+#endif
+}
+#endif // P11_SHARED_LIBRARY
 
 
 void InfoTests::testGetTokenInfo()
@@ -346,9 +346,9 @@ void InfoTests::testGetMechanismListConfig()
 	CPPUNIT_ASSERT(rv == CKR_OK);
 
 	// Get the size of the buffer
-	// rv = CRYPTOKI_F_PTR( C_GetMechanismList(m_initializedTokenSlotID, NULL_PTR, &ulMechCount) );
-	// CPPUNIT_ASSERT(rv == CKR_OK);
-	// CPPUNIT_ASSERT_EQUAL((CK_ULONG)2, ulMechCount);
+	rv = CRYPTOKI_F_PTR( C_GetMechanismList(m_initializedTokenSlotID, NULL_PTR, &ulMechCount) );
+	CPPUNIT_ASSERT(rv == CKR_OK);
+	CPPUNIT_ASSERT_EQUAL((CK_ULONG)2, ulMechCount);
 	pMechanismList = (CK_MECHANISM_TYPE_PTR)malloc(ulMechCount * sizeof(CK_MECHANISM_TYPE_PTR));
 
 	// Get the mechanism list
