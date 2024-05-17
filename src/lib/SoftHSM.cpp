@@ -6140,55 +6140,55 @@ CK_RV SoftHSM::C_GenerateKeyPair
 									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
 	}
 
-	// // Generate DSA keys
-	// if (pMechanism->mechanism == CKM_DSA_KEY_PAIR_GEN)
-	// {
-	// 		return this->generateDSA(hSession,
-	// 								 pPublicKeyTemplate, ulPublicKeyAttributeCount,
-	// 								 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
-	// 								 phPublicKey, phPrivateKey,
-	// 								 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
-	// }
+	// Generate DSA keys
+	if (pMechanism->mechanism == CKM_DSA_KEY_PAIR_GEN)
+	{
+			return this->generateDSA(hSession,
+									 pPublicKeyTemplate, ulPublicKeyAttributeCount,
+									 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
+									 phPublicKey, phPrivateKey,
+									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
+	}
 
-	// // Generate EC keys
-	// if (pMechanism->mechanism == CKM_EC_KEY_PAIR_GEN)
-	// {
-	// 		return this->generateEC(hSession,
-	// 								 pPublicKeyTemplate, ulPublicKeyAttributeCount,
-	// 								 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
-	// 								 phPublicKey, phPrivateKey,
-	// 								 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
-	// }
+	// Generate EC keys
+	if (pMechanism->mechanism == CKM_EC_KEY_PAIR_GEN)
+	{
+			return this->generateEC(hSession,
+									 pPublicKeyTemplate, ulPublicKeyAttributeCount,
+									 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
+									 phPublicKey, phPrivateKey,
+									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
+	}
 
-	// // Generate DH keys
-	// if (pMechanism->mechanism == CKM_DH_PKCS_KEY_PAIR_GEN)
-	// {
-	// 		return this->generateDH(hSession,
-	// 								 pPublicKeyTemplate, ulPublicKeyAttributeCount,
-	// 								 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
-	// 								 phPublicKey, phPrivateKey,
-	// 								 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
-	// }
+	// Generate DH keys
+	if (pMechanism->mechanism == CKM_DH_PKCS_KEY_PAIR_GEN)
+	{
+			return this->generateDH(hSession,
+									 pPublicKeyTemplate, ulPublicKeyAttributeCount,
+									 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
+									 phPublicKey, phPrivateKey,
+									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
+	}
 
-	// // Generate GOST keys
-	// if (pMechanism->mechanism == CKM_GOSTR3410_KEY_PAIR_GEN)
-	// {
-	// 		return this->generateGOST(hSession,
-	// 								 pPublicKeyTemplate, ulPublicKeyAttributeCount,
-	// 								 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
-	// 								 phPublicKey, phPrivateKey,
-	// 								 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
-	// }
+	// Generate GOST keys
+	if (pMechanism->mechanism == CKM_GOSTR3410_KEY_PAIR_GEN)
+	{
+			return this->generateGOST(hSession,
+									 pPublicKeyTemplate, ulPublicKeyAttributeCount,
+									 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
+									 phPublicKey, phPrivateKey,
+									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
+	}
 
-	// // Generate EDDSA keys
-	// if (pMechanism->mechanism == CKM_EC_EDWARDS_KEY_PAIR_GEN)
-	// {
-	// 		return this->generateED(hSession,
-	// 								 pPublicKeyTemplate, ulPublicKeyAttributeCount,
-	// 								 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
-	// 								 phPublicKey, phPrivateKey,
-	// 								 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
-	// }
+	// Generate EDDSA keys
+	if (pMechanism->mechanism == CKM_EC_EDWARDS_KEY_PAIR_GEN)
+	{
+			return this->generateED(hSession,
+									 pPublicKeyTemplate, ulPublicKeyAttributeCount,
+									 pPrivateKeyTemplate, ulPrivateKeyAttributeCount,
+									 phPublicKey, phPrivateKey,
+									 ispublicKeyToken, ispublicKeyPrivate, isprivateKeyToken, isprivateKeyPrivate);
+	}
 
 	return CKR_GENERAL_ERROR;
 }
