@@ -1,32 +1,28 @@
 project(softhsm_objectstore)
 
-set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
-                 ${PROJECT_SOURCE_DIR}/../common
-                 ${PROJECT_SOURCE_DIR}/../crypto
-                 ${PROJECT_SOURCE_DIR}/../data_mgr
-                 ${PROJECT_SOURCE_DIR}/../pkcs11
-                 ${SQLITE3_INCLUDES}
-                 )
+set(INCLUDE_DIRS    ${PROJECT_SOURCE_DIR}
+                    ${PROJECT_SOURCE_DIR}/OS
+                    ${PROJECT_SOURCE_DIR}/../common
+                    ${PROJECT_SOURCE_DIR}/../crypto
+                    ${PROJECT_SOURCE_DIR}/../data_mgr
+                    ${PROJECT_SOURCE_DIR}/../pkcs11
+                    ${SQLITE3_INCLUDES}
+                    )
 
-set(SOURCES Directory.cpp
-            File.cpp
-            FindOperation.cpp
-            Generation.cpp
-            ObjectFile.cpp
+set(SOURCES FindOperation.cpp
             ObjectStore.cpp
             ObjectStoreToken.cpp
-            OSAttribute.cpp
-            OSToken.cpp
             SessionObject.cpp
             SessionObjectStore.cpp
             UUID.cpp
             )
 
+add_subdirectory(OS)
+list(APPEND INCLUDE_DIRS    ${PROJECT_SOURCE_DIR}/OS)
+
 if(WITH_OBJECTSTORE_BACKEND_DB)
-    list(APPEND SOURCES DB.cpp
-                        DBObject.cpp
-                        DBToken.cpp
-                        )
+    add_subdirectory(DB)
+    list(APPEND INCLUDE_DIRS    ${PROJECT_SOURCE_DIR}/DB)
 endif(WITH_OBJECTSTORE_BACKEND_DB)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")

@@ -17,6 +17,7 @@ set(INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/common
                  ${CMAKE_CURRENT_SOURCE_DIR}/data_mgr
                  ${CMAKE_CURRENT_SOURCE_DIR}/handle_mgr
                  ${CMAKE_CURRENT_SOURCE_DIR}/object_store
+                 ${CMAKE_CURRENT_SOURCE_DIR}/object_store/OS
                  ${CMAKE_CURRENT_SOURCE_DIR}/pkcs11
                  ${CMAKE_CURRENT_SOURCE_DIR}/session_mgr
                  ${CMAKE_CURRENT_SOURCE_DIR}/slot_mgr
@@ -35,6 +36,7 @@ set(STATIC_FILES softhsm_common
                  softhsm_datamgr
                  softhsm_handlemgr
                  softhsm_objectstore
+                 softhsm_objectstore_os
                  softhsm_sessionmgr
                  softhsm_slotmgr
                  )

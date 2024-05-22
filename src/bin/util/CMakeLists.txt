@@ -5,6 +5,7 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../common
                  ${PROJECT_SOURCE_DIR}/../../lib/crypto
                  ${PROJECT_SOURCE_DIR}/../../lib/data_mgr
                  ${PROJECT_SOURCE_DIR}/../../lib/object_store
+                 ${PROJECT_SOURCE_DIR}/../../lib/object_store/OS
                  ${PROJECT_SOURCE_DIR}/../../lib/pkcs11
                  ${CRYPTO_INCLUDES}
                  ${SQLITE3_INCLUDES}

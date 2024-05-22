@@ -2,6 +2,7 @@ project(softhsm2-dump)
 
 set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/../../lib
                  ${PROJECT_SOURCE_DIR}/../../lib/object_store
+                 ${PROJECT_SOURCE_DIR}/../../lib/object_store/OS
                  ${PROJECT_SOURCE_DIR}/../../lib/pkcs11
                  ${SQLITE3_INCLUDES}
                  )
