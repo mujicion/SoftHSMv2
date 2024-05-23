@@ -28,7 +28,7 @@ set(SOURCES access.cpp
             main.cpp
             P11Attributes.cpp
             P11Objects.cpp
-            SoftHSM.cpp
+            MizaruHSM.cpp
             )
 
 set(STATIC_FILES softhsm_common

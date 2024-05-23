@@ -39,7 +39,7 @@
 #include "log.h"
 #include "fatal.h"
 #include "cryptoki.h"
-#include "SoftHSM.h"
+#include "MizaruHSM.h"
 
 #if defined(__GNUC__) && \
 	(__GNUC__ >= 4 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)) || \
@@ -130,7 +130,7 @@ PKCS_API CK_RV C_Initialize(CK_VOID_PTR pInitArgs)
 {
 	try
 	{
-		return SoftHSM::i()->C_Initialize(pInitArgs);
+		return MizaruHSM::i()->C_Initialize(pInitArgs);
 	}
 	catch (...)
 	{
@@ -145,7 +145,7 @@ PKCS_API CK_RV C_Finalize(CK_VOID_PTR pReserved)
 {
 	try
 	{
-		return SoftHSM::i()->C_Finalize(pReserved);
+		return MizaruHSM::i()->C_Finalize(pReserved);
 	}
 	catch (...)
 	{
@@ -160,7 +160,7 @@ PKCS_API CK_RV C_GetInfo(CK_INFO_PTR pInfo)
 {
 	try
 	{
-		return SoftHSM::i()->C_GetInfo(pInfo);
+		return MizaruHSM::i()->C_GetInfo(pInfo);
 	}
 	catch (...)
 	{
@@ -194,7 +194,7 @@ PKCS_API CK_RV C_GetSlotList(CK_BBOOL tokenPresent, CK_SLOT_ID_PTR pSlotList, CK
 {
 	try
 	{
-		return SoftHSM::i()->C_GetSlotList(tokenPresent, pSlotList, pulCount);
+		return MizaruHSM::i()->C_GetSlotList(tokenPresent, pSlotList, pulCount);
 	}
 	catch (...)
 	{
@@ -209,7 +209,7 @@ PKCS_API CK_RV C_GetSlotInfo(CK_SLOT_ID slotID, CK_SLOT_INFO_PTR pInfo)
 {
 	try
 	{
-		return SoftHSM::i()->C_GetSlotInfo(slotID, pInfo);
+		return MizaruHSM::i()->C_GetSlotInfo(slotID, pInfo);
 	}
 	catch (...)
 	{
@@ -224,7 +224,7 @@ PKCS_API CK_RV C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 {
 	try
 	{
-		return SoftHSM::i()->C_GetTokenInfo(slotID, pInfo);
+		return MizaruHSM::i()->C_GetTokenInfo(slotID, pInfo);
 	}
 	catch (...)
 	{
@@ -239,7 +239,7 @@ PKCS_API CK_RV C_GetMechanismList(CK_SLOT_ID slotID, CK_MECHANISM_TYPE_PTR pMech
 {
 	try
 	{
-		return SoftHSM::i()->C_GetMechanismList(slotID, pMechanismList, pulCount);
+		return MizaruHSM::i()->C_GetMechanismList(slotID, pMechanismList, pulCount);
 	}
 	catch (...)
 	{
@@ -254,7 +254,7 @@ PKCS_API CK_RV C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, CK_
 {
 	try
 	{
-		return SoftHSM::i()->C_GetMechanismInfo(slotID, type, pInfo);
+		return MizaruHSM::i()->C_GetMechanismInfo(slotID, type, pInfo);
 	}
 	catch (...)
 	{
@@ -269,7 +269,7 @@ PKCS_API CK_RV C_InitToken(CK_SLOT_ID slotID, CK_UTF8CHAR_PTR pPin, CK_ULONG ulP
 {
 	try
 	{
-		return SoftHSM::i()->C_InitToken(slotID, pPin, ulPinLen, pLabel);
+		return MizaruHSM::i()->C_InitToken(slotID, pPin, ulPinLen, pLabel);
 	}
 	catch (...)
 	{
@@ -284,7 +284,7 @@ PKCS_API CK_RV C_InitPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pPin, CK_UL
 {
 	try
 	{
-		return SoftHSM::i()->C_InitPIN(hSession, pPin, ulPinLen);
+		return MizaruHSM::i()->C_InitPIN(hSession, pPin, ulPinLen);
 	}
 	catch (...)
 	{
@@ -299,7 +299,7 @@ PKCS_API CK_RV C_SetPIN(CK_SESSION_HANDLE hSession, CK_UTF8CHAR_PTR pOldPin, CK_
 {
 	try
 	{
-		return SoftHSM::i()->C_SetPIN(hSession, pOldPin, ulOldLen, pNewPin, ulNewLen);
+		return MizaruHSM::i()->C_SetPIN(hSession, pOldPin, ulOldLen, pNewPin, ulNewLen);
 	}
 	catch (...)
 	{
@@ -314,7 +314,7 @@ PKCS_API CK_RV C_OpenSession(CK_SLOT_ID slotID, CK_FLAGS flags, CK_VOID_PTR pApp
 {
 	try
 	{
-		return SoftHSM::i()->C_OpenSession(slotID, flags, pApplication, notify, phSession);
+		return MizaruHSM::i()->C_OpenSession(slotID, flags, pApplication, notify, phSession);
 	}
 	catch (...)
 	{
@@ -329,7 +329,7 @@ PKCS_API CK_RV C_CloseSession(CK_SESSION_HANDLE hSession)
 {
 	try
 	{
-		return SoftHSM::i()->C_CloseSession(hSession);
+		return MizaruHSM::i()->C_CloseSession(hSession);
 	}
 	catch (...)
 	{
@@ -344,7 +344,7 @@ PKCS_API CK_RV C_CloseAllSessions(CK_SLOT_ID slotID)
 {
 	try
 	{
-		return SoftHSM::i()->C_CloseAllSessions(slotID);
+		return MizaruHSM::i()->C_CloseAllSessions(slotID);
 	}
 	catch (...)
 	{
@@ -359,7 +359,7 @@ PKCS_API CK_RV C_GetSessionInfo(CK_SESSION_HANDLE hSession, CK_SESSION_INFO_PTR 
 {
 	try
 	{
-		return SoftHSM::i()->C_GetSessionInfo(hSession, pInfo);
+		return MizaruHSM::i()->C_GetSessionInfo(hSession, pInfo);
 	}
 	catch (...)
 	{
@@ -374,7 +374,7 @@ PKCS_API CK_RV C_GetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOper
 {
 	try
 	{
-		return SoftHSM::i()->C_GetOperationState(hSession, pOperationState, pulOperationStateLen);
+		return MizaruHSM::i()->C_GetOperationState(hSession, pOperationState, pulOperationStateLen);
 	}
 	catch (...)
 	{
@@ -389,7 +389,7 @@ PKCS_API CK_RV C_SetOperationState(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pOper
 {
 	try
 	{
-		return SoftHSM::i()->C_SetOperationState(hSession, pOperationState, ulOperationStateLen, hEncryptionKey, hAuthenticationKey);
+		return MizaruHSM::i()->C_SetOperationState(hSession, pOperationState, ulOperationStateLen, hEncryptionKey, hAuthenticationKey);
 	}
 	catch (...)
 	{
@@ -404,7 +404,7 @@ PKCS_API CK_RV C_Login(CK_SESSION_HANDLE hSession, CK_USER_TYPE userType, CK_UTF
 {
 	try
 	{
-		return SoftHSM::i()->C_Login(hSession, userType, pPin, ulPinLen);
+		return MizaruHSM::i()->C_Login(hSession, userType, pPin, ulPinLen);
 	}
 	catch (...)
 	{
@@ -419,7 +419,7 @@ PKCS_API CK_RV C_Logout(CK_SESSION_HANDLE hSession)
 {
 	try
 	{
-		return SoftHSM::i()->C_Logout(hSession);
+		return MizaruHSM::i()->C_Logout(hSession);
 	}
 	catch (...)
 	{
@@ -434,7 +434,7 @@ PKCS_API CK_RV C_CreateObject(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pTemp
 {
 	try
 	{
-		return SoftHSM::i()->C_CreateObject(hSession, pTemplate, ulCount, phObject);
+		return MizaruHSM::i()->C_CreateObject(hSession, pTemplate, ulCount, phObject);
 	}
 	catch (...)
 	{
@@ -449,7 +449,7 @@ PKCS_API CK_RV C_CopyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject
 {
 	try
 	{
-		return SoftHSM::i()->C_CopyObject(hSession, hObject, pTemplate, ulCount, phNewObject);
+		return MizaruHSM::i()->C_CopyObject(hSession, hObject, pTemplate, ulCount, phNewObject);
 	}
 	catch (...)
 	{
@@ -464,7 +464,7 @@ PKCS_API CK_RV C_DestroyObject(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObj
 {
 	try
 	{
-		return SoftHSM::i()->C_DestroyObject(hSession, hObject);
+		return MizaruHSM::i()->C_DestroyObject(hSession, hObject);
 	}
 	catch (...)
 	{
@@ -479,7 +479,7 @@ PKCS_API CK_RV C_GetObjectSize(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObj
 {
 	try
 	{
-		return SoftHSM::i()->C_GetObjectSize(hSession, hObject, pulSize);
+		return MizaruHSM::i()->C_GetObjectSize(hSession, hObject, pulSize);
 	}
 	catch (...)
 	{
@@ -494,7 +494,7 @@ PKCS_API CK_RV C_GetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE 
 {
 	try
 	{
-		return SoftHSM::i()->C_GetAttributeValue(hSession, hObject, pTemplate, ulCount);
+		return MizaruHSM::i()->C_GetAttributeValue(hSession, hObject, pTemplate, ulCount);
 	}
 	catch (...)
 	{
@@ -509,7 +509,7 @@ PKCS_API CK_RV C_SetAttributeValue(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE 
 {
 	try
 	{
-		return SoftHSM::i()->C_SetAttributeValue(hSession, hObject, pTemplate, ulCount);
+		return MizaruHSM::i()->C_SetAttributeValue(hSession, hObject, pTemplate, ulCount);
 	}
 	catch (...)
 	{
@@ -524,7 +524,7 @@ PKCS_API CK_RV C_FindObjectsInit(CK_SESSION_HANDLE hSession, CK_ATTRIBUTE_PTR pT
 {
 	try
 	{
-		return SoftHSM::i()->C_FindObjectsInit(hSession, pTemplate, ulCount);
+		return MizaruHSM::i()->C_FindObjectsInit(hSession, pTemplate, ulCount);
 	}
 	catch (...)
 	{
@@ -539,7 +539,7 @@ PKCS_API CK_RV C_FindObjects(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE_PTR ph
 {
 	try
 	{
-		return SoftHSM::i()->C_FindObjects(hSession, phObject, ulMaxObjectCount, pulObjectCount);
+		return MizaruHSM::i()->C_FindObjects(hSession, phObject, ulMaxObjectCount, pulObjectCount);
 	}
 	catch (...)
 	{
@@ -554,7 +554,7 @@ PKCS_API CK_RV C_FindObjectsFinal(CK_SESSION_HANDLE hSession)
 {
 	try
 	{
-		return SoftHSM::i()->C_FindObjectsFinal(hSession);
+		return MizaruHSM::i()->C_FindObjectsFinal(hSession);
 	}
 	catch (...)
 	{
@@ -569,7 +569,7 @@ PKCS_API CK_RV C_EncryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 {
 	try
 	{
-		return SoftHSM::i()->C_EncryptInit(hSession, pMechanism, hObject);
+		return MizaruHSM::i()->C_EncryptInit(hSession, pMechanism, hObject);
 	}
 	catch (...)
 	{
@@ -584,7 +584,7 @@ PKCS_API CK_RV C_Encrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG
 {
 	try
 	{
-		return SoftHSM::i()->C_Encrypt(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
+		return MizaruHSM::i()->C_Encrypt(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
 	}
 	catch (...)
 	{
@@ -599,7 +599,7 @@ PKCS_API CK_RV C_EncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK
 {
 	try
 	{
-		return SoftHSM::i()->C_EncryptUpdate(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
+		return MizaruHSM::i()->C_EncryptUpdate(hSession, pData, ulDataLen, pEncryptedData, pulEncryptedDataLen);
 	}
 	catch (...)
 	{
@@ -614,7 +614,7 @@ PKCS_API CK_RV C_EncryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncrypted
 {
 	try
 	{
-		return SoftHSM::i()->C_EncryptFinal(hSession, pEncryptedData, pulEncryptedDataLen);
+		return MizaruHSM::i()->C_EncryptFinal(hSession, pEncryptedData, pulEncryptedDataLen);
 	}
 	catch (...)
 	{
@@ -629,7 +629,7 @@ PKCS_API CK_RV C_DecryptInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 {
 	try
 	{
-		return SoftHSM::i()->C_DecryptInit(hSession, pMechanism, hObject);
+		return MizaruHSM::i()->C_DecryptInit(hSession, pMechanism, hObject);
 	}
 	catch (...)
 	{
@@ -644,7 +644,7 @@ PKCS_API CK_RV C_Decrypt(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncryptedData,
 {
 	try
 	{
-		return SoftHSM::i()->C_Decrypt(hSession, pEncryptedData, ulEncryptedDataLen, pData, pulDataLen);
+		return MizaruHSM::i()->C_Decrypt(hSession, pEncryptedData, ulEncryptedDataLen, pData, pulDataLen);
 	}
 	catch (...)
 	{
@@ -659,7 +659,7 @@ PKCS_API CK_RV C_DecryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEncrypte
 {
 	try
 	{
-		return SoftHSM::i()->C_DecryptUpdate(hSession, pEncryptedData, ulEncryptedDataLen, pData, pDataLen);
+		return MizaruHSM::i()->C_DecryptUpdate(hSession, pEncryptedData, ulEncryptedDataLen, pData, pDataLen);
 	}
 	catch (...)
 	{
@@ -674,7 +674,7 @@ PKCS_API CK_RV C_DecryptFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_
 {
 	try
 	{
-		return SoftHSM::i()->C_DecryptFinal(hSession, pData, pDataLen);
+		return MizaruHSM::i()->C_DecryptFinal(hSession, pData, pDataLen);
 	}
 	catch (...)
 	{
@@ -689,7 +689,7 @@ PKCS_API CK_RV C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechan
 {
 	try
 	{
-		return SoftHSM::i()->C_DigestInit(hSession, pMechanism);
+		return MizaruHSM::i()->C_DigestInit(hSession, pMechanism);
 	}
 	catch (...)
 	{
@@ -704,7 +704,7 @@ PKCS_API CK_RV C_Digest(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG 
 {
 	try
 	{
-		return SoftHSM::i()->C_Digest(hSession, pData, ulDataLen, pDigest, pulDigestLen);
+		return MizaruHSM::i()->C_Digest(hSession, pData, ulDataLen, pDigest, pulDigestLen);
 	}
 	catch (...)
 	{
@@ -719,7 +719,7 @@ PKCS_API CK_RV C_DigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_
 {
 	try
 	{
-		return SoftHSM::i()->C_DigestUpdate(hSession, pPart, ulPartLen);
+		return MizaruHSM::i()->C_DigestUpdate(hSession, pPart, ulPartLen);
 	}
 	catch (...)
 	{
@@ -734,7 +734,7 @@ PKCS_API CK_RV C_DigestKey(CK_SESSION_HANDLE hSession, CK_OBJECT_HANDLE hObject)
 {
 	try
 	{
-		return SoftHSM::i()->C_DigestKey(hSession, hObject);
+		return MizaruHSM::i()->C_DigestKey(hSession, hObject);
 	}
 	catch (...)
 	{
@@ -749,7 +749,7 @@ PKCS_API CK_RV C_DigestFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pDigest, CK
 {
 	try
 	{
-		return SoftHSM::i()->C_DigestFinal(hSession, pDigest, pulDigestLen);
+		return MizaruHSM::i()->C_DigestFinal(hSession, pDigest, pulDigestLen);
 	}
 	catch (...)
 	{
@@ -764,7 +764,7 @@ PKCS_API CK_RV C_SignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechanis
 {
 	try
 	{
-		return SoftHSM::i()->C_SignInit(hSession, pMechanism, hKey);
+		return MizaruHSM::i()->C_SignInit(hSession, pMechanism, hKey);
 	}
 	catch (...)
 	{
@@ -779,7 +779,7 @@ PKCS_API CK_RV C_Sign(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG ul
 {
 	try
 	{
-		return SoftHSM::i()->C_Sign(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
+		return MizaruHSM::i()->C_Sign(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
 	}
 	catch (...)
 	{
@@ -794,7 +794,7 @@ PKCS_API CK_RV C_SignUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_UL
 {
 	try
 	{
-		return SoftHSM::i()->C_SignUpdate(hSession, pPart, ulPartLen);
+		return MizaruHSM::i()->C_SignUpdate(hSession, pPart, ulPartLen);
 	}
 	catch (...)
 	{
@@ -809,7 +809,7 @@ PKCS_API CK_RV C_SignFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature, C
 {
 	try
 	{
-		return SoftHSM::i()->C_SignFinal(hSession, pSignature, pulSignatureLen);
+		return MizaruHSM::i()->C_SignFinal(hSession, pSignature, pulSignatureLen);
 	}
 	catch (...)
 	{
@@ -824,7 +824,7 @@ PKCS_API CK_RV C_SignRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pM
 {
 	try
 	{
-		return SoftHSM::i()->C_SignRecoverInit(hSession, pMechanism, hKey);
+		return MizaruHSM::i()->C_SignRecoverInit(hSession, pMechanism, hKey);
 	}
 	catch (...)
 	{
@@ -839,7 +839,7 @@ PKCS_API CK_RV C_SignRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_U
 {
 	try
 	{
-		return SoftHSM::i()->C_SignRecover(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
+		return MizaruHSM::i()->C_SignRecover(hSession, pData, ulDataLen, pSignature, pulSignatureLen);
 	}
 	catch (...)
 	{
@@ -854,7 +854,7 @@ PKCS_API CK_RV C_VerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMechan
 {
 	try
 	{
-		return SoftHSM::i()->C_VerifyInit(hSession, pMechanism, hKey);
+		return MizaruHSM::i()->C_VerifyInit(hSession, pMechanism, hKey);
 	}
 	catch (...)
 	{
@@ -869,7 +869,7 @@ PKCS_API CK_RV C_Verify(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pData, CK_ULONG 
 {
 	try
 	{
-		return SoftHSM::i()->C_Verify(hSession, pData, ulDataLen, pSignature, ulSignatureLen);
+		return MizaruHSM::i()->C_Verify(hSession, pData, ulDataLen, pSignature, ulSignatureLen);
 	}
 	catch (...)
 	{
@@ -884,7 +884,7 @@ PKCS_API CK_RV C_VerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart, CK_
 {
 	try
 	{
-		return SoftHSM::i()->C_VerifyUpdate(hSession, pPart, ulPartLen);
+		return MizaruHSM::i()->C_VerifyUpdate(hSession, pPart, ulPartLen);
 	}
 	catch (...)
 	{
@@ -899,7 +899,7 @@ PKCS_API CK_RV C_VerifyFinal(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignature,
 {
 	try
 	{
-		return SoftHSM::i()->C_VerifyFinal(hSession, pSignature, ulSignatureLen);
+		return MizaruHSM::i()->C_VerifyFinal(hSession, pSignature, ulSignatureLen);
 	}
 	catch (...)
 	{
@@ -914,7 +914,7 @@ PKCS_API CK_RV C_VerifyRecoverInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR 
 {
 	try
 	{
-		return SoftHSM::i()->C_VerifyRecoverInit(hSession, pMechanism, hKey);
+		return MizaruHSM::i()->C_VerifyRecoverInit(hSession, pMechanism, hKey);
 	}
 	catch (...)
 	{
@@ -929,7 +929,7 @@ PKCS_API CK_RV C_VerifyRecover(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSignatur
 {
 	try
 	{
-		return SoftHSM::i()->C_VerifyRecover(hSession, pSignature, ulSignatureLen, pData, pulDataLen);
+		return MizaruHSM::i()->C_VerifyRecover(hSession, pSignature, ulSignatureLen, pData, pulDataLen);
 	}
 	catch (...)
 	{
@@ -944,7 +944,7 @@ PKCS_API CK_RV C_DigestEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPa
 {
 	try
 	{
-		return SoftHSM::i()->C_DigestEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
+		return MizaruHSM::i()->C_DigestEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
 	}
 	catch (...)
 	{
@@ -959,7 +959,7 @@ PKCS_API CK_RV C_DecryptDigestUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPa
 {
 	try
 	{
-		return SoftHSM::i()->C_DecryptDigestUpdate(hSession, pPart, ulPartLen, pDecryptedPart, pulDecryptedPartLen);
+		return MizaruHSM::i()->C_DecryptDigestUpdate(hSession, pPart, ulPartLen, pDecryptedPart, pulDecryptedPartLen);
 	}
 	catch (...)
 	{
@@ -974,7 +974,7 @@ PKCS_API CK_RV C_SignEncryptUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pPart
 {
 	try
 	{
-		return SoftHSM::i()->C_SignEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
+		return MizaruHSM::i()->C_SignEncryptUpdate(hSession, pPart, ulPartLen, pEncryptedPart, pulEncryptedPartLen);
 	}
 	catch (...)
 	{
@@ -989,7 +989,7 @@ PKCS_API CK_RV C_DecryptVerifyUpdate(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pEn
 {
 	try
 	{
-		return SoftHSM::i()->C_DecryptVerifyUpdate(hSession, pEncryptedPart, ulEncryptedPartLen, pPart, pulPartLen);
+		return MizaruHSM::i()->C_DecryptVerifyUpdate(hSession, pEncryptedPart, ulEncryptedPartLen, pPart, pulPartLen);
 	}
 	catch (...)
 	{
@@ -1004,7 +1004,7 @@ PKCS_API CK_RV C_GenerateKey(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 {
 	try
 	{
-		return SoftHSM::i()->C_GenerateKey(hSession, pMechanism, pTemplate, ulCount, phKey);
+		return MizaruHSM::i()->C_GenerateKey(hSession, pMechanism, pTemplate, ulCount, phKey);
 	}
 	catch (...)
 	{
@@ -1029,7 +1029,7 @@ PKCS_API CK_RV C_GenerateKeyPair
 {
 	try
 	{
-		return SoftHSM::i()->C_GenerateKeyPair(hSession, pMechanism, pPublicKeyTemplate, ulPublicKeyAttributeCount, pPrivateKeyTemplate, ulPrivateKeyAttributeCount, phPublicKey, phPrivateKey);
+		return MizaruHSM::i()->C_GenerateKeyPair(hSession, pMechanism, pPublicKeyTemplate, ulPublicKeyAttributeCount, pPrivateKeyTemplate, ulPrivateKeyAttributeCount, phPublicKey, phPrivateKey);
 	}
 	catch (...)
 	{
@@ -1052,7 +1052,7 @@ PKCS_API CK_RV C_WrapKey
 {
 	try
 	{
-		return SoftHSM::i()->C_WrapKey(hSession, pMechanism, hWrappingKey, hKey, pWrappedKey, pulWrappedKeyLen);
+		return MizaruHSM::i()->C_WrapKey(hSession, pMechanism, hWrappingKey, hKey, pWrappedKey, pulWrappedKeyLen);
 	}
 	catch (...)
 	{
@@ -1077,7 +1077,7 @@ PKCS_API CK_RV C_UnwrapKey
 {
 	try
 	{
-		return SoftHSM::i()->C_UnwrapKey(hSession, pMechanism, hUnwrappingKey, pWrappedKey, ulWrappedKeyLen, pTemplate, ulCount, phKey);
+		return MizaruHSM::i()->C_UnwrapKey(hSession, pMechanism, hUnwrappingKey, pWrappedKey, ulWrappedKeyLen, pTemplate, ulCount, phKey);
 	}
 	catch (...)
 	{
@@ -1100,7 +1100,7 @@ PKCS_API CK_RV C_DeriveKey
 {
 	try
 	{
-		return SoftHSM::i()->C_DeriveKey(hSession, pMechanism, hBaseKey, pTemplate, ulCount, phKey);
+		return MizaruHSM::i()->C_DeriveKey(hSession, pMechanism, hBaseKey, pTemplate, ulCount, phKey);
 	}
 	catch (...)
 	{
@@ -1115,7 +1115,7 @@ PKCS_API CK_RV C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_UL
 {
 	try
 	{
-		return SoftHSM::i()->C_SeedRandom(hSession, pSeed, ulSeedLen);
+		return MizaruHSM::i()->C_SeedRandom(hSession, pSeed, ulSeedLen);
 	}
 	catch (...)
 	{
@@ -1130,7 +1130,7 @@ PKCS_API CK_RV C_GenerateRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pRandomD
 {
 	try
 	{
-		return SoftHSM::i()->C_GenerateRandom(hSession, pRandomData, ulRandomLen);
+		return MizaruHSM::i()->C_GenerateRandom(hSession, pRandomData, ulRandomLen);
 	}
 	catch (...)
 	{
@@ -1145,7 +1145,7 @@ PKCS_API CK_RV C_GetFunctionStatus(CK_SESSION_HANDLE hSession)
 {
 	try
 	{
-		return SoftHSM::i()->C_GetFunctionStatus(hSession);
+		return MizaruHSM::i()->C_GetFunctionStatus(hSession);
 	}
 	catch (...)
 	{
@@ -1160,7 +1160,7 @@ PKCS_API CK_RV C_CancelFunction(CK_SESSION_HANDLE hSession)
 {
 	try
 	{
-		return SoftHSM::i()->C_CancelFunction(hSession);
+		return MizaruHSM::i()->C_CancelFunction(hSession);
 	}
 	catch (...)
 	{
@@ -1175,7 +1175,7 @@ PKCS_API CK_RV C_WaitForSlotEvent(CK_FLAGS flags, CK_SLOT_ID_PTR pSlot, CK_VOID_
 {
 	try
 	{
-		return SoftHSM::i()->C_WaitForSlotEvent(flags, pSlot, pReserved);
+		return MizaruHSM::i()->C_WaitForSlotEvent(flags, pSlot, pReserved);
 	}
 	catch (...)
 	{
