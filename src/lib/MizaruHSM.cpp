@@ -157,11 +157,7 @@ static CK_RV newP11Object(CK_OBJECT_CLASS objClass, CK_KEY_TYPE keyType, CK_CERT
 		case CKO_SECRET_KEY:
 			if ((keyType == CKK_GENERIC_SECRET) ||
 			    (keyType == CKK_MD5_HMAC) ||
-			    (keyType == CKK_SHA_1_HMAC) ||
-			    (keyType == CKK_SHA224_HMAC) ||
-			    (keyType == CKK_SHA256_HMAC) ||
-			    (keyType == CKK_SHA384_HMAC) ||
-			    (keyType == CKK_SHA512_HMAC))
+			    (keyType == CKK_SHA256_HMAC))
 			{
 				P11GenericSecretKeyObj* key = new P11GenericSecretKeyObj();
 				*p11object = key;
@@ -727,42 +723,17 @@ CK_RV MizaruHSM::C_GetTokenInfo(CK_SLOT_ID slotID, CK_TOKEN_INFO_PTR pInfo)
 
 void MizaruHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TYPE> &t)
 {
-#ifndef WITH_FIPS
-	t["CKM_MD5"]			= CKM_MD5;
-#endif
-	t["CKM_SHA_1"]			= CKM_SHA_1;
-	t["CKM_SHA224"]			= CKM_SHA224;
 	t["CKM_SHA256"]			= CKM_SHA256;
-	t["CKM_SHA384"]			= CKM_SHA384;
-	t["CKM_SHA512"]			= CKM_SHA512;
-#ifndef WITH_FIPS
-	t["CKM_MD5_HMAC"]		= CKM_MD5_HMAC;
-#endif
-	t["CKM_SHA_1_HMAC"]		= CKM_SHA_1_HMAC;
-	t["CKM_SHA224_HMAC"]		= CKM_SHA224_HMAC;
 	t["CKM_SHA256_HMAC"]		= CKM_SHA256_HMAC;
-	t["CKM_SHA384_HMAC"]		= CKM_SHA384_HMAC;
-	t["CKM_SHA512_HMAC"]		= CKM_SHA512_HMAC;
 	t["CKM_RSA_PKCS_KEY_PAIR_GEN"]	= CKM_RSA_PKCS_KEY_PAIR_GEN;
 	t["CKM_RSA_PKCS"]		= CKM_RSA_PKCS;
 	t["CKM_RSA_X_509"]		= CKM_RSA_X_509;
-#ifndef WITH_FIPS
-	t["CKM_MD5_RSA_PKCS"]		= CKM_MD5_RSA_PKCS;
-#endif
-	t["CKM_SHA1_RSA_PKCS"]		= CKM_SHA1_RSA_PKCS;
 	t["CKM_RSA_PKCS_OAEP"]		= CKM_RSA_PKCS_OAEP;
-	t["CKM_SHA224_RSA_PKCS"]	= CKM_SHA224_RSA_PKCS;
 	t["CKM_SHA256_RSA_PKCS"]	= CKM_SHA256_RSA_PKCS;
-	t["CKM_SHA384_RSA_PKCS"]	= CKM_SHA384_RSA_PKCS;
-	t["CKM_SHA512_RSA_PKCS"]	= CKM_SHA512_RSA_PKCS;
 #ifdef WITH_RAW_PSS
 	t["CKM_RSA_PKCS_PSS"]		= CKM_RSA_PKCS_PSS;
 #endif
-	t["CKM_SHA1_RSA_PKCS_PSS"]	= CKM_SHA1_RSA_PKCS_PSS;
-	t["CKM_SHA224_RSA_PKCS_PSS"]	= CKM_SHA224_RSA_PKCS_PSS;
 	t["CKM_SHA256_RSA_PKCS_PSS"]	= CKM_SHA256_RSA_PKCS_PSS;
-	t["CKM_SHA384_RSA_PKCS_PSS"]	= CKM_SHA384_RSA_PKCS_PSS;
-	t["CKM_SHA512_RSA_PKCS_PSS"]	= CKM_SHA512_RSA_PKCS_PSS;
 	t["CKM_GENERIC_SECRET_KEY_GEN"]	= CKM_GENERIC_SECRET_KEY_GEN;
 #ifndef WITH_FIPS
 	t["CKM_DES_KEY_GEN"]		= CKM_DES_KEY_GEN;
@@ -798,11 +769,7 @@ void MizaruHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TY
 	t["CKM_DSA_PARAMETER_GEN"]	= CKM_DSA_PARAMETER_GEN;
 	t["CKM_DSA_KEY_PAIR_GEN"]	= CKM_DSA_KEY_PAIR_GEN;
 	t["CKM_DSA"]			= CKM_DSA;
-	t["CKM_DSA_SHA1"]		= CKM_DSA_SHA1;
-	t["CKM_DSA_SHA224"]		= CKM_DSA_SHA224;
 	t["CKM_DSA_SHA256"]		= CKM_DSA_SHA256;
-	t["CKM_DSA_SHA384"]		= CKM_DSA_SHA384;
-	t["CKM_DSA_SHA512"]		= CKM_DSA_SHA512;
 	t["CKM_DH_PKCS_KEY_PAIR_GEN"]	= CKM_DH_PKCS_KEY_PAIR_GEN;
 	t["CKM_DH_PKCS_PARAMETER_GEN"]	= CKM_DH_PKCS_PARAMETER_GEN;
 	t["CKM_DH_PKCS_DERIVE"]		= CKM_DH_PKCS_DERIVE;
@@ -1005,11 +972,7 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 #ifndef WITH_FIPS
 		case CKM_MD5:
 #endif
-		case CKM_SHA_1:
-		case CKM_SHA224:
 		case CKM_SHA256:
-		case CKM_SHA384:
-		case CKM_SHA512:
 			// Key size is not in use
 			pInfo->ulMinKeySize = 0;
 			pInfo->ulMaxKeySize = 0;
@@ -1022,28 +985,8 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
 			break;
 #endif
-		case CKM_SHA_1_HMAC:
-			pInfo->ulMinKeySize = 20;
-			pInfo->ulMaxKeySize = 512;
-			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-			break;
-		case CKM_SHA224_HMAC:
-			pInfo->ulMinKeySize = 28;
-			pInfo->ulMaxKeySize = 512;
-			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-			break;
 		case CKM_SHA256_HMAC:
 			pInfo->ulMinKeySize = 32;
-			pInfo->ulMaxKeySize = 512;
-			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-			break;
-		case CKM_SHA384_HMAC:
-			pInfo->ulMinKeySize = 48;
-			pInfo->ulMaxKeySize = 512;
-			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-			break;
-		case CKM_SHA512_HMAC:
-			pInfo->ulMinKeySize = 64;
 			pInfo->ulMaxKeySize = 512;
 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
 			break;
@@ -3583,20 +3526,8 @@ CK_RV MizaruHSM::C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			algo = HashAlgo::MD5;
 			break;
 #endif
-		case CKM_SHA_1:
-			algo = HashAlgo::SHA1;
-			break;
-		case CKM_SHA224:
-			algo = HashAlgo::SHA224;
-			break;
 		case CKM_SHA256:
 			algo = HashAlgo::SHA256;
-			break;
-		case CKM_SHA384:
-			algo = HashAlgo::SHA384;
-			break;
-		case CKM_SHA512:
-			algo = HashAlgo::SHA512;
 			break;
 		default:
 			return CKR_MECHANISM_INVALID;
@@ -3841,11 +3772,7 @@ static bool isMacMechanism(CK_MECHANISM_PTR pMechanism)
 
 	switch(pMechanism->mechanism) {
 		case CKM_MD5_HMAC:
-		case CKM_SHA_1_HMAC:
-		case CKM_SHA224_HMAC:
 		case CKM_SHA256_HMAC:
-		case CKM_SHA384_HMAC:
-		case CKM_SHA512_HMAC:
 		case CKM_DES3_CMAC:
 		case CKM_AES_CMAC:
 			return true;
@@ -3914,35 +3841,11 @@ CK_RV MizaruHSM::MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 			algo = MacAlgo::HMAC_MD5;
 			break;
 #endif
-		case CKM_SHA_1_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA_1_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 20;
-			algo = MacAlgo::HMAC_SHA1;
-			break;
-		case CKM_SHA224_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA224_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 28;
-			algo = MacAlgo::HMAC_SHA224;
-			break;
 		case CKM_SHA256_HMAC:
 			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA256_HMAC)
 				return CKR_KEY_TYPE_INCONSISTENT;
 			minSize = 32;
 			algo = MacAlgo::HMAC_SHA256;
-			break;
-		case CKM_SHA384_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA384_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 48;
-			algo = MacAlgo::HMAC_SHA384;
-			break;
-		case CKM_SHA512_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA512_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 64;
-			algo = MacAlgo::HMAC_SHA512;
 			break;
 		case CKM_DES3_CMAC:
 			if (keyType != CKK_DES2 && keyType != CKK_DES3)
@@ -4070,28 +3973,8 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			isRSA = true;
 			break;
 #endif
-		case CKM_SHA1_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA1_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA224_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA224_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
 		case CKM_SHA256_RSA_PKCS:
 			mechanism = AsymMech::RSA_SHA256_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA384_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA384_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA512_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA512_PKCS;
 			bAllowMultiPartOp = true;
 			isRSA = true;
 			break;
@@ -4107,30 +3990,10 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			unsigned long allowedMgf;
 
 			switch(CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg) {
-				case CKM_SHA_1:
-					pssParam.hashAlg = HashAlgo::SHA1;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA1;
-					allowedMgf = CKG_MGF1_SHA1;
-					break;
-				case CKM_SHA224:
-					pssParam.hashAlg = HashAlgo::SHA224;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA224;
-					allowedMgf = CKG_MGF1_SHA224;
-					break;
 				case CKM_SHA256:
 					pssParam.hashAlg = HashAlgo::SHA256;
 					pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
 					allowedMgf = CKG_MGF1_SHA256;
-					break;
-				case CKM_SHA384:
-					pssParam.hashAlg = HashAlgo::SHA384;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA384;
-					allowedMgf = CKG_MGF1_SHA384;
-					break;
-				case CKM_SHA512:
-					pssParam.hashAlg = HashAlgo::SHA512;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA512;
-					allowedMgf = CKG_MGF1_SHA512;
 					break;
 				default:
 					ERROR_MSG("Invalid RSA-PSS hash");
@@ -4149,42 +4012,6 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			isRSA = true;
 			break;
 #endif
-		case CKM_SHA1_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA_1 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA1)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA1_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA1;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA1;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA224_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA224 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA224)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA224_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA224;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA224;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
 		case CKM_SHA256_RSA_PKCS_PSS:
 			if (pMechanism->pParameter == NULL_PTR ||
 			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
@@ -4824,35 +4651,11 @@ CK_RV MizaruHSM::MacVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMec
 			algo = MacAlgo::HMAC_MD5;
 			break;
 #endif
-		case CKM_SHA_1_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA_1_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 20;
-			algo = MacAlgo::HMAC_SHA1;
-			break;
-		case CKM_SHA224_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA224_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 28;
-			algo = MacAlgo::HMAC_SHA224;
-			break;
 		case CKM_SHA256_HMAC:
 			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA256_HMAC)
 				return CKR_KEY_TYPE_INCONSISTENT;
 			minSize = 32;
 			algo = MacAlgo::HMAC_SHA256;
-			break;
-		case CKM_SHA384_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA384_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 48;
-			algo = MacAlgo::HMAC_SHA384;
-			break;
-		case CKM_SHA512_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA512_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 64;
-			algo = MacAlgo::HMAC_SHA512;
 			break;
 		case CKM_DES3_CMAC:
 			if (keyType != CKK_DES2 && keyType != CKK_DES3)
@@ -5017,30 +4820,10 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 
 			unsigned long expectedMgf;
 			switch(CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg) {
-				case CKM_SHA_1:
-					pssParam.hashAlg = HashAlgo::SHA1;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA1;
-					expectedMgf = CKG_MGF1_SHA1;
-					break;
-				case CKM_SHA224:
-					pssParam.hashAlg = HashAlgo::SHA224;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA224;
-					expectedMgf = CKG_MGF1_SHA224;
-					break;
 				case CKM_SHA256:
 					pssParam.hashAlg = HashAlgo::SHA256;
 					pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
 					expectedMgf = CKG_MGF1_SHA256;
-					break;
-				case CKM_SHA384:
-					pssParam.hashAlg = HashAlgo::SHA384;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA384;
-					expectedMgf = CKG_MGF1_SHA384;
-					break;
-				case CKM_SHA512:
-					pssParam.hashAlg = HashAlgo::SHA512;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA512;
-					expectedMgf = CKG_MGF1_SHA512;
 					break;
 				default:
 					return CKR_ARGUMENTS_BAD;
@@ -5057,42 +4840,6 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			isRSA = true;
 			break;
 #endif
-		case CKM_SHA1_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA_1 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA1)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA1_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA1;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA1;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA224_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA224 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA224)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA224_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA224;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA224;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
 		case CKM_SHA256_RSA_PKCS_PSS:
 			if (pMechanism->pParameter == NULL_PTR ||
 			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
@@ -5105,42 +4852,6 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			mechanism = AsymMech::RSA_SHA256_PKCS_PSS;
 			pssParam.hashAlg = HashAlgo::SHA256;
 			pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA384_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA384 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA384)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA384_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA384;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA384;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA512_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA512 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA512)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA512_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA512;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA512;
 			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
 			param = &pssParam;
 			paramLen = sizeof(pssParam);
