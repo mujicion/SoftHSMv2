@@ -156,7 +156,6 @@ static CK_RV newP11Object(CK_OBJECT_CLASS objClass, CK_KEY_TYPE keyType, CK_CERT
 			break;
 		case CKO_SECRET_KEY:
 			if ((keyType == CKK_GENERIC_SECRET) ||
-			    (keyType == CKK_MD5_HMAC) ||
 			    (keyType == CKK_SHA256_HMAC))
 			{
 				P11GenericSecretKeyObj* key = new P11GenericSecretKeyObj();
@@ -966,22 +965,12 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 	pInfo->flags = 0;	// initialize flags
 	switch (type)
 	{
-#ifndef WITH_FIPS
-		case CKM_MD5:
-#endif
 		case CKM_SHA256:
 			// Key size is not in use
 			pInfo->ulMinKeySize = 0;
 			pInfo->ulMaxKeySize = 0;
 			pInfo->flags = CKF_DIGEST;
 			break;
-#ifndef WITH_FIPS
-		case CKM_MD5_HMAC:
-			pInfo->ulMinKeySize = 16;
-			pInfo->ulMaxKeySize = 512;
-			pInfo->flags = CKF_SIGN | CKF_VERIFY;
-			break;
-#endif
 		case CKM_SHA256_HMAC:
 			pInfo->ulMinKeySize = 32;
 			pInfo->ulMaxKeySize = 512;
@@ -1002,9 +991,6 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 			pInfo->ulMaxKeySize = rsaMaxSize;
 			pInfo->flags = CKF_SIGN | CKF_VERIFY | CKF_ENCRYPT | CKF_DECRYPT;
 			break;
-#ifndef WITH_FIPS
-		case CKM_MD5_RSA_PKCS:
-#endif
 		case CKM_SHA256_RSA_PKCS:
 			pInfo->ulMinKeySize = rsaMinSize;
 			pInfo->ulMaxKeySize = rsaMaxSize;
@@ -3506,11 +3492,6 @@ CK_RV MizaruHSM::C_DigestInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 	// Get the mechanism
 	HashAlgo::Type algo = HashAlgo::Unknown;
 	switch(pMechanism->mechanism) {
-#ifndef WITH_FIPS
-		case CKM_MD5:
-			algo = HashAlgo::MD5;
-			break;
-#endif
 		case CKM_SHA256:
 			algo = HashAlgo::SHA256;
 			break;
@@ -3756,7 +3737,6 @@ static bool isMacMechanism(CK_MECHANISM_PTR pMechanism)
 	if (pMechanism == NULL_PTR) return false;
 
 	switch(pMechanism->mechanism) {
-		case CKM_MD5_HMAC:
 		case CKM_SHA256_HMAC:
 		case CKM_DES3_CMAC:
 		case CKM_AES_CMAC:
@@ -3818,14 +3798,6 @@ CK_RV MizaruHSM::MacSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMecha
 	size_t bb = 8;
 	size_t minSize = 0;
 	switch(pMechanism->mechanism) {
-#ifndef WITH_FIPS
-		case CKM_MD5_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_MD5_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 16;
-			algo = MacAlgo::HMAC_MD5;
-			break;
-#endif
 		case CKM_SHA256_HMAC:
 			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA256_HMAC)
 				return CKR_KEY_TYPE_INCONSISTENT;
@@ -3951,13 +3923,6 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			bAllowMultiPartOp = false;
 			isRSA = true;
 			break;
-#ifndef WITH_FIPS
-		case CKM_MD5_RSA_PKCS:
-			mechanism = AsymMech::RSA_MD5_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-#endif
 		case CKM_SHA256_RSA_PKCS:
 			mechanism = AsymMech::RSA_SHA256_PKCS;
 			bAllowMultiPartOp = true;
@@ -4520,14 +4485,6 @@ CK_RV MizaruHSM::MacVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMec
 	size_t bb = 8;
 	size_t minSize = 0;
 	switch(pMechanism->mechanism) {
-#ifndef WITH_FIPS
-		case CKM_MD5_HMAC:
-			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_MD5_HMAC)
-				return CKR_KEY_TYPE_INCONSISTENT;
-			minSize = 16;
-			algo = MacAlgo::HMAC_MD5;
-			break;
-#endif
 		case CKM_SHA256_HMAC:
 			if (keyType != CKK_GENERIC_SECRET && keyType != CKK_SHA256_HMAC)
 				return CKR_KEY_TYPE_INCONSISTENT;
@@ -4653,13 +4610,6 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			bAllowMultiPartOp = false;
 			isRSA = true;
 			break;
-#ifndef WITH_FIPS
-		case CKM_MD5_RSA_PKCS:
-			mechanism = AsymMech::RSA_MD5_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-#endif
 		case CKM_SHA256_RSA_PKCS:
 			mechanism = AsymMech::RSA_SHA256_PKCS;
 			bAllowMultiPartOp = true;
