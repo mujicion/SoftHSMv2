@@ -16,6 +16,8 @@ option(ENABLE_STRICT "Enable strict compile mode" ON)
 option(ENABLE_STATIC "Build static libraries" ON)
 option(WITH_OBJECTSTORE_BACKEND_DB "Build with object store backend database (SQLite3)" OFF)
 option(WITH_MIGRATE "Build migration tool. Requires SQLite3." OFF)
+option(ENABLE_MIZARU "Enable MizaruHSM" ON)
+
 set(WITH_CRYPTO_BACKEND "openssl"
     CACHE STRING "Select crypto backend (openssl|botan)")
 set(WITH_P11_KIT ""
@@ -37,6 +39,12 @@ if(WITH_MIGRATE)
 else(WITH_MIGRATE)
     message(STATUS "Building with no migration tool")
 endif(WITH_MIGRATE)
+
+if(ENABLE_MIZARU)
+    set(WITH_MIZARU ON)
+    set(ENABLE_EDDSA OFF)
+    message(STATUS "Building with MizaruHSM")
+endif(ENABLE_MIZARU)
 
 if(NOT DEFINED CMAKE_INSTALL_SYSCONFDIR)
     set(CMAKE_INSTALL_SYSCONFDIR "/etc")
