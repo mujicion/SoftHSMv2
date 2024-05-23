@@ -730,9 +730,6 @@ void MizaruHSM::prepareSupportedMecahnisms(std::map<std::string, CK_MECHANISM_TY
 	t["CKM_RSA_X_509"]		= CKM_RSA_X_509;
 	t["CKM_RSA_PKCS_OAEP"]		= CKM_RSA_PKCS_OAEP;
 	t["CKM_SHA256_RSA_PKCS"]	= CKM_SHA256_RSA_PKCS;
-#ifdef WITH_RAW_PSS
-	t["CKM_RSA_PKCS_PSS"]		= CKM_RSA_PKCS_PSS;
-#endif
 	t["CKM_SHA256_RSA_PKCS_PSS"]	= CKM_SHA256_RSA_PKCS_PSS;
 	t["CKM_GENERIC_SECRET_KEY_GEN"]	= CKM_GENERIC_SECRET_KEY_GEN;
 #ifndef WITH_FIPS
@@ -1013,9 +1010,6 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 		case CKM_SHA256_RSA_PKCS:
 		case CKM_SHA384_RSA_PKCS:
 		case CKM_SHA512_RSA_PKCS:
-#ifdef WITH_RAW_PSS
-		case CKM_RSA_PKCS_PSS:
-#endif
 		case CKM_SHA1_RSA_PKCS_PSS:
 		case CKM_SHA224_RSA_PKCS_PSS:
 		case CKM_SHA256_RSA_PKCS_PSS:
@@ -3978,40 +3972,6 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			bAllowMultiPartOp = true;
 			isRSA = true;
 			break;
-#ifdef WITH_RAW_PSS
-		case CKM_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS))
-			{
-				ERROR_MSG("Invalid RSA-PSS parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_PKCS_PSS;
-			unsigned long allowedMgf;
-
-			switch(CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg) {
-				case CKM_SHA256:
-					pssParam.hashAlg = HashAlgo::SHA256;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
-					allowedMgf = CKG_MGF1_SHA256;
-					break;
-				default:
-					ERROR_MSG("Invalid RSA-PSS hash");
-					return CKR_ARGUMENTS_BAD;
-			}
-
-			if (CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != allowedMgf) {
-				ERROR_MSG("Hash and MGF don't match");
-				return CKR_ARGUMENTS_BAD;
-			}
-
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = false;
-			isRSA = true;
-			break;
-#endif
 		case CKM_SHA256_RSA_PKCS_PSS:
 			if (pMechanism->pParameter == NULL_PTR ||
 			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
@@ -4808,38 +4768,6 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			bAllowMultiPartOp = true;
 			isRSA = true;
 			break;
-#ifdef WITH_RAW_PSS
-		case CKM_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS))
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_PKCS_PSS;
-
-			unsigned long expectedMgf;
-			switch(CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg) {
-				case CKM_SHA256:
-					pssParam.hashAlg = HashAlgo::SHA256;
-					pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
-					expectedMgf = CKG_MGF1_SHA256;
-					break;
-				default:
-					return CKR_ARGUMENTS_BAD;
-			}
-
-			if (CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != expectedMgf) {
-				return CKR_ARGUMENTS_BAD;
-			}
-
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = false;
-			isRSA = true;
-			break;
-#endif
 		case CKM_SHA256_RSA_PKCS_PSS:
 			if (pMechanism->pParameter == NULL_PTR ||
 			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
