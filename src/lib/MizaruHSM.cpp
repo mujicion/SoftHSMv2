@@ -1005,16 +1005,7 @@ CK_RV MizaruHSM::C_GetMechanismInfo(CK_SLOT_ID slotID, CK_MECHANISM_TYPE type, C
 #ifndef WITH_FIPS
 		case CKM_MD5_RSA_PKCS:
 #endif
-		case CKM_SHA1_RSA_PKCS:
-		case CKM_SHA224_RSA_PKCS:
 		case CKM_SHA256_RSA_PKCS:
-		case CKM_SHA384_RSA_PKCS:
-		case CKM_SHA512_RSA_PKCS:
-		case CKM_SHA1_RSA_PKCS_PSS:
-		case CKM_SHA224_RSA_PKCS_PSS:
-		case CKM_SHA256_RSA_PKCS_PSS:
-		case CKM_SHA384_RSA_PKCS_PSS:
-		case CKM_SHA512_RSA_PKCS_PSS:
 			pInfo->ulMinKeySize = rsaMinSize;
 			pInfo->ulMaxKeySize = rsaMaxSize;
 			pInfo->flags = CKF_SIGN | CKF_VERIFY;
@@ -3972,87 +3963,13 @@ CK_RV MizaruHSM::AsymSignInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMech
 			bAllowMultiPartOp = true;
 			isRSA = true;
 			break;
-		case CKM_SHA256_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA256 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA256)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA256_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA256;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA384_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA384 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA384)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA384_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA384;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA384;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA512_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA512 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA512)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA512_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA512;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA512;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
 		case CKM_DSA:
 			mechanism = AsymMech::DSA;
 			bAllowMultiPartOp = false;
 			isDSA = true;
 			break;
-		case CKM_DSA_SHA1:
-			mechanism = AsymMech::DSA_SHA1;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA224:
-			mechanism = AsymMech::DSA_SHA224;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
 		case CKM_DSA_SHA256:
 			mechanism = AsymMech::DSA_SHA256;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA384:
-			mechanism = AsymMech::DSA_SHA384;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA512:
-			mechanism = AsymMech::DSA_SHA512;
 			bAllowMultiPartOp = true;
 			isDSA = true;
 			break;
@@ -4743,46 +4660,8 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			isRSA = true;
 			break;
 #endif
-		case CKM_SHA1_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA1_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA224_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA224_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
 		case CKM_SHA256_RSA_PKCS:
 			mechanism = AsymMech::RSA_SHA256_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA384_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA384_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA512_RSA_PKCS:
-			mechanism = AsymMech::RSA_SHA512_PKCS;
-			bAllowMultiPartOp = true;
-			isRSA = true;
-			break;
-		case CKM_SHA256_RSA_PKCS_PSS:
-			if (pMechanism->pParameter == NULL_PTR ||
-			    pMechanism->ulParameterLen != sizeof(CK_RSA_PKCS_PSS_PARAMS) ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->hashAlg != CKM_SHA256 ||
-			    CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->mgf != CKG_MGF1_SHA256)
-			{
-				ERROR_MSG("Invalid parameters");
-				return CKR_ARGUMENTS_BAD;
-			}
-			mechanism = AsymMech::RSA_SHA256_PKCS_PSS;
-			pssParam.hashAlg = HashAlgo::SHA256;
-			pssParam.mgf = AsymRSAMGF::MGF1_SHA256;
-			pssParam.sLen = CK_RSA_PKCS_PSS_PARAMS_PTR(pMechanism->pParameter)->sLen;
-			param = &pssParam;
-			paramLen = sizeof(pssParam);
 			bAllowMultiPartOp = true;
 			isRSA = true;
 			break;
@@ -4791,28 +4670,8 @@ CK_RV MizaruHSM::AsymVerifyInit(CK_SESSION_HANDLE hSession, CK_MECHANISM_PTR pMe
 			bAllowMultiPartOp = false;
 			isDSA = true;
 			break;
-		case CKM_DSA_SHA1:
-			mechanism = AsymMech::DSA_SHA1;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA224:
-			mechanism = AsymMech::DSA_SHA224;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
 		case CKM_DSA_SHA256:
 			mechanism = AsymMech::DSA_SHA256;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA384:
-			mechanism = AsymMech::DSA_SHA384;
-			bAllowMultiPartOp = true;
-			isDSA = true;
-			break;
-		case CKM_DSA_SHA512:
-			mechanism = AsymMech::DSA_SHA512;
 			bAllowMultiPartOp = true;
 			isDSA = true;
 			break;
