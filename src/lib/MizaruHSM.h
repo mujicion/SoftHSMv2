@@ -42,14 +42,8 @@
 #include "HandleManager.h"
 #include "RSAPublicKey.h"
 #include "RSAPrivateKey.h"
-#include "DSAPublicKey.h"
-#include "DSAPrivateKey.h"
 #include "ECPublicKey.h"
 #include "ECPrivateKey.h"
-#include "EDPublicKey.h"
-#include "EDPrivateKey.h"
-#include "DHPublicKey.h"
-#include "DHPrivateKey.h"
 
 #include <memory>
 
@@ -260,29 +254,6 @@ private:
 		CK_BBOOL isPrivateKeyOnToken,
 		CK_BBOOL isPrivateKeyPrivate
 	);
-	CK_RV generateDSA
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-		CK_ULONG ulPublicKeyAttributeCount,
-		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-		CK_ULONG ulPrivateKeyAttributeCount,
-		CK_OBJECT_HANDLE_PTR phPublicKey,
-		CK_OBJECT_HANDLE_PTR phPrivateKey,
-		CK_BBOOL isPublicKeyOnToken,
-		CK_BBOOL isPublicKeyPrivate,
-		CK_BBOOL isPrivateKeyOnToken,
-		CK_BBOOL isPrivateKeyPrivate
-	);
-	CK_RV generateDSAParameters
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_ATTRIBUTE_PTR pTemplate,
-		CK_ULONG ulCount,
-		CK_OBJECT_HANDLE_PTR phKey,
-		CK_BBOOL isOnToken,
-		CK_BBOOL isPrivate
-	);
 	CK_RV generateEC
 	(
 		CK_SESSION_HANDLE hSession,
@@ -297,29 +268,6 @@ private:
 		CK_BBOOL isPrivateKeyOnToken,
 		CK_BBOOL isPrivateKeyPrivate
 	);
-	CK_RV generateDH
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_ATTRIBUTE_PTR pPublicKeyTemplate,
-		CK_ULONG ulPublicKeyAttributeCount,
-		CK_ATTRIBUTE_PTR pPrivateKeyTemplate,
-		CK_ULONG ulPrivateKeyAttributeCount,
-		CK_OBJECT_HANDLE_PTR phPublicKey,
-		CK_OBJECT_HANDLE_PTR phPrivateKey,
-		CK_BBOOL isPublicKeyOnToken,
-		CK_BBOOL isPublicKeyPrivate,
-		CK_BBOOL isPrivateKeyOnToken,
-		CK_BBOOL isPrivateKeyPrivate
-	);
-	CK_RV generateDHParameters
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_ATTRIBUTE_PTR pTemplate,
-		CK_ULONG ulCount,
-		CK_OBJECT_HANDLE_PTR phKey,
-		CK_BBOOL isOnToken,
-		CK_BBOOL isPrivate
-	);
 	CK_RV generateGeneric
 	(
 		CK_SESSION_HANDLE hSession,
@@ -329,32 +277,6 @@ private:
 		CK_BBOOL isOnToken,
 		CK_BBOOL isPrivate
 	);
-	CK_RV deriveDH
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_MECHANISM_PTR pMechanism,
-		CK_OBJECT_HANDLE hBaseKey,
-		CK_ATTRIBUTE_PTR pTemplate,
-		CK_ULONG ulCount,
-		CK_OBJECT_HANDLE_PTR phKey,
-		CK_KEY_TYPE keyType,
-		CK_BBOOL isOnToken,
-		CK_BBOOL isPrivate
-	);
-#ifdef WITH_ECC
-	CK_RV deriveECDH
-	(
-		CK_SESSION_HANDLE hSession,
-		CK_MECHANISM_PTR pMechanism,
-		CK_OBJECT_HANDLE hBaseKey,
-		CK_ATTRIBUTE_PTR pTemplate,
-		CK_ULONG ulCount,
-		CK_OBJECT_HANDLE_PTR phKey,
-		CK_KEY_TYPE keyType,
-		CK_BBOOL isOnToken,
-		CK_BBOOL isPrivate
-	);
-#endif
 	CK_RV deriveSymmetric
 	(
 		CK_SESSION_HANDLE hSession,
@@ -378,22 +300,11 @@ private:
 
 	CK_RV getRSAPrivateKey(RSAPrivateKey* privateKey, Token* token, OSObject* key);
 	CK_RV getRSAPublicKey(RSAPublicKey* publicKey, Token* token, OSObject* key);
-	CK_RV getDSAPrivateKey(DSAPrivateKey* privateKey, Token* token, OSObject* key);
-	CK_RV getDSAPublicKey(DSAPublicKey* publicKey, Token* token, OSObject* key);
 	CK_RV getECPrivateKey(ECPrivateKey* privateKey, Token* token, OSObject* key);
 	CK_RV getECPublicKey(ECPublicKey* publicKey, Token* token, OSObject* key);
-	CK_RV getEDPrivateKey(EDPrivateKey* privateKey, Token* token, OSObject* key);
-	CK_RV getEDPublicKey(EDPublicKey* publicKey, Token* token, OSObject* key);
-	CK_RV getDHPrivateKey(DHPrivateKey* privateKey, Token* token, OSObject* key);
-	CK_RV getDHPublicKey(DHPublicKey* publicKey, DHPrivateKey* privateKey, ByteString& pubParams);
-	CK_RV getECDHPublicKey(ECPublicKey* publicKey, ECPrivateKey* privateKey, ByteString& pubData);
 	CK_RV getSymmetricKey(SymmetricKey* skey, Token* token, OSObject* key);
 
-	ByteString getECDHPubData(ByteString& pubData);
-
 	bool setRSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-	bool setDSAPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
-	bool setDHPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 	bool setECPrivateKey(OSObject* key, const ByteString &ber, Token* token, bool isPrivate) const;
 
 	CK_RV WrapKeyAsym
