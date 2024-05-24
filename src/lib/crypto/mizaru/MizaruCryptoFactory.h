@@ -33,12 +33,12 @@
 #ifndef _SOFTHSM_V2_MIZARUCRYPTOFACTORY_H
 #define _SOFTHSM_V2_MIZARUCRYPTOFACTORY_H
 
-// #include "config.h"
+#include "config.h"
 #include "CryptoFactory.h"
-// #include "SymmetricAlgorithm.h"
-// #include "AsymmetricAlgorithm.h"
-// #include "HashAlgorithm.h"
-// #include "MacAlgorithm.h"
+#include "SymmetricAlgorithm.h"
+#include "AsymmetricAlgorithm.h"
+#include "HashAlgorithm.h"
+#include "MacAlgorithm.h"
 #include "RNG.h"
 #include <memory>
 
@@ -74,11 +74,11 @@ private:
 	MizaruCryptoFactory();
 
 	// The one-and-only instance
-#ifdef HAVE_CXX11
+// #ifdef HAVE_CXX11
 	static std::unique_ptr<MizaruCryptoFactory> instance;
-#else
-	static std::auto_ptr<MizaruCryptoFactory> instance;
-#endif
+// #else
+// 	static std::auto_ptr<MizaruCryptoFactory> instance;
+// #endif
 
 	// The one-and-only RNG instance
 	RNG* rng;
