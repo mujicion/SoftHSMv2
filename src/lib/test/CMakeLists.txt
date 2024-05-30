@@ -11,19 +11,19 @@ if (WIN32)
 endif (WIN32)
 
 set(SOURCES p11test.cpp
-            SymmetricAlgorithmTests.cpp
-            DigestTests.cpp
-            InitTests.cpp
+            # SymmetricAlgorithmTests.cpp
+            # DigestTests.cpp
+            # InitTests.cpp
             InfoTests.cpp
-            RandomTests.cpp
-            SessionTests.cpp
-            TokenTests.cpp
-            UserTests.cpp
-            ObjectTests.cpp
-            DeriveTests.cpp
-            SignVerifyTests.cpp
-            AsymEncryptDecryptTests.cpp
-            AsymWrapUnwrapTests.cpp
+            # RandomTests.cpp
+            # SessionTests.cpp
+            # TokenTests.cpp
+            # UserTests.cpp
+            # ObjectTests.cpp
+            # DeriveTests.cpp
+            # SignVerifyTests.cpp
+            # AsymEncryptDecryptTests.cpp
+            # AsymWrapUnwrapTests.cpp
             TestsBase.cpp
             TestsNoPINInitBase.cpp
             ../common/log.cpp

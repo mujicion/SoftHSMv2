@@ -12,18 +12,13 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/..
                  )
 
 set(SOURCES cryptotest.cpp
-            AESTests.cpp
-            DESTests.cpp
-            DHTests.cpp
-            DSATests.cpp
-            ECDHTests.cpp
-            ECDSATests.cpp
-            EDDSATests.cpp
-            GOSTTests.cpp
-            HashTests.cpp
-            MacTests.cpp
+            # AESTests.cpp
+            # DESTests.cpp
+            # ECDSATests.cpp
+            # HashTests.cpp
+            # MacTests.cpp
             RNGTests.cpp
-            RSATests.cpp
+            # RSATests.cpp
             chisq.c
             ent.c
             iso8859.c

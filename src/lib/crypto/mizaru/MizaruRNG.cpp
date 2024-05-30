@@ -32,7 +32,7 @@
 
 #include "config.h"
 #include "MizaruRNG.h"
-#include <openssl/rand.h>
+#include "mizar_api.h"
 
 // Generate random data
 bool MizaruRNG::generateRandom(ByteString& data, const size_t len)
@@ -41,12 +41,14 @@ bool MizaruRNG::generateRandom(ByteString& data, const size_t len)
 
 	if (len == 0)
 		return true;
-	return RAND_bytes(&data[0], len) == 1;
+
+	// bool ret = MizarGenRnd(0, len, &data[0]) == 0;
+	bool ret = MizarGenRnd(0, len, &data[0]) == 1; // OpenSSL RAND_bytes
+	return ret;
 }
 
 // Seed the random pool
 void MizaruRNG::seed(ByteString& seedData)
 {
-	RAND_seed(seedData.byte_str(), seedData.size());
+	// RAND_seed(seedData.byte_str(), seedData.size());
 }
-

@@ -34,13 +34,13 @@
 #include "MutexFactory.h"
 #include "MizaruCryptoFactory.h"
 #include "MizaruRNG.h"
-#include "MizaruAES.h"
-#include "MizaruDES.h"
-#include "MizaruSHA256.h"
-#include "MizaruCMAC.h"
-#include "MizaruHMAC.h"
-#include "MizaruRSA.h"
-#include "MizaruECDSA.h"
+// #include "MizaruAES.h"
+// #include "MizaruDES.h"
+// #include "MizaruSHA256.h"
+// #include "MizaruCMAC.h"
+// #include "MizaruHMAC.h"
+// #include "MizaruRSA.h"
+// #include "MizaruECDSA.h"
 
 #include <algorithm>
 #include <string.h>
@@ -51,23 +51,26 @@ static Mutex** locks;
 // Constructor
 MizaruCryptoFactory::MizaruCryptoFactory()
 {
-	// Multi-thread support
-	nlocks = CRYPTO_num_locks();
-	locks = new Mutex*[nlocks];
-	for (unsigned i = 0; i < nlocks; i++)
-	{
-		locks[i] = MutexFactory::i()->getMutex();
-	}
+	// // Multi-thread support
+	// nlocks = CRYPTO_num_locks();
+	// locks = new Mutex*[nlocks];
+	// for (unsigned i = 0; i < nlocks; i++)
+	// {
+	// 	locks[i] = MutexFactory::i()->getMutex();
+	// }
+
+	// Initialise the one-and-only RNG
+	rng = new MizaruRNG();
 }
 
 // Destructor
 MizaruCryptoFactory::~MizaruCryptoFactory()
 {
-	for (unsigned i = 0; i < nlocks; i++)
-	{
-		MutexFactory::i()->recycleMutex(locks[i]);
-	}
-	delete[] locks;
+	// for (unsigned i = 0; i < nlocks; i++)
+	// {
+	// 	MutexFactory::i()->recycleMutex(locks[i]);
+	// }
+	// delete[] locks;
 }
 
 // Return the one-and-only instance
@@ -90,14 +93,14 @@ void MizaruCryptoFactory::reset()
 // Create a concrete instance of a symmetric algorithm
 SymmetricAlgorithm* MizaruCryptoFactory::getSymmetricAlgorithm(SymAlgo::Type algorithm)
 {
-	switch (algorithm)
-	{
-		case SymAlgo::AES:
-			return new MizaruAES();
-		case SymAlgo::DES:
-		case SymAlgo::DES3:
-			return new MizaruDES();
-	}
+	// switch (algorithm)
+	// {
+	// 	case SymAlgo::AES:
+	// 		return new MizaruAES();
+	// 	case SymAlgo::DES:
+	// 	case SymAlgo::DES3:
+	// 		return new MizaruDES();
+	// }
 
 	// No algorithm implementation is available
 	ERROR_MSG("Unknown algorithm '%i'", algorithm);
@@ -107,15 +110,15 @@ SymmetricAlgorithm* MizaruCryptoFactory::getSymmetricAlgorithm(SymAlgo::Type alg
 // Create a concrete instance of an asymmetric algorithm
 AsymmetricAlgorithm* MizaruCryptoFactory::getAsymmetricAlgorithm(AsymAlgo::Type algorithm)
 {
-	switch (algorithm)
-	{
-		case AsymAlgo::RSA:
-			return new MizaruRSA();
-#ifdef WITH_ECC
-		case AsymAlgo::ECDSA:
-			return new MizaruECDSA();
-#endif
-	}
+// 	switch (algorithm)
+// 	{
+// 		case AsymAlgo::RSA:
+// 			return new MizaruRSA();
+// #ifdef WITH_ECC
+// 		case AsymAlgo::ECDSA:
+// 			return new MizaruECDSA();
+// #endif
+// 	}
 
 	// No algorithm implementation is available
 	ERROR_MSG("Unknown algorithm '%i'", algorithm);
@@ -125,11 +128,11 @@ AsymmetricAlgorithm* MizaruCryptoFactory::getAsymmetricAlgorithm(AsymAlgo::Type 
 // Create a concrete instance of a hash algorithm
 HashAlgorithm* MizaruCryptoFactory::getHashAlgorithm(HashAlgo::Type algorithm)
 {
-	switch (algorithm)
-	{
-		case HashAlgo::SHA256:
-			return new MizaruSHA256();
-	}
+	// switch (algorithm)
+	// {
+	// 	case HashAlgo::SHA256:
+	// 		return new MizaruSHA256();
+	// }
 
 	// No algorithm implementation is available
 	ERROR_MSG("Unknown algorithm '%i'", algorithm);
@@ -139,15 +142,15 @@ HashAlgorithm* MizaruCryptoFactory::getHashAlgorithm(HashAlgo::Type algorithm)
 // Create a concrete instance of a MAC algorithm
 MacAlgorithm* MizaruCryptoFactory::getMacAlgorithm(MacAlgo::Type algorithm)
 {
-	switch (algorithm)
-	{
-		case MacAlgo::HMAC_SHA256:
-			return new MizaruHMACSHA256();
-		case MacAlgo::CMAC_DES:
-			return new MizaruCMACDES();
-		case MacAlgo::CMAC_AES:
-			return new MizaruCMACAES();
-	}
+	// switch (algorithm)
+	// {
+	// 	case MacAlgo::HMAC_SHA256:
+	// 		return new MizaruHMACSHA256();
+	// 	case MacAlgo::CMAC_DES:
+	// 		return new MizaruCMACDES();
+	// 	case MacAlgo::CMAC_AES:
+	// 		return new MizaruCMACAES();
+	// }
 
 	// No algorithm implementation is available
 	ERROR_MSG("Unknown algorithm '%i'", algorithm);

@@ -6,23 +6,23 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
                  ${PROJECT_SOURCE_DIR}/../../data_mgr
                  ${PROJECT_SOURCE_DIR}/../../pkcs11
                  ${CRYPTO_INCLUDES}
-                 ${PROJECT_SOURCE_DIR}/../OpenSSL
+                #  ${PROJECT_SOURCE_DIR}/../OpenSSL
                 )
 
 set(SOURCES mizaruStub.cpp
             MizaruCryptoFactory.cpp
             MizaruRNG.cpp
-            MizaruSymmetricAlgorithm.cpp
-            MizaruAES.cpp
-            MizaruDES.cpp
-            MizaruRSA.cpp
-            MizaruRSAKeyPair.cpp
-            MizaruRSAPrivateKey.cpp
-            MizaruRSAPublicKey.cpp
-            MizaruSHA256.cpp
-            MizaruECDSA.cpp
-            MizaruCMAC.cpp
-            MizaruHMAC.cpp
+            # MizaruSymmetricAlgorithm.cpp
+            # MizaruAES.cpp
+            # MizaruDES.cpp
+            # MizaruRSA.cpp
+            # MizaruRSAKeyPair.cpp
+            # MizaruRSAPrivateKey.cpp
+            # MizaruRSAPublicKey.cpp
+            # MizaruSHA256.cpp
+            # MizaruECDSA.cpp
+            # MizaruCMAC.cpp
+            # MizaruHMAC.cpp
             # ../OpenSSL/OSSLComp.cpp
             # ../OpenSSL/OSSLUtil.cpp
             # ../OpenSSL/OSSLEVPHashAlgorithm.cpp

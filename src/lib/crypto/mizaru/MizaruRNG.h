@@ -45,8 +45,6 @@ public:
 
 	// Seed the random pool
 	virtual void seed(ByteString& seedData);
-
-private:
 };
 
 #endif // !_SOFTHSM_V2_MIZARURNG_H
