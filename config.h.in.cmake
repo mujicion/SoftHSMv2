@@ -163,6 +163,9 @@
 /* Compile with raw RSA PKCS PSS */
 #cmakedefine WITH_RAW_PSS @WITH_RAW_PSS@
 
+/* Compile with Mizaru support */
+#cmakedefine WITH_MIZARU @WITH_MIZARU@
+
 /*
  * Remainder is specific for Windows build to
  * set some default that aren't configured from

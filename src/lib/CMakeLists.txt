@@ -54,9 +54,9 @@ if(CMAKE_VERSION VERSION_LESS "3.12")
         set(STATIC_FILES ${CRYPTO_LIBS} ${SQLITE3_LIBS})
 endif()
 
-if(WITH_OPENSSL)
-        list(APPEND STATIC_FILES softhsm_crypto_openssl)
-endif(WITH_OPENSSL)
+# if(WITH_OPENSSL)
+#         list(APPEND STATIC_FILES softhsm_crypto_openssl)
+# endif(WITH_OPENSSL)
 
 if(WITH_BOTAN)
         list(APPEND STATIC_FILES softhsm_crypto_botan)

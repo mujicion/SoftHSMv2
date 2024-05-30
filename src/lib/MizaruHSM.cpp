@@ -61,10 +61,10 @@
 #include "P11Objects.h"
 #include "odd.h"
 
-#if defined(WITH_MIZARU)
+// #if defined(WITH_MIZARU)
 #include "mizar_api.h"
 #include "mizaru/MizaruCryptoFactory.h"
-#endif
+// #endif
 
 #if defined(WITH_OPENSSL)
 #include "OpenSSL/OSSLCryptoFactory.h"
@@ -89,7 +89,8 @@
 std::unique_ptr<MutexFactory> MutexFactory::instance(nullptr);
 std::unique_ptr<SecureMemoryRegistry> SecureMemoryRegistry::instance(nullptr);
 #if defined(WITH_OPENSSL)
-std::unique_ptr<OSSLCryptoFactory> OSSLCryptoFactory::instance(nullptr);
+// std::unique_ptr<OSSLCryptoFactory> OSSLCryptoFactory::instance(nullptr);
+std::unique_ptr<MizaruCryptoFactory> MizaruCryptoFactory::instance(nullptr);
 #else
 std::unique_ptr<BotanCryptoFactory> BotanCryptoFactory::instance(nullptr);
 #endif
@@ -509,12 +510,12 @@ CK_RV MizaruHSM::C_Initialize(CK_VOID_PTR pInitArgs)
 	}
 
 	
-#if defined(WITH_MIZARU)
-	if ( 0 != MizarSdkInit(1, "1234")) {
-		ERROR_MSG("Mizaru SDK Init: Failed");
-		return CKR_GENERAL_ERROR;
-	}
-#endif
+// #if defined(WITH_MIZARU)
+// 	if ( 0 != MizarSdkInit(1, "1234")) {
+// 		ERROR_MSG("Mizaru SDK Init: Failed");
+// 		return CKR_GENERAL_ERROR;
+// 	}
+// #endif
 
 #ifdef WITH_FIPS
 	// Check the FIPS status
@@ -602,12 +603,12 @@ CK_RV MizaruHSM::C_Finalize(CK_VOID_PTR pReserved)
 	CryptoFactory::reset();
 	SecureMemoryRegistry::reset();
 
-#if defined(WITH_MIZARU)
-	if ( 0 != MizarDeleteShareObject()) {
-		ERROR_MSG("Mizaru Delete Share Object: Failed");
-		return CKR_GENERAL_ERROR;		
-	}
-#endif
+// #if defined(WITH_MIZARU)
+// 	if ( 0 != MizarDeleteShareObject()) {
+// 		ERROR_MSG("Mizaru Delete Share Object: Failed");
+// 		return CKR_GENERAL_ERROR;		
+// 	}
+// #endif
 
 	isInitialised = false;
 
@@ -6303,9 +6304,9 @@ CK_RV MizaruHSM::C_SeedRandom(CK_SESSION_HANDLE hSession, CK_BYTE_PTR pSeed, CK_
 	RNG* rng = CryptoFactory::i()->getRNG();
 	if (rng == NULL) return CKR_GENERAL_ERROR;
 
-	// Seed the RNG
-	ByteString seed(pSeed, ulSeedLen);
-	rng->seed(seed);
+	// // Seed the RNG
+	// ByteString seed(pSeed, ulSeedLen);
+	// rng->seed(seed);
 
 	return CKR_OK;
 }

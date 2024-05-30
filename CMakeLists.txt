@@ -16,7 +16,8 @@ option(ENABLE_STRICT "Enable strict compile mode" ON)
 option(ENABLE_STATIC "Build static libraries" ON)
 option(WITH_OBJECTSTORE_BACKEND_DB "Build with object store backend database (SQLite3)" OFF)
 option(WITH_MIGRATE "Build migration tool. Requires SQLite3." OFF)
-option(ENABLE_MIZARU "Enable MizaruHSM" ON)
+# option(ENABLE_MIZARU "Enable MizaruHSM" ON)
+option(WITH_MIZARU "With Mizaru" ON)
 
 set(WITH_CRYPTO_BACKEND "openssl"
     CACHE STRING "Select crypto backend (openssl|botan)")
@@ -41,7 +42,7 @@ else(WITH_MIGRATE)
 endif(WITH_MIGRATE)
 
 if(ENABLE_MIZARU)
-    set(WITH_MIZARU ON)
+    set(WITH_MIZARU 1)
     set(ENABLE_EDDSA OFF)
     message(STATUS "Building with MizaruHSM")
 endif(ENABLE_MIZARU)

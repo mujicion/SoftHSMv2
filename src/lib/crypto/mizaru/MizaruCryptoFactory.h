@@ -74,11 +74,11 @@ private:
 	MizaruCryptoFactory();
 
 	// The one-and-only instance
-// #ifdef HAVE_CXX11
+#ifdef HAVE_CXX11
 	static std::unique_ptr<MizaruCryptoFactory> instance;
-// #else
-// 	static std::auto_ptr<MizaruCryptoFactory> instance;
-// #endif
+#else
+	static std::auto_ptr<MizaruCryptoFactory> instance;
+#endif
 
 	// The one-and-only RNG instance
 	RNG* rng;

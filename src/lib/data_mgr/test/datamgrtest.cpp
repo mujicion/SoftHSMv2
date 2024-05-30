@@ -44,7 +44,9 @@
 #include "MutexFactory.h"
 #include "SecureMemoryRegistry.h"
 
-#if defined(WITH_OPENSSL)
+#if defined(WITH_MIZARU)
+#include "mizaru/MizaruCryptoFactory.h"
+#elif defined(WITH_OPENSSL)
 #include "OSSLCryptoFactory.h"
 #else
 #include "BotanCryptoFactory.h"
@@ -55,7 +57,9 @@
 
 std::unique_ptr<MutexFactory> MutexFactory::instance(nullptr);
 std::unique_ptr<SecureMemoryRegistry> SecureMemoryRegistry::instance(nullptr);
-#if defined(WITH_OPENSSL)
+#if defined(WITH_MIZARU)
+std::unique_ptr<MizaruCryptoFactory> MizaruCryptoFactory::instance(nullptr);
+#elif defined(WITH_OPENSSL)
 std::unique_ptr<OSSLCryptoFactory> OSSLCryptoFactory::instance(nullptr);
 #else
 std::unique_ptr<BotanCryptoFactory> BotanCryptoFactory::instance(nullptr);
