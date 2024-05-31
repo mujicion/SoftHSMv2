@@ -34,14 +34,17 @@
 #define _SOFTHSM_V2_MIZARUSHA256_H
 
 #include "config.h"
-#include "OSSLEVPHashAlgorithm.h"
-#include <openssl/evp.h>
+#include "HashAlgorithm.h"
 
-class MizaruSHA256 : public OSSLEVPHashAlgorithm
+class MizaruSHA256 : public HashAlgorithm
 {
+public:
+	// Hashing functions
+	virtual bool hashInit();
+	virtual bool hashUpdate(const ByteString& data);
+	virtual bool hashFinal(ByteString& hashedData);
+	
 	virtual int getHashSize();
-protected:
-	virtual const EVP_MD* getEVPHash() const;
 };
 
 #endif // !_SOFTHSM_V2_MIZARUSHA256_H

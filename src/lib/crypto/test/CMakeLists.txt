@@ -15,9 +15,9 @@ set(SOURCES cryptotest.cpp
             # AESTests.cpp
             # DESTests.cpp
             # ECDSATests.cpp
-            # HashTests.cpp
+            HashTests.cpp
             # MacTests.cpp
-            RNGTests.cpp
+            # RNGTests.cpp
             # RSATests.cpp
             chisq.c
             ent.c

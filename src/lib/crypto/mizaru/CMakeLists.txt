@@ -18,7 +18,7 @@ set(SOURCES MizaruCryptoFactory.cpp
             # MizaruRSAKeyPair.cpp
             # MizaruRSAPrivateKey.cpp
             # MizaruRSAPublicKey.cpp
-            # MizaruSHA256.cpp
+            MizaruSHA256.cpp
             # MizaruECDSA.cpp
             # MizaruCMAC.cpp
             # MizaruHMAC.cpp

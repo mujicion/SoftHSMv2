@@ -32,15 +32,77 @@
 
 #include "config.h"
 #include "MizaruSHA256.h"
-#include <openssl/evp.h>
+#include "mizaru/mizar_api.h"
+
+// Hashing functions
+bool MizaruSHA256::hashInit()
+{
+	if (!HashAlgorithm::hashInit())
+	{
+		return false;
+	}
+
+	if (0 != MizarShaInit(3))
+	{
+		ERROR_MSG("MizarShaInit failed");
+
+		ByteString dummy;
+		HashAlgorithm::hashFinal(dummy);
+
+		return false;
+	}
+
+	return true;
+}
+
+bool MizaruSHA256::hashUpdate(const ByteString& data)
+{
+	if (!HashAlgorithm::hashUpdate(data))
+	{
+		return false;
+	}
+
+	if (data.size() == 0)
+	{
+		return true;
+	}
+
+	if (0 != MizarShaUpdate(3, data.size(), (mizar_uint8*) data.const_byte_str()))
+	{
+		ERROR_MSG("MizarShaUpdate failed");
+
+		ByteString dummy;
+		HashAlgorithm::hashFinal(dummy);
+
+		return false;
+	}
+
+	return true;
+}
+
+bool MizaruSHA256::hashFinal(ByteString& hashedData)
+{
+	if (!HashAlgorithm::hashFinal(hashedData))
+	{
+		return false;
+	}
+
+	unsigned int outLen = hashedData.size();
+
+	if (0 != MizarShaFinal(3, &outLen, &hashedData[0]))
+	{
+		ERROR_MSG("MizarShaFinal failed");
+
+		return false;
+	}
+
+	hashedData.resize(outLen);
+
+	return true;
+}
 
 int MizaruSHA256::getHashSize()
 {
-	return 32;
-}
-
-const EVP_MD* MizaruSHA256::getEVPHash() const
-{
-	return EVP_sha256();
+	return 128;
 }
 

@@ -36,7 +36,7 @@
 #include "MizaruRNG.h"
 // #include "MizaruAES.h"
 // #include "MizaruDES.h"
-// #include "MizaruSHA256.h"
+#include "MizaruSHA256.h"
 // #include "MizaruCMAC.h"
 // #include "MizaruHMAC.h"
 // #include "MizaruRSA.h"
@@ -128,11 +128,11 @@ AsymmetricAlgorithm* MizaruCryptoFactory::getAsymmetricAlgorithm(AsymAlgo::Type 
 // Create a concrete instance of a hash algorithm
 HashAlgorithm* MizaruCryptoFactory::getHashAlgorithm(HashAlgo::Type algorithm)
 {
-	// switch (algorithm)
-	// {
-	// 	case HashAlgo::SHA256:
-	// 		return new MizaruSHA256();
-	// }
+	switch (algorithm)
+	{
+		case HashAlgo::SHA256:
+			return new MizaruSHA256();
+	}
 
 	// No algorithm implementation is available
 	ERROR_MSG("Unknown algorithm '%i'", algorithm);
