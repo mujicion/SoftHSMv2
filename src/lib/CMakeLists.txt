@@ -54,9 +54,9 @@ if(CMAKE_VERSION VERSION_LESS "3.12")
         set(STATIC_FILES ${CRYPTO_LIBS} ${SQLITE3_LIBS})
 endif()
 
-# if(WITH_OPENSSL)
-#         list(APPEND STATIC_FILES softhsm_crypto_openssl)
-# endif(WITH_OPENSSL)
+if(WITH_OPENSSL)
+        list(APPEND STATIC_FILES softhsm_crypto_openssl)
+endif(WITH_OPENSSL)
 
 if(WITH_BOTAN)
         list(APPEND STATIC_FILES softhsm_crypto_botan)
@@ -79,7 +79,7 @@ include_directories(${INCLUDE_DIRS})
 # Static Library Config
 ###############################################################################
 add_library(${PROJECT_NAME}-static STATIC ${SOURCES})
-target_link_libraries(${PROJECT_NAME}-static ${STATIC_FILES})
+target_link_libraries(${PROJECT_NAME}-static ${STATIC_FILES} ssl crypto)
 set_target_properties(${PROJECT_NAME}-static
                       PROPERTIES OUTPUT_NAME ${PROJECT_NAME}-static
                       )

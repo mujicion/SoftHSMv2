@@ -1,4 +1,6 @@
+if(NOT WITH_MIZARU)
 add_subdirectory(dump)
 add_subdirectory(keyconv)
 add_subdirectory(migrate)
 add_subdirectory(util)
+endif(NOT WITH_MIZARU)

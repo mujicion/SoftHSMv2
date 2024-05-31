@@ -61,14 +61,12 @@
 #include "P11Objects.h"
 #include "odd.h"
 
-// #if defined(WITH_MIZARU)
+#if defined(WITH_MIZARU)
 #include "mizar_api.h"
 #include "mizaru/MizaruCryptoFactory.h"
-// #endif
-
-#if defined(WITH_OPENSSL)
+#elif defined(WITH_OPENSSL)
 #include "OpenSSL/OSSLCryptoFactory.h"
-#else
+#elif defined(WITH_BOTAN)
 #include "Botan/BotanCryptoFactory.h"
 #endif
 
@@ -88,10 +86,11 @@
 
 std::unique_ptr<MutexFactory> MutexFactory::instance(nullptr);
 std::unique_ptr<SecureMemoryRegistry> SecureMemoryRegistry::instance(nullptr);
-#if defined(WITH_OPENSSL)
-// std::unique_ptr<OSSLCryptoFactory> OSSLCryptoFactory::instance(nullptr);
+#if defined(WITH_MIZARU)
 std::unique_ptr<MizaruCryptoFactory> MizaruCryptoFactory::instance(nullptr);
-#else
+#elif defined(WITH_OPENSSL)
+// std::unique_ptr<OSSLCryptoFactory> OSSLCryptoFactory::instance(nullptr);
+#elif defined(WITH_BOTAN)
 std::unique_ptr<BotanCryptoFactory> BotanCryptoFactory::instance(nullptr);
 #endif
 std::unique_ptr<MizaruHSM> MizaruHSM::instance(nullptr);

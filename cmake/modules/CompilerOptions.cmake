@@ -151,8 +151,29 @@ check_include_files(memory.h HAVE_MEMORY_H)
 check_include_files(pthread.h HAVE_PTHREAD_H)
 check_function_exists(getpwuid_r HAVE_GETPWUID_R)
 
+if(WITH_CRYPTO_BACKEND STREQUAL "mizaru")
+    # # acx_openssl_ecc.m4
+    # if(ENABLE_ECC)
+    #     set(testfile ${CMAKE_SOURCE_DIR}/cmake/modules/tests/test_openssl_ecc.c)
+    #     try_run(RUN_ECC COMPILE_RESULT
+    #             "${CMAKE_BINARY_DIR}/prebuild_santity_tests" ${testfile}
+    #             LINK_LIBRARIES ${CRYPTO_LIBS}
+    #             CMAKE_FLAGS
+    #                 "-DINCLUDE_DIRECTORIES=${CRYPTO_INCLUDES}"
+    #             )
+    #     if(COMPILE_RESULT AND RUN_ECC EQUAL 0)
+    #         set(WITH_ECC 1)
+    #         message(STATUS "OpenSSL: Found P-256, P-384, and P-521")
+    #     else()
+    #         set(error_msg "OpenSSL: Cannot find P-256, P-384, or P-521! OpenSSL library has no ECC support!")
+    #         message(FATAL_ERROR ${error_msg})
+    #     endif()
+    # else(ENABLE_ECC)
+    #     message(STATUS "OpenSSL: Support for ECC is disabled")
+    # endif(ENABLE_ECC)
+
 # Find Botan Crypto Backend
-if(WITH_CRYPTO_BACKEND STREQUAL "botan")
+elseif(WITH_CRYPTO_BACKEND STREQUAL "botan")
     set(WITH_BOTAN 1)
 
     include(FindBotan)

@@ -9,8 +9,7 @@ set(INCLUDE_DIRS ${PROJECT_SOURCE_DIR}
                 #  ${PROJECT_SOURCE_DIR}/../OpenSSL
                 )
 
-set(SOURCES mizaruStub.cpp
-            MizaruCryptoFactory.cpp
+set(SOURCES MizaruCryptoFactory.cpp
             MizaruRNG.cpp
             # MizaruSymmetricAlgorithm.cpp
             # MizaruAES.cpp
@@ -26,6 +25,7 @@ set(SOURCES mizaruStub.cpp
             # ../OpenSSL/OSSLComp.cpp
             # ../OpenSSL/OSSLUtil.cpp
             # ../OpenSSL/OSSLEVPHashAlgorithm.cpp
+            mizaruStub.cpp
             )
 
 include_directories(${INCLUDE_DIRS})
