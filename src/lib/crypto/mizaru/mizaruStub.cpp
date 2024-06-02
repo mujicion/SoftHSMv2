@@ -20,18 +20,29 @@ mizar_uint32 MizarGenRnd(mizar_uint32 flag, mizar_uint32 nLen, mizar_uint8* ucRN
 }
 
 #include <openssl/sha.h>
-SHA256_CTX sha256;
+static SHA256_CTX sha256;
+
+#include <openssl/evp.h>
+static EVP_MD_CTX* curCTX;
+
 mizar_uint32 MizarShaInit(mizar_uint32 nAlg) {
-    SHA256_Init(&sha256);
+    curCTX = EVP_MD_CTX_new();
+    EVP_DigestInit_ex(curCTX, EVP_sha256(), NULL);
+    // SHA256_Init(&sha256);
     return 0;
 }
 
-mizar_uint32 MizarShaUpdate(mizar_uint32 nAlg,mizar_uint32 nDatalen,mizar_uint8* ucData) {
-    SHA256_Update(&sha256, ucData, nDatalen);
+mizar_uint32 MizarShaUpdate(mizar_uint32 nAlg, mizar_uint32 nDatalen, mizar_uint8* ucData) {
+    EVP_DigestUpdate(curCTX, ucData, nDatalen);
+    // SHA256_Update(&sha256, ucData, nDatalen);
     return 0;
 }
 
+#include "ByteString.h"
 mizar_uint32 MizarShaFinal(mizar_uint32 nAlg, mizar_uint32* nHashlen, mizar_uint8* ucHash) {
-    SHA256_Final(ucHash, &sha256);
+    EVP_DigestFinal_ex(curCTX, ucHash, nHashlen);
+    EVP_MD_CTX_free(curCTX);
+    // SHA256_Final(ucHash, &sha256);
+    // *nHashlen = strlen((const char*) ucHash);
     return 0;
 }

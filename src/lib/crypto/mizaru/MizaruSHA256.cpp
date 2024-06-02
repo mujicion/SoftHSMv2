@@ -87,7 +87,8 @@ bool MizaruSHA256::hashFinal(ByteString& hashedData)
 		return false;
 	}
 
-	unsigned int outLen = hashedData.size();
+	hashedData.resize(getHashSize());
+	unsigned int outLen = 0;
 
 	if (0 != MizarShaFinal(3, &outLen, &hashedData[0]))
 	{
@@ -95,7 +96,6 @@ bool MizaruSHA256::hashFinal(ByteString& hashedData)
 
 		return false;
 	}
-
 	hashedData.resize(outLen);
 
 	return true;
@@ -103,6 +103,6 @@ bool MizaruSHA256::hashFinal(ByteString& hashedData)
 
 int MizaruSHA256::getHashSize()
 {
-	return 128;
+	return 32;
 }
 
